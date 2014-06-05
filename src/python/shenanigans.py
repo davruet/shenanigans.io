@@ -1,7 +1,8 @@
-#/opt/local/bin/python2.7
+#!/usr/bin/python2.7
 
 from scapy.all import *
 import sqlite3
+import string
 
 
 class ProbePacket:
@@ -14,7 +15,8 @@ class ProbeSniffer:
 	def __init__(self):
 		pass
 
-	def makePacket(x):
+	def makePacket(self,x):
+		pass
 
 	def getPacketDetails(self, x):
 		layer = x.getlayer(Dot11ProbeReq)
@@ -24,24 +26,26 @@ class ProbeSniffer:
 		return (mac,ssid)
 
 	
-	def probefilter (x):
-			#return True;
-			if not x.haslayer(Dot11ProbeReq) return False
-			
-			return ssid > "" and all(c in string.printable for c in ssid)
-			#if ssid > "" and all(c in string.printable for c in ssid):
-				#print ("\t".join([mac,ssid]))
-			#	return True
-			#else:
-			#	return False
+	def probefilter (self, x):
+		#return True;
+		if not x.haslayer(Dot11ProbeReq): 
+			return False
+		details = self.getPacketDetails(x)
+		ssid = details[1]
+		return ssid > "" and all(c in string.printable for c in ssid)
+		#if ssid > "" and all(c in string.printable for c in ssid):
+			#print ("\t".join([mac,ssid]))
+		#	return True
+		#else:
+		#	return False
 
-	def probefound (x):
-		packet = ProbePacket
-		found.probe()
+	def probefound (self,x):
+		#packet = ProbePacket
+		self.found(x)
 		
-	def start(self, found, iface="mon0"):
+	def start(self, found, iface="wlan0"):
 		self.found = found
-		sniff(iface=iface, lfilter=probefilter, prn=probefound)
+		sniff(iface=iface, lfilter=self.probefilter, prn=self.probefound)
 
 	
 class SQLPacketStore:
@@ -51,19 +55,28 @@ class SQLPacketStore:
 		
 
 	def initTables():
+		pass
 
 	def refreshTable():
+		pass
 
 
 
 class StorageStrategy:
 	def store(x):
+		pass
 
 
 class Shenanigans:
+
 	def __init__(self):
+		pass
+
+	def probefound(self,x):
+		print(x.summary())
 
 	def start(self):
+		ProbeSniffer().start(self.probefound)	
 
 
 
