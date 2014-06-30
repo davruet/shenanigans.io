@@ -3,7 +3,7 @@
 from scapy.all import *
 import sqlite3
 import string
-
+import getopt
 
 class ProbePacket:
 
@@ -25,7 +25,7 @@ class ProbeSniffer:
 		ssid = layer2[0].getfieldval("info")
 		return (mac,ssid)
 
-	
+	# Performs basic filtering: only returns probe requests that are not corrupted.
 	def probefilter (self, x):
 		#return True;
 		if not x.haslayer(Dot11ProbeReq): 
@@ -33,6 +33,7 @@ class ProbeSniffer:
 		details = self.getPacketDetails(x)
 		ssid = details[1]
 		return ssid > "" and all(c in string.printable for c in ssid)
+		# TODO - only return probes with valid checksums
 		#if ssid > "" and all(c in string.printable for c in ssid):
 			#print ("\t".join([mac,ssid]))
 		#	return True
@@ -75,11 +76,31 @@ class Shenanigans:
 	def probefound(self,x):
 		print(x.summary())
 
-	def start(self):
-		ProbeSniffer().start(self.probefound)	
+	def start(self, iface):
+		ProbeSniffer().start(self.probefound, iface)	
 
+def printUsageAndExit():
+	print 'shenanigans.py -i <interface>'
+	sys.exit(2)
 
+def main(argv):
+
+	try:
+		opts, args = getopt.getopt(argv,"i:")
+	except getopt.GetoptError:
+		printUsageAndExit()
+
+	iface = None
+	for opt, arg in opts:
+		if opt == '-i':
+			print ("starting shenanigans on {0}".format(arg) )
+			iface = arg
+	if iface == None:
+		print("No interface specified -- use the -i option.")
+		printUsageAndExit()
+
+	Shenanigans().start(iface);
 
 if __name__ == '__main__':
-  Shenanigans().start();
+	main(sys.argv[1:])
   
