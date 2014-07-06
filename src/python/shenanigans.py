@@ -1,6 +1,23 @@
 #!/usr/bin/python2.7
+""" 
+Shenanigans, version 0.1a 
+
+A note on code standards and style: this code should be clear and concise. Not only
+should it be functional and maintainable, but it also serves as a teaching tool.
+Please keep beggining and intermediate programmers in mind when making changes.
+
+Please also feel free to throw educational comments about the language in as well,
+if you find a "teaching moment."
+
+
+Pythonistas, please let me know if you find some abuses in this code -- Java is my first language.
+
+-David
+
+"""
 
 from scapy.all import *
+#from datetime import timedelta
 import sqlite3
 import string
 import getopt
@@ -9,38 +26,39 @@ import time
 import Queue
 import thread
 
-class ProbePacket:
 
-	def __init__(self, packet):
-		self.packet = packet;
-
-# Sniffs all apparently valid wifi probes, using Scapy
+""" Sniffs all apparently valid wifi probes, using Scapy """
 class ProbeSniffer:
 	def __init__(self):
 		pass
 
-	def makePacket(self,x):
-		pass
-
+	""" Creates a dictionary containing the mac, ssid, and raw data of this packet. 
+	:param x: the packet"""
 	def packagePacket(self, x):
 		layer = x.getlayer(Dot11ProbeReq)
 		layer2 = layer.getlayer(Dot11Elt)
 		mac = x.getlayer(Dot11).getfieldval("addr2")
 		ssid = layer2[0].getfieldval("info")
-		packet = {'mac':mac, 'ssid':ssid, 'raw': str(x.getlayer(Dot11))}
+		packet = {'mac':mac, 'ssid':ssid, 'raw': str(x.getlayer(Dot11)), 'rssi' : self.extractRSSI(packet)}
 		#packet = {'mac':mac, 'ssid':ssid, 'raw': str(x)}
 		return packet
 
+	def extractRSSI(self, packet):
+		return -(256-ord(packet.notdecoded[-4:-3]))
+
+	""" Extracts the SSID from the supplied probe request
+	:param x: the packet """
 	def getSSID(self, x):
 		layer = x.getlayer(Dot11ProbeReq)
 		layer2 = layer.getlayer(Dot11Elt)
 		ssid = layer2[0].getfieldval("info")
 		return ssid
 
-	# Performs basic filtering:
-	# filters corrupt packets
-	# filters packets of excessive length (probe requests should be small, big ones mean problems)
-	# filters packets with no SSID
+	""" Performs basic filtering:
+	* filters corrupt packets
+	* filters packets of excessive length (probe requests should be small, big ones mean problems)
+	* filters packets with no SSID 
+	"""
 
 	def probefilter (self, x):
 		#return True;
@@ -56,7 +74,7 @@ class ProbeSniffer:
 		#	return False
 
 	def probefound (self,x):
-		#packet = ProbePacket
+		print(x.show())
 		packet = self.packagePacket(x)
 		packet['time'] = datetime.datetime.now()
 		self.found(packet)
@@ -101,7 +119,6 @@ class SQLPacketStore:
 				self.createIndex(SQLPacketStore.MAC_NAME, cursor)
 				self.createIndex(SQLPacketStore.SSID_NAME, cursor)
 				self.createIndex(SQLPacketStore.TIME_NAME, cursor)
-				self.con.commit()
 		except sqlite3.Error as e:
 			print("Couldn't create db schema: {0}".format(e))
 		
@@ -112,19 +129,23 @@ class SQLPacketStore:
 				cursor = self.con.cursor()
 				rows = [(packet['mac'], packet['ssid'], packet['raw'], packet['time']) for packet in packets]
 				cursor.executemany('''INSERT INTO PROBE_REQUESTS(mac, ssid, raw, time) VALUES(?,?,?,?)''', rows)
-				self.con.commit()
 		except sqlite3.Error as e:
 			print("Couldn't save packet. {0}".format(e))
 
 
-	def getSomePackets(self):
+	""" Get a group of packets. """
+	def getSomePackets(self, packetcount):
+
 		try:
 			with self.con:
 				cursor = self.con.cursor()
-				rows = cursor.execute('''SELECT {raw_name} from {table_name} ORDER BY {time_name} LIMIT 5'''.format(
+				endTime = datetime.datetime.now() - datetime.timedelta(hours=0)
+				rows = cursor.execute('''SELECT {raw_name} from {table_name}
+											WHERE {time_name} < ?
+				 ORDER BY {time_name} LIMIT 10'''.format(
 										raw_name = SQLPacketStore.RAW_NAME,
 										table_name = SQLPacketStore.PROBE_TABLE_NAME,
-										time_name = SQLPacketStore.TIME_NAME))
+										time_name = SQLPacketStore.TIME_NAME), (endTime,)) # common gotcha - requires a tuple with only one value 
 				return [row[0] for row in rows]
 
 		except sqlite3.Error as e:
@@ -137,6 +158,10 @@ class StorageStrategy:
 		pass
 
 
+""" 
+Top-level controller that creates a sniffer, persists the results, and periodically
+queries the probe store and rebroadcasts packets.
+"""
 class Shenanigans:
 
 	store = SQLPacketStore()
@@ -145,12 +170,19 @@ class Shenanigans:
 	def __init__(self):
 		pass
 
+	"""
+	Adds a packet to the queue of items to be persisted.
+	:param x: the packet
+	"""
 	def probefound(self,x):
 		#self.store.savePacket(x)
 		self.probeQueue.put(x)
-		print("Probe request: {mac} {ssid} {time} {raw}".format(**x))
+		print("Saving probe request: {mac} {ssid} {time}".format(**x))
 
 
+	"""
+	Empties the queue into a new collection
+	"""
 	def getAllInQueue(self):
 		empty = False
 		packets = []
@@ -165,17 +197,29 @@ class Shenanigans:
 	def startSniffer(self, iface):
 		ProbeSniffer().start(self.probefound, iface)
 
-	def start(self, iface):
-		
-		thread.start_new_thread(self.startSniffer, (iface,))
-		#ProbeSniffer().start(self.probefound, iface)
-		print("Sniffer thread started. Starting broadcast loop.")
-		while True:
-			packetsToSave = self.getAllInQueue()
+	def persistQueue(self):
+		packetsToSave = self.getAllInQueue()
+		if packetsToSave:
 			self.store.savePackets(packetsToSave)
 
-			packets = self.store.getSomePackets()
-			print("sending packets: {0}".format(packets))
+	def broadcastProbeRequest(self, probe):
+		
+		probePacket = Dot11(probe) # don't prefix with "RadioTap() /" -- this is counterintuitive but is the way scapy works.
+		print("sending probe: {0}".format(probePacket.summary()))
+		sendp(probePacket) # TODO - decide how many of these we need to send.
+		# todo - random sleep time between packets?
+
+	def start(self, iface):
+		
+		thread.start_new_thread(self.startSniffer, (iface,)) # common gotcha - requires a tuple with only one value 
+		#ProbeSniffer().start(self.probefound, iface)
+		print("Sniffer thread started. Starting broadcast loop.")
+
+		while True:
+			self.persistQueue()
+
+			probeRequests = self.store.getSomePackets(50)
+			map(self.broadcastProbeRequest, probeRequests)
 			time.sleep(1)	
 
 def printUsageAndExit():
