@@ -39,12 +39,12 @@ class ProbeSniffer:
 		layer2 = layer.getlayer(Dot11Elt)
 		mac = x.getlayer(Dot11).getfieldval("addr2")
 		ssid = layer2[0].getfieldval("info")
-		packet = {'mac':mac, 'ssid':ssid, 'raw': str(x.getlayer(Dot11)), 'rssi' : self.extractRSSI(packet)}
+		packet = {'mac':mac, 'ssid':ssid, 'raw': str(x.getlayer(Dot11)), 'rssi' : self.extractRSSI(x)}
 		#packet = {'mac':mac, 'ssid':ssid, 'raw': str(x)}
 		return packet
 
-	def extractRSSI(self, packet):
-		return -(256-ord(packet.notdecoded[-4:-3]))
+	def extractRSSI(self, x):
+		return -(256-ord(x.notdecoded[-4:-3]))
 
 	""" Extracts the SSID from the supplied probe request
 	:param x: the packet """
