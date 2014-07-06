@@ -151,13 +151,6 @@ class SQLPacketStore:
 		except sqlite3.Error as e:
 			print("Could't retrieve packets. {0}".format(e))
 
-
-
-class StorageStrategy:
-	def store(x):
-		pass
-
-
 """ 
 Top-level controller that creates a sniffer, persists the results, and periodically
 queries the probe store and rebroadcasts packets.
