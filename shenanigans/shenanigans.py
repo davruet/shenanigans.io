@@ -74,7 +74,6 @@ class ProbeSniffer:
 		#	return False
 
 	def probefound (self,x):
-		print(x.show())
 		packet = self.packagePacket(x)
 		packet['time'] = datetime.datetime.now()
 		self.found(packet)
