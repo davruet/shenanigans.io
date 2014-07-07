@@ -80,7 +80,7 @@ class ProbeSniffer:
 		
 	def start(self, found, iface="wlan0"):
 		self.found = found
-		sniff(iface=iface, lfilter=self.probefilter, prn=self.probefound)
+		#sniff(iface=iface, lfilter=self.probefilter, prn=self.probefound)
 
 	
 class SQLPacketStore:
@@ -141,7 +141,7 @@ class SQLPacketStore:
 				endTime = datetime.datetime.now() - datetime.timedelta(hours=0)
 				rows = cursor.execute('''SELECT {raw_name} from {table_name}
 											WHERE {time_name} < ?
-				 ORDER BY {time_name} LIMIT 10'''.format(
+				 ORDER BY RANDOM() LIMIT 30'''.format(
 										raw_name = SQLPacketStore.RAW_NAME,
 										table_name = SQLPacketStore.PROBE_TABLE_NAME,
 										time_name = SQLPacketStore.TIME_NAME), (endTime,)) # common gotcha - requires a tuple with only one value 
@@ -196,13 +196,13 @@ class Shenanigans:
 
 	def broadcastProbeRequest(self, probe):
 		
-		probePacket = Dot11(probe) # don't prefix with "RadioTap() /" -- this is counterintuitive but is the way scapy works.
+		probePacket =  RadioTap() / Dot11(probe) 
 		print("sending probe: {0}".format(probePacket.summary()))
-		sendp(probePacket) # TODO - decide how many of these we need to send.
+		sendp(probePacket, iface=self.iface) # TODO - decide how many of these we need to send.
 		# todo - random sleep time between packets?
 
 	def start(self, iface):
-		
+		self.iface = iface
 		thread.start_new_thread(self.startSniffer, (iface,)) # common gotcha - requires a tuple with only one value 
 		#ProbeSniffer().start(self.probefound, iface)
 		print("Sniffer thread started. Starting broadcast loop.")
