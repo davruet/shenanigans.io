@@ -80,7 +80,7 @@ class ProbeSniffer:
 		
 	def start(self, found, iface="wlan0"):
 		self.found = found
-		#sniff(iface=iface, lfilter=self.probefilter, prn=self.probefound)
+		sniff(iface=iface, lfilter=self.probefilter, prn=self.probefound)
 
 	
 class SQLPacketStore:
