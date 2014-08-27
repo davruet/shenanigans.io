@@ -1,0 +1,25 @@
+package shenanigans;
+option optimize_for = LITE_RUNTIME;
+
+message Submission {
+
+    message Token {
+        required bytes token = 1;
+    }
+
+    message ProbeGroup {
+        
+        optional string mac = 1;
+
+        message ProbeReq {
+            optional string ssid = 1;
+            required bytes reqBytes = 2;
+        }
+        
+        repeated ProbeReq req = 2;
+    }
+    repeated Token token = 1;
+    repeated ProbeGroup group = 2;
+    optional string ipAddress = 3;
+    optional string headers = 4;
+}

@@ -1,0 +1,32 @@
+html
+
+head
+
+    // ... your HTML  content ...
+
+    script(type="text/javascript", src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+
+    // Wrapping the Recaptcha create method in a javascript function 
+    script. 
+        function showRecaptcha(element) {
+            Recaptcha.create("6LesfPgSAAAAAJZrdTrt6ye9l43sIt2dbWylzqfR", element, {
+                theme: "red",
+             callback: Recaptcha.focus_response_field});
+        }
+    body
+
+        //x- ... your HTML <body> content
+
+        div(id='recaptcha_div')
+
+        input(type='button', value='Show reCAPTCHA', onclick='showRecaptcha("recaptcha_div");')
+
+        //... more of your HTML  content ... 
+        // really - what other options are there for preventing abuse?
+        // CAPTCHA - this kind of sucks for users but seems to be most effective, very expensive to abuse
+        // hashcash - unobtrusive for users but maybe not effective enough at preventing abuse?
+        // some kind of "silent" approach that aims to go unnoticed.
+        // take advantage of delay betwen submission and evaluation of its effectiveness. Give no hint that abuse has been detected.
+        // IP addresses should be logged with submissions, and filtering should be done. Any IP that has more than 10 or so submissions should be checked to make sure it's legit -- say a university. Problem - this can be abused.
+
+
