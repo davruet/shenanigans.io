@@ -1,5 +1,7 @@
 package io.shenanigans.server;
 
+import io.shenanigans.proto.Shenanigans.Submission;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -19,8 +21,6 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
-
-import shenanigans.Shenanigans.Submission;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -59,7 +59,8 @@ public class Server
 class CertificateHandler extends HttpHandler {
 	
 	private CertTemplate m_template;
-	private SubmissionLogger submissionLogger = new SubmissionLogger();
+	private BatchSubmissionStore m_store = new JPASubmissionStore();
+	private AsyncBatchSubmissionLogger submissionLogger = new AsyncBatchSubmissionLogger(m_store);
 	
 	public CertificateHandler(String certTemplate) throws IOException {
 		m_template = new CertTemplate(certTemplate);
@@ -81,7 +82,11 @@ class CertificateHandler extends HttpHandler {
 		in.notifyAvailable(new ReadHandler() {
 			
 			public void onError(Throwable t) {
-				handleInvalidSubmission(resp, t);
+				try {
+					handleInvalidSubmission(resp, t);
+				} catch (IOException e) {
+					e.printStackTrace(); // FIXME
+				}
 				resp.resume();
 			}
 			
@@ -123,7 +128,7 @@ class CertificateHandler extends HttpHandler {
 			
 			getAllHeaders(req);
 			
-			submissionLogger.logSubmission(new AnnotatedSubmission(submission, req.getRemoteAddr(), getAllHeaders(req)));
+			submissionLogger.logSubmission(new SubmissionReceipt(submission, req.getRemoteAddr(), getAllHeaders(req)));
 			int size = submission.getGroupList().size();
 			
 			List<String> macs = new ArrayList<String>(size);
@@ -146,6 +151,7 @@ class CertificateHandler extends HttpHandler {
 				handleInvalidSubmission(resp, e);
 			} finally {
 				out.close();
+				doc.close();
 			}
 			
 		} catch (InvalidProtocolBufferException e) {
@@ -162,11 +168,12 @@ class CertificateHandler extends HttpHandler {
 		return headers;
 	}
 	
-	private void handleInvalidSubmission(Response resp, Throwable t){
+	private void handleInvalidSubmission(Response resp, Throwable t) throws IOException{
 		// FIXME let's actually add the submission, not letting the submitter
 		//really know whether it was successful. Randomly, let's throttle the response too.
 		LogManager.getLogger(this).warn("Invalid sumission.", t);
-		
+		t.printStackTrace();
+		resp.sendError(300);
 	}
 	
 }

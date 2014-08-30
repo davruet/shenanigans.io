@@ -1,56 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.shenanigans.server</groupId>
-  <artifactId>submission-server</artifactId>
-  <version>0.1a</version>
-  <packaging>jar</packaging>
+	<groupId>io.shenanigans.server</groupId>
+	<artifactId>submission-server</artifactId>
+	<version>0.1a</version>
+	<packaging>jar</packaging>
 
-  <name>submission-server</name>
-  <url>http://shenanigans.io</url>
+	<name>submission-server</name>
+	<url>http://shenanigans.io</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
     <dependency>
     	<groupId>com.google.protobuf</groupId>
     	<artifactId>protobuf-java</artifactId>
     	<version>2.5.0</version>
     </dependency>
     <dependency>
-    <groupId>org.glassfish.grizzly</groupId>
-    <artifactId>grizzly-framework</artifactId>
-    <version>2.3.14</version>
+	    <groupId>org.glassfish.grizzly</groupId>
+	    <artifactId>grizzly-framework</artifactId>
+	    <version>2.3.14</version>
+	</dependency>
+	<dependency>
+	     <groupId>org.glassfish.grizzly</groupId>
+	     <artifactId>grizzly-http-server</artifactId>
+	     <version>2.3.16</version>
+	</dependency>
+	    <dependency>
+	    	<groupId>org.apache.logging.log4j</groupId>
+	    	<artifactId>log4j-core</artifactId>
+	    	<version>2.0-rc2</version>
+	    </dependency>
+	    <dependency>
+	  <groupId>org.apache.pdfbox</groupId>
+	  <artifactId>pdfbox</artifactId>
+	  <version>1.8.6</version>
+	</dependency>
+	<dependency>
+		<groupId>com.lmax</groupId>
+		<artifactId>disruptor</artifactId>
+		<version>3.0.1</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-dbutils</groupId>
+		<artifactId>commons-dbutils</artifactId>
+		<version>1.6</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.32</version>
+	</dependency>
+	
+	<dependency>
+    <groupId>org.eclipse.persistence</groupId>
+    <artifactId>eclipselink</artifactId>
+    <!-- eclipselink 2.5.x just silently drops classes that use lambdas. ugh. -->
+    <version>2.6.0-M3</version>
 </dependency>
-<dependency>
-     <groupId>org.glassfish.grizzly</groupId>
-     <artifactId>grizzly-http-server</artifactId>
-     <version>2.3.16</version>
-</dependency>
-    <dependency>
-    	<groupId>org.apache.logging.log4j</groupId>
-    	<artifactId>log4j-core</artifactId>
-    	<version>2.0-rc2</version>
-    </dependency>
-    <dependency>
-  <groupId>org.apache.pdfbox</groupId>
-  <artifactId>pdfbox</artifactId>
-  <version>1.8.6</version>
-</dependency>
-<dependency>
-	<groupId>com.lmax</groupId>
-	<artifactId>disruptor</artifactId>
-	<version>3.0.1</version>
-</dependency>
-    
+
   </dependencies>
 </project>

@@ -12,11 +12,12 @@
 #include <google/protobuf/wire_format_lite_inl.h>
 // @@protoc_insertion_point(includes)
 
+namespace io {
 namespace shenanigans {
+namespace proto {
 
 void protobuf_ShutdownFile_shenanigans_2eproto() {
   delete Submission::default_instance_;
-  delete Submission_Token::default_instance_;
   delete Submission_ProbeGroup::default_instance_;
   delete Submission_ProbeGroup_ProbeReq::default_instance_;
 }
@@ -34,11 +35,9 @@ void protobuf_AddDesc_shenanigans_2eproto() {
 
 #endif
   Submission::default_instance_ = new Submission();
-  Submission_Token::default_instance_ = new Submission_Token();
   Submission_ProbeGroup::default_instance_ = new Submission_ProbeGroup();
   Submission_ProbeGroup_ProbeReq::default_instance_ = new Submission_ProbeGroup_ProbeReq();
   Submission::default_instance_->InitAsDefaultInstance();
-  Submission_Token::default_instance_->InitAsDefaultInstance();
   Submission_ProbeGroup::default_instance_->InitAsDefaultInstance();
   Submission_ProbeGroup_ProbeReq::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_shenanigans_2eproto);
@@ -60,180 +59,6 @@ struct StaticDescriptorInitializer_shenanigans_2eproto {
 #endif
 
 // ===================================================================
-
-#ifndef _MSC_VER
-const int Submission_Token::kTokenFieldNumber;
-#endif  // !_MSC_VER
-
-Submission_Token::Submission_Token()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-}
-
-void Submission_Token::InitAsDefaultInstance() {
-}
-
-Submission_Token::Submission_Token(const Submission_Token& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void Submission_Token::SharedCtor() {
-  _cached_size_ = 0;
-  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-Submission_Token::~Submission_Token() {
-  SharedDtor();
-}
-
-void Submission_Token::SharedDtor() {
-  if (token_ != &::google::protobuf::internal::kEmptyString) {
-    delete token_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void Submission_Token::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const Submission_Token& Submission_Token::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_shenanigans_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_shenanigans_2eproto();
-#endif
-  return *default_instance_;
-}
-
-Submission_Token* Submission_Token::default_instance_ = NULL;
-
-Submission_Token* Submission_Token::New() const {
-  return new Submission_Token;
-}
-
-void Submission_Token::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_token()) {
-      if (token_ != &::google::protobuf::internal::kEmptyString) {
-        token_->clear();
-      }
-    }
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-bool Submission_Token::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required bytes token = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_token()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void Submission_Token::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required bytes token = 1;
-  if (has_token()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      1, this->token(), output);
-  }
-
-}
-
-int Submission_Token::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required bytes token = 1;
-    if (has_token()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->token());
-    }
-
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Submission_Token::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const Submission_Token*>(&from));
-}
-
-void Submission_Token::MergeFrom(const Submission_Token& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_token()) {
-      set_token(from.token());
-    }
-  }
-}
-
-void Submission_Token::CopyFrom(const Submission_Token& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Submission_Token::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
-  return true;
-}
-
-void Submission_Token::Swap(Submission_Token* other) {
-  if (other != this) {
-    std::swap(token_, other->token_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string Submission_Token::GetTypeName() const {
-  return "shenanigans.Submission.Token";
-}
-
-
-// -------------------------------------------------------------------
 
 #ifndef _MSC_VER
 const int Submission_ProbeGroup_ProbeReq::kSsidFieldNumber;
@@ -444,7 +269,7 @@ void Submission_ProbeGroup_ProbeReq::Swap(Submission_ProbeGroup_ProbeReq* other)
 }
 
 ::std::string Submission_ProbeGroup_ProbeReq::GetTypeName() const {
-  return "shenanigans.Submission.ProbeGroup.ProbeReq";
+  return "io.shenanigans.proto.Submission.ProbeGroup.ProbeReq";
 }
 
 
@@ -452,6 +277,7 @@ void Submission_ProbeGroup_ProbeReq::Swap(Submission_ProbeGroup_ProbeReq* other)
 
 #ifndef _MSC_VER
 const int Submission_ProbeGroup::kMacFieldNumber;
+const int Submission_ProbeGroup::kTokenFieldNumber;
 const int Submission_ProbeGroup::kReqFieldNumber;
 #endif  // !_MSC_VER
 
@@ -472,6 +298,7 @@ Submission_ProbeGroup::Submission_ProbeGroup(const Submission_ProbeGroup& from)
 void Submission_ProbeGroup::SharedCtor() {
   _cached_size_ = 0;
   mac_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -482,6 +309,9 @@ Submission_ProbeGroup::~Submission_ProbeGroup() {
 void Submission_ProbeGroup::SharedDtor() {
   if (mac_ != &::google::protobuf::internal::kEmptyString) {
     delete mac_;
+  }
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -518,6 +348,11 @@ void Submission_ProbeGroup::Clear() {
         mac_->clear();
       }
     }
+    if (has_token()) {
+      if (token_ != &::google::protobuf::internal::kEmptyString) {
+        token_->clear();
+      }
+    }
   }
   req_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -538,12 +373,26 @@ bool Submission_ProbeGroup::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_req;
+        if (input->ExpectTag(18)) goto parse_token;
         break;
       }
 
-      // repeated .shenanigans.Submission.ProbeGroup.ProbeReq req = 2;
+      // optional bytes token = 2;
       case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_token:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_token()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_req;
+        break;
+      }
+
+      // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_req:
@@ -552,7 +401,7 @@ bool Submission_ProbeGroup::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_req;
+        if (input->ExpectTag(26)) goto parse_req;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -580,10 +429,16 @@ void Submission_ProbeGroup::SerializeWithCachedSizes(
       1, this->mac(), output);
   }
 
-  // repeated .shenanigans.Submission.ProbeGroup.ProbeReq req = 2;
+  // optional bytes token = 2;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+      2, this->token(), output);
+  }
+
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
   for (int i = 0; i < this->req_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->req(i), output);
+      3, this->req(i), output);
   }
 
 }
@@ -599,8 +454,15 @@ int Submission_ProbeGroup::ByteSize() const {
           this->mac());
     }
 
+    // optional bytes token = 2;
+    if (has_token()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->token());
+    }
+
   }
-  // repeated .shenanigans.Submission.ProbeGroup.ProbeReq req = 2;
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
   total_size += 1 * this->req_size();
   for (int i = 0; i < this->req_size(); i++) {
     total_size +=
@@ -626,6 +488,9 @@ void Submission_ProbeGroup::MergeFrom(const Submission_ProbeGroup& from) {
     if (from.has_mac()) {
       set_mac(from.mac());
     }
+    if (from.has_token()) {
+      set_token(from.token());
+    }
   }
 }
 
@@ -646,6 +511,7 @@ bool Submission_ProbeGroup::IsInitialized() const {
 void Submission_ProbeGroup::Swap(Submission_ProbeGroup* other) {
   if (other != this) {
     std::swap(mac_, other->mac_);
+    std::swap(token_, other->token_);
     req_.Swap(&other->req_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);
@@ -653,17 +519,14 @@ void Submission_ProbeGroup::Swap(Submission_ProbeGroup* other) {
 }
 
 ::std::string Submission_ProbeGroup::GetTypeName() const {
-  return "shenanigans.Submission.ProbeGroup";
+  return "io.shenanigans.proto.Submission.ProbeGroup";
 }
 
 
 // -------------------------------------------------------------------
 
 #ifndef _MSC_VER
-const int Submission::kTokenFieldNumber;
 const int Submission::kGroupFieldNumber;
-const int Submission::kIpAddressFieldNumber;
-const int Submission::kHeadersFieldNumber;
 #endif  // !_MSC_VER
 
 Submission::Submission()
@@ -682,8 +545,6 @@ Submission::Submission(const Submission& from)
 
 void Submission::SharedCtor() {
   _cached_size_ = 0;
-  ipaddress_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  headers_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -692,12 +553,6 @@ Submission::~Submission() {
 }
 
 void Submission::SharedDtor() {
-  if (ipaddress_ != &::google::protobuf::internal::kEmptyString) {
-    delete ipaddress_;
-  }
-  if (headers_ != &::google::protobuf::internal::kEmptyString) {
-    delete headers_;
-  }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
   #else
@@ -727,19 +582,6 @@ Submission* Submission::New() const {
 }
 
 void Submission::Clear() {
-  if (_has_bits_[2 / 32] & (0xffu << (2 % 32))) {
-    if (has_ipaddress()) {
-      if (ipaddress_ != &::google::protobuf::internal::kEmptyString) {
-        ipaddress_->clear();
-      }
-    }
-    if (has_headers()) {
-      if (headers_ != &::google::protobuf::internal::kEmptyString) {
-        headers_->clear();
-      }
-    }
-  }
-  token_.Clear();
   group_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -750,23 +592,8 @@ bool Submission::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .shenanigans.Submission.Token token = 1;
+      // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_token:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_token()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(10)) goto parse_token;
-        if (input->ExpectTag(18)) goto parse_group;
-        break;
-      }
-
-      // repeated .shenanigans.Submission.ProbeGroup group = 2;
-      case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_group:
@@ -775,35 +602,7 @@ bool Submission::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_group;
-        if (input->ExpectTag(26)) goto parse_ipAddress;
-        break;
-      }
-
-      // optional string ipAddress = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_ipAddress:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_ipaddress()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(34)) goto parse_headers;
-        break;
-      }
-
-      // optional string headers = 4;
-      case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_headers:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_headers()));
-        } else {
-          goto handle_uninterpreted;
-        }
+        if (input->ExpectTag(10)) goto parse_group;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -825,28 +624,10 @@ bool Submission::MergePartialFromCodedStream(
 
 void Submission::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .shenanigans.Submission.Token token = 1;
-  for (int i = 0; i < this->token_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      1, this->token(i), output);
-  }
-
-  // repeated .shenanigans.Submission.ProbeGroup group = 2;
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
   for (int i = 0; i < this->group_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->group(i), output);
-  }
-
-  // optional string ipAddress = 3;
-  if (has_ipaddress()) {
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      3, this->ipaddress(), output);
-  }
-
-  // optional string headers = 4;
-  if (has_headers()) {
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      4, this->headers(), output);
+      1, this->group(i), output);
   }
 
 }
@@ -854,31 +635,7 @@ void Submission::SerializeWithCachedSizes(
 int Submission::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[2 / 32] & (0xffu << (2 % 32))) {
-    // optional string ipAddress = 3;
-    if (has_ipaddress()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->ipaddress());
-    }
-
-    // optional string headers = 4;
-    if (has_headers()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->headers());
-    }
-
-  }
-  // repeated .shenanigans.Submission.Token token = 1;
-  total_size += 1 * this->token_size();
-  for (int i = 0; i < this->token_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->token(i));
-  }
-
-  // repeated .shenanigans.Submission.ProbeGroup group = 2;
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
   total_size += 1 * this->group_size();
   for (int i = 0; i < this->group_size(); i++) {
     total_size +=
@@ -899,16 +656,7 @@ void Submission::CheckTypeAndMergeFrom(
 
 void Submission::MergeFrom(const Submission& from) {
   GOOGLE_CHECK_NE(&from, this);
-  token_.MergeFrom(from.token_);
   group_.MergeFrom(from.group_);
-  if (from._has_bits_[2 / 32] & (0xffu << (2 % 32))) {
-    if (from.has_ipaddress()) {
-      set_ipaddress(from.ipaddress());
-    }
-    if (from.has_headers()) {
-      set_headers(from.headers());
-    }
-  }
 }
 
 void Submission::CopyFrom(const Submission& from) {
@@ -919,9 +667,6 @@ void Submission::CopyFrom(const Submission& from) {
 
 bool Submission::IsInitialized() const {
 
-  for (int i = 0; i < token_size(); i++) {
-    if (!this->token(i).IsInitialized()) return false;
-  }
   for (int i = 0; i < group_size(); i++) {
     if (!this->group(i).IsInitialized()) return false;
   }
@@ -930,22 +675,21 @@ bool Submission::IsInitialized() const {
 
 void Submission::Swap(Submission* other) {
   if (other != this) {
-    token_.Swap(&other->token_);
     group_.Swap(&other->group_);
-    std::swap(ipaddress_, other->ipaddress_);
-    std::swap(headers_, other->headers_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
 ::std::string Submission::GetTypeName() const {
-  return "shenanigans.Submission";
+  return "io.shenanigans.proto.Submission";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace proto
 }  // namespace shenanigans
+}  // namespace io
 
 // @@protoc_insertion_point(global_scope)

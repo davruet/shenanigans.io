@@ -13,16 +13,30 @@ import org.junit.Test;
 public class SubmissionLoggerTest {
 
 	private CountDownLatch m_latch;
-	private SubmissionLogger m_logger;
-	private List<List<AnnotatedSubmission>>m_receivedEvents = new ArrayList<List<AnnotatedSubmission>>();
+	private AsyncBatchSubmissionLogger m_logger;
+	private List<List<SubmissionReceipt>>m_receivedEvents = new ArrayList<List<SubmissionReceipt>>();
 	
 	@Before
 	public void init(){
 		m_latch = new CountDownLatch(1);
-		m_logger = new SubmissionLogger(){
+		BatchSubmissionStore store = new BatchSubmissionStore() {
+			
+			@Override
+			public void save(List<SubmissionReceipt> submissions) throws StoreException {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void close() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		m_logger = new AsyncBatchSubmissionLogger(store){
 
 			@Override
-			protected void persistBatch(List<AnnotatedSubmission> batch) {
+			protected void persistBatch(List<SubmissionReceipt> batch) {
 				m_receivedEvents.add(new ArrayList<>(batch));
 				for (int i = 0; i < batch.size(); i++){
 					m_latch.countDown();
@@ -44,7 +58,7 @@ public class SubmissionLoggerTest {
 	@Test
 	public void testSubmission() throws Exception {
 		
-		AnnotatedSubmission submission = new AnnotatedSubmission();
+		SubmissionReceipt submission = new SubmissionReceipt();
 		m_logger.logSubmission(submission);
 	
 		awaitCompletion();
@@ -60,12 +74,13 @@ public class SubmissionLoggerTest {
 		int count = 100;
 		m_latch = new CountDownLatch(count);
 		for (int i = 0; i < count; i++){
-			m_logger.logSubmission(new AnnotatedSubmission());
+			m_logger.logSubmission(new SubmissionReceipt());
 		}
 		awaitCompletion();
 		for (List<?> list : m_receivedEvents){
 			System.out.println(list.size());
 		}
-		Assert.assertEquals(count / m_logger.getMaxBatchSize(), m_receivedEvents.size());
+		Assert.assertTrue("Number of invocations wasn't greater than number of batches. Batching doesn't seem to be working at all.",
+				m_receivedEvents.size() < count );
 	}
 }

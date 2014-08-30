@@ -113,7 +113,6 @@ public class CertTemplate {
 		//cert.close();
 		// Save the results and ensure that the document is properly closed:
 		//endDoc.save( "Hello World.pdf");
-		
 		return endDoc;
 		
 	}

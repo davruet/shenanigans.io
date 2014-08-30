@@ -1,0 +1,21 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+version="2.1">
+<persistence-unit name="shenanigans">
+	<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+	<class>io.shenanigans.server.SubmissionReceipt</class>
+	<class>io.shenanigans.server.ProbeGroupData</class>
+	<class>io.shenanigans.server.ProbeReqData</class>
+	<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
+	
+	<properties>
+		<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8889/shenanigansData"/>
+		<property name="javax.persistence.jdbc.user" value="shenanigans"/>
+		<property name="javax.persistence.jdbc.password" value="shenanigans"/>
+		<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+	</properties>
+</persistence-unit>
+</persistence>

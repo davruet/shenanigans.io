@@ -25,7 +25,9 @@
 #include <google/protobuf/extension_set.h>
 // @@protoc_insertion_point(includes)
 
+namespace io {
 namespace shenanigans {
+namespace proto {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_shenanigans_2eproto();
@@ -33,99 +35,10 @@ void protobuf_AssignDesc_shenanigans_2eproto();
 void protobuf_ShutdownFile_shenanigans_2eproto();
 
 class Submission;
-class Submission_Token;
 class Submission_ProbeGroup;
 class Submission_ProbeGroup_ProbeReq;
 
 // ===================================================================
-
-class Submission_Token : public ::google::protobuf::MessageLite {
- public:
-  Submission_Token();
-  virtual ~Submission_Token();
-
-  Submission_Token(const Submission_Token& from);
-
-  inline Submission_Token& operator=(const Submission_Token& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const Submission_Token& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const Submission_Token* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(Submission_Token* other);
-
-  // implements Message ----------------------------------------------
-
-  Submission_Token* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const Submission_Token& from);
-  void MergeFrom(const Submission_Token& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required bytes token = 1;
-  inline bool has_token() const;
-  inline void clear_token();
-  static const int kTokenFieldNumber = 1;
-  inline const ::std::string& token() const;
-  inline void set_token(const ::std::string& value);
-  inline void set_token(const char* value);
-  inline void set_token(const void* value, size_t size);
-  inline ::std::string* mutable_token();
-  inline ::std::string* release_token();
-  inline void set_allocated_token(::std::string* token);
-
-  // @@protoc_insertion_point(class_scope:shenanigans.Submission.Token)
- private:
-  inline void set_has_token();
-  inline void clear_has_token();
-
-  ::std::string* token_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_shenanigans_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_shenanigans_2eproto();
-  friend void protobuf_ShutdownFile_shenanigans_2eproto();
-
-  void InitAsDefaultInstance();
-  static Submission_Token* default_instance_;
-};
-// -------------------------------------------------------------------
 
 class Submission_ProbeGroup_ProbeReq : public ::google::protobuf::MessageLite {
  public:
@@ -204,7 +117,7 @@ class Submission_ProbeGroup_ProbeReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_reqbytes();
   inline void set_allocated_reqbytes(::std::string* reqbytes);
 
-  // @@protoc_insertion_point(class_scope:shenanigans.Submission.ProbeGroup.ProbeReq)
+  // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission.ProbeGroup.ProbeReq)
  private:
   inline void set_has_ssid();
   inline void clear_has_ssid();
@@ -297,28 +210,43 @@ class Submission_ProbeGroup : public ::google::protobuf::MessageLite {
   inline ::std::string* release_mac();
   inline void set_allocated_mac(::std::string* mac);
 
-  // repeated .shenanigans.Submission.ProbeGroup.ProbeReq req = 2;
+  // optional bytes token = 2;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 2;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const void* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
   inline int req_size() const;
   inline void clear_req();
-  static const int kReqFieldNumber = 2;
-  inline const ::shenanigans::Submission_ProbeGroup_ProbeReq& req(int index) const;
-  inline ::shenanigans::Submission_ProbeGroup_ProbeReq* mutable_req(int index);
-  inline ::shenanigans::Submission_ProbeGroup_ProbeReq* add_req();
-  inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup_ProbeReq >&
+  static const int kReqFieldNumber = 3;
+  inline const ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq& req(int index) const;
+  inline ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq* mutable_req(int index);
+  inline ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq* add_req();
+  inline const ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq >&
       req() const;
-  inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup_ProbeReq >*
+  inline ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq >*
       mutable_req();
 
-  // @@protoc_insertion_point(class_scope:shenanigans.Submission.ProbeGroup)
+  // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission.ProbeGroup)
  private:
   inline void set_has_mac();
   inline void clear_has_mac();
+  inline void set_has_token();
+  inline void clear_has_token();
 
   ::std::string* mac_;
-  ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup_ProbeReq > req_;
+  ::std::string* token_;
+  ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq > req_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
@@ -384,73 +312,29 @@ class Submission : public ::google::protobuf::MessageLite {
 
   // nested types ----------------------------------------------------
 
-  typedef Submission_Token Token;
   typedef Submission_ProbeGroup ProbeGroup;
 
   // accessors -------------------------------------------------------
 
-  // repeated .shenanigans.Submission.Token token = 1;
-  inline int token_size() const;
-  inline void clear_token();
-  static const int kTokenFieldNumber = 1;
-  inline const ::shenanigans::Submission_Token& token(int index) const;
-  inline ::shenanigans::Submission_Token* mutable_token(int index);
-  inline ::shenanigans::Submission_Token* add_token();
-  inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_Token >&
-      token() const;
-  inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_Token >*
-      mutable_token();
-
-  // repeated .shenanigans.Submission.ProbeGroup group = 2;
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
   inline int group_size() const;
   inline void clear_group();
-  static const int kGroupFieldNumber = 2;
-  inline const ::shenanigans::Submission_ProbeGroup& group(int index) const;
-  inline ::shenanigans::Submission_ProbeGroup* mutable_group(int index);
-  inline ::shenanigans::Submission_ProbeGroup* add_group();
-  inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup >&
+  static const int kGroupFieldNumber = 1;
+  inline const ::io::shenanigans::proto::Submission_ProbeGroup& group(int index) const;
+  inline ::io::shenanigans::proto::Submission_ProbeGroup* mutable_group(int index);
+  inline ::io::shenanigans::proto::Submission_ProbeGroup* add_group();
+  inline const ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup >&
       group() const;
-  inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup >*
+  inline ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup >*
       mutable_group();
 
-  // optional string ipAddress = 3;
-  inline bool has_ipaddress() const;
-  inline void clear_ipaddress();
-  static const int kIpAddressFieldNumber = 3;
-  inline const ::std::string& ipaddress() const;
-  inline void set_ipaddress(const ::std::string& value);
-  inline void set_ipaddress(const char* value);
-  inline void set_ipaddress(const char* value, size_t size);
-  inline ::std::string* mutable_ipaddress();
-  inline ::std::string* release_ipaddress();
-  inline void set_allocated_ipaddress(::std::string* ipaddress);
-
-  // optional string headers = 4;
-  inline bool has_headers() const;
-  inline void clear_headers();
-  static const int kHeadersFieldNumber = 4;
-  inline const ::std::string& headers() const;
-  inline void set_headers(const ::std::string& value);
-  inline void set_headers(const char* value);
-  inline void set_headers(const char* value, size_t size);
-  inline ::std::string* mutable_headers();
-  inline ::std::string* release_headers();
-  inline void set_allocated_headers(::std::string* headers);
-
-  // @@protoc_insertion_point(class_scope:shenanigans.Submission)
+  // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission)
  private:
-  inline void set_has_ipaddress();
-  inline void clear_has_ipaddress();
-  inline void set_has_headers();
-  inline void clear_has_headers();
 
-  ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_Token > token_;
-  ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup > group_;
-  ::std::string* ipaddress_;
-  ::std::string* headers_;
+  ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup > group_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
@@ -467,80 +351,6 @@ class Submission : public ::google::protobuf::MessageLite {
 
 
 // ===================================================================
-
-// Submission_Token
-
-// required bytes token = 1;
-inline bool Submission_Token::has_token() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void Submission_Token::set_has_token() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void Submission_Token::clear_has_token() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void Submission_Token::clear_token() {
-  if (token_ != &::google::protobuf::internal::kEmptyString) {
-    token_->clear();
-  }
-  clear_has_token();
-}
-inline const ::std::string& Submission_Token::token() const {
-  return *token_;
-}
-inline void Submission_Token::set_token(const ::std::string& value) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::kEmptyString) {
-    token_ = new ::std::string;
-  }
-  token_->assign(value);
-}
-inline void Submission_Token::set_token(const char* value) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::kEmptyString) {
-    token_ = new ::std::string;
-  }
-  token_->assign(value);
-}
-inline void Submission_Token::set_token(const void* value, size_t size) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::kEmptyString) {
-    token_ = new ::std::string;
-  }
-  token_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* Submission_Token::mutable_token() {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::kEmptyString) {
-    token_ = new ::std::string;
-  }
-  return token_;
-}
-inline ::std::string* Submission_Token::release_token() {
-  clear_has_token();
-  if (token_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = token_;
-    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void Submission_Token::set_allocated_token(::std::string* token) {
-  if (token_ != &::google::protobuf::internal::kEmptyString) {
-    delete token_;
-  }
-  if (token) {
-    set_has_token();
-    token_ = token;
-  } else {
-    clear_has_token();
-    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// -------------------------------------------------------------------
 
 // Submission_ProbeGroup_ProbeReq
 
@@ -758,27 +568,97 @@ inline void Submission_ProbeGroup::set_allocated_mac(::std::string* mac) {
   }
 }
 
-// repeated .shenanigans.Submission.ProbeGroup.ProbeReq req = 2;
+// optional bytes token = 2;
+inline bool Submission_ProbeGroup::has_token() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Submission_ProbeGroup::set_has_token() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Submission_ProbeGroup::clear_has_token() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Submission_ProbeGroup::clear_token() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    token_->clear();
+  }
+  clear_has_token();
+}
+inline const ::std::string& Submission_ProbeGroup::token() const {
+  return *token_;
+}
+inline void Submission_ProbeGroup::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void Submission_ProbeGroup::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void Submission_ProbeGroup::set_token(const void* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Submission_ProbeGroup::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  return token_;
+}
+inline ::std::string* Submission_ProbeGroup::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Submission_ProbeGroup::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
+  if (token) {
+    set_has_token();
+    token_ = token;
+  } else {
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
 inline int Submission_ProbeGroup::req_size() const {
   return req_.size();
 }
 inline void Submission_ProbeGroup::clear_req() {
   req_.Clear();
 }
-inline const ::shenanigans::Submission_ProbeGroup_ProbeReq& Submission_ProbeGroup::req(int index) const {
+inline const ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq& Submission_ProbeGroup::req(int index) const {
   return req_.Get(index);
 }
-inline ::shenanigans::Submission_ProbeGroup_ProbeReq* Submission_ProbeGroup::mutable_req(int index) {
+inline ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq* Submission_ProbeGroup::mutable_req(int index) {
   return req_.Mutable(index);
 }
-inline ::shenanigans::Submission_ProbeGroup_ProbeReq* Submission_ProbeGroup::add_req() {
+inline ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq* Submission_ProbeGroup::add_req() {
   return req_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup_ProbeReq >&
+inline const ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq >&
 Submission_ProbeGroup::req() const {
   return req_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup_ProbeReq >*
+inline ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup_ProbeReq >*
 Submission_ProbeGroup::mutable_req() {
   return &req_;
 }
@@ -787,200 +667,37 @@ Submission_ProbeGroup::mutable_req() {
 
 // Submission
 
-// repeated .shenanigans.Submission.Token token = 1;
-inline int Submission::token_size() const {
-  return token_.size();
-}
-inline void Submission::clear_token() {
-  token_.Clear();
-}
-inline const ::shenanigans::Submission_Token& Submission::token(int index) const {
-  return token_.Get(index);
-}
-inline ::shenanigans::Submission_Token* Submission::mutable_token(int index) {
-  return token_.Mutable(index);
-}
-inline ::shenanigans::Submission_Token* Submission::add_token() {
-  return token_.Add();
-}
-inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_Token >&
-Submission::token() const {
-  return token_;
-}
-inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_Token >*
-Submission::mutable_token() {
-  return &token_;
-}
-
-// repeated .shenanigans.Submission.ProbeGroup group = 2;
+// repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
 inline int Submission::group_size() const {
   return group_.size();
 }
 inline void Submission::clear_group() {
   group_.Clear();
 }
-inline const ::shenanigans::Submission_ProbeGroup& Submission::group(int index) const {
+inline const ::io::shenanigans::proto::Submission_ProbeGroup& Submission::group(int index) const {
   return group_.Get(index);
 }
-inline ::shenanigans::Submission_ProbeGroup* Submission::mutable_group(int index) {
+inline ::io::shenanigans::proto::Submission_ProbeGroup* Submission::mutable_group(int index) {
   return group_.Mutable(index);
 }
-inline ::shenanigans::Submission_ProbeGroup* Submission::add_group() {
+inline ::io::shenanigans::proto::Submission_ProbeGroup* Submission::add_group() {
   return group_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup >&
+inline const ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup >&
 Submission::group() const {
   return group_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::shenanigans::Submission_ProbeGroup >*
+inline ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup >*
 Submission::mutable_group() {
   return &group_;
-}
-
-// optional string ipAddress = 3;
-inline bool Submission::has_ipaddress() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void Submission::set_has_ipaddress() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void Submission::clear_has_ipaddress() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void Submission::clear_ipaddress() {
-  if (ipaddress_ != &::google::protobuf::internal::kEmptyString) {
-    ipaddress_->clear();
-  }
-  clear_has_ipaddress();
-}
-inline const ::std::string& Submission::ipaddress() const {
-  return *ipaddress_;
-}
-inline void Submission::set_ipaddress(const ::std::string& value) {
-  set_has_ipaddress();
-  if (ipaddress_ == &::google::protobuf::internal::kEmptyString) {
-    ipaddress_ = new ::std::string;
-  }
-  ipaddress_->assign(value);
-}
-inline void Submission::set_ipaddress(const char* value) {
-  set_has_ipaddress();
-  if (ipaddress_ == &::google::protobuf::internal::kEmptyString) {
-    ipaddress_ = new ::std::string;
-  }
-  ipaddress_->assign(value);
-}
-inline void Submission::set_ipaddress(const char* value, size_t size) {
-  set_has_ipaddress();
-  if (ipaddress_ == &::google::protobuf::internal::kEmptyString) {
-    ipaddress_ = new ::std::string;
-  }
-  ipaddress_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* Submission::mutable_ipaddress() {
-  set_has_ipaddress();
-  if (ipaddress_ == &::google::protobuf::internal::kEmptyString) {
-    ipaddress_ = new ::std::string;
-  }
-  return ipaddress_;
-}
-inline ::std::string* Submission::release_ipaddress() {
-  clear_has_ipaddress();
-  if (ipaddress_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = ipaddress_;
-    ipaddress_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void Submission::set_allocated_ipaddress(::std::string* ipaddress) {
-  if (ipaddress_ != &::google::protobuf::internal::kEmptyString) {
-    delete ipaddress_;
-  }
-  if (ipaddress) {
-    set_has_ipaddress();
-    ipaddress_ = ipaddress;
-  } else {
-    clear_has_ipaddress();
-    ipaddress_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// optional string headers = 4;
-inline bool Submission::has_headers() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void Submission::set_has_headers() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void Submission::clear_has_headers() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void Submission::clear_headers() {
-  if (headers_ != &::google::protobuf::internal::kEmptyString) {
-    headers_->clear();
-  }
-  clear_has_headers();
-}
-inline const ::std::string& Submission::headers() const {
-  return *headers_;
-}
-inline void Submission::set_headers(const ::std::string& value) {
-  set_has_headers();
-  if (headers_ == &::google::protobuf::internal::kEmptyString) {
-    headers_ = new ::std::string;
-  }
-  headers_->assign(value);
-}
-inline void Submission::set_headers(const char* value) {
-  set_has_headers();
-  if (headers_ == &::google::protobuf::internal::kEmptyString) {
-    headers_ = new ::std::string;
-  }
-  headers_->assign(value);
-}
-inline void Submission::set_headers(const char* value, size_t size) {
-  set_has_headers();
-  if (headers_ == &::google::protobuf::internal::kEmptyString) {
-    headers_ = new ::std::string;
-  }
-  headers_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* Submission::mutable_headers() {
-  set_has_headers();
-  if (headers_ == &::google::protobuf::internal::kEmptyString) {
-    headers_ = new ::std::string;
-  }
-  return headers_;
-}
-inline ::std::string* Submission::release_headers() {
-  clear_has_headers();
-  if (headers_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = headers_;
-    headers_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void Submission::set_allocated_headers(::std::string* headers) {
-  if (headers_ != &::google::protobuf::internal::kEmptyString) {
-    delete headers_;
-  }
-  if (headers) {
-    set_has_headers();
-    headers_ = headers;
-  } else {
-    clear_has_headers();
-    headers_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace proto
 }  // namespace shenanigans
+}  // namespace io
 
 // @@protoc_insertion_point(global_scope)
 
