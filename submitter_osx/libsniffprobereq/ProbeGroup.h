@@ -50,10 +50,7 @@ public:
             return (*req_1 < *req_2);
         }
     };
-    
-    /*bool operator==(const ProbeReq& s1){
-     return (mac == s1.mac) && (ssid == s1.ssid);
-     }*/
+
 };
 
 
