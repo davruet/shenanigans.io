@@ -21,7 +21,7 @@ public class ProbeGroupData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String mac;
-	private byte[] token;
+	private String token;
 	@OneToMany (cascade = {CascadeType.ALL})
 	private List<ProbeReqData> probeRequests = new ArrayList<>();
 	
@@ -34,7 +34,7 @@ public class ProbeGroupData {
 			probeRequests.add(new ProbeReqData(req));
 		});
 		mac = group.getMac();
-		token = group.getToken().toByteArray();
+		token = group.getToken();
 	}
 
 	public Long getId() {
@@ -61,13 +61,15 @@ public class ProbeGroupData {
 		this.probeRequests = probeRequests;
 	}
 
-	public byte[] getToken() {
+	public String getToken() {
 		return token;
 	}
 
-	public void setToken(byte[] token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
+
+	
 	
 	
 	

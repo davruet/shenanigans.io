@@ -7,7 +7,7 @@ message Submission {
     message ProbeGroup {
         
         optional string mac = 1;
-        optional bytes token = 2;
+        optional string token = 2;
 
         message ProbeReq {
             optional string ssid = 1;

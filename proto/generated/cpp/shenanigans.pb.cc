@@ -377,12 +377,12 @@ bool Submission_ProbeGroup::MergePartialFromCodedStream(
         break;
       }
 
-      // optional bytes token = 2;
+      // optional string token = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_token:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_token()));
         } else {
           goto handle_uninterpreted;
@@ -429,9 +429,9 @@ void Submission_ProbeGroup::SerializeWithCachedSizes(
       1, this->mac(), output);
   }
 
-  // optional bytes token = 2;
+  // optional string token = 2;
   if (has_token()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+    ::google::protobuf::internal::WireFormatLite::WriteString(
       2, this->token(), output);
   }
 
@@ -454,10 +454,10 @@ int Submission_ProbeGroup::ByteSize() const {
           this->mac());
     }
 
-    // optional bytes token = 2;
+    // optional string token = 2;
     if (has_token()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
+        ::google::protobuf::internal::WireFormatLite::StringSize(
           this->token());
     }
 

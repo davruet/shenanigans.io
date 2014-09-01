@@ -124,15 +124,20 @@ public final class Shenanigans {
       com.google.protobuf.ByteString
           getMacBytes();
 
-      // optional bytes token = 2;
+      // optional string token = 2;
       /**
-       * <code>optional bytes token = 2;</code>
+       * <code>optional string token = 2;</code>
        */
       boolean hasToken();
       /**
-       * <code>optional bytes token = 2;</code>
+       * <code>optional string token = 2;</code>
        */
-      com.google.protobuf.ByteString getToken();
+      java.lang.String getToken();
+      /**
+       * <code>optional string token = 2;</code>
+       */
+      com.google.protobuf.ByteString
+          getTokenBytes();
 
       // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
       /**
@@ -783,20 +788,47 @@ public final class Shenanigans {
         }
       }
 
-      // optional bytes token = 2;
+      // optional string token = 2;
       public static final int TOKEN_FIELD_NUMBER = 2;
-      private com.google.protobuf.ByteString token_;
+      private java.lang.Object token_;
       /**
-       * <code>optional bytes token = 2;</code>
+       * <code>optional string token = 2;</code>
        */
       public boolean hasToken() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional bytes token = 2;</code>
+       * <code>optional string token = 2;</code>
        */
-      public com.google.protobuf.ByteString getToken() {
-        return token_;
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            token_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string token = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTokenBytes() {
+        java.lang.Object ref = token_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          token_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
 
       // repeated .io.shenanigans.proto.Submission.ProbeGroup.ProbeReq req = 3;
@@ -837,7 +869,7 @@ public final class Shenanigans {
 
       private void initFields() {
         mac_ = "";
-        token_ = com.google.protobuf.ByteString.EMPTY;
+        token_ = "";
         req_ = java.util.Collections.emptyList();
       }
       private byte memoizedIsInitialized = -1;
@@ -862,7 +894,7 @@ public final class Shenanigans {
           output.writeBytes(1, getMacBytes());
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, token_);
+          output.writeBytes(2, getTokenBytes());
         }
         for (int i = 0; i < req_.size(); i++) {
           output.writeMessage(3, req_.get(i));
@@ -881,7 +913,7 @@ public final class Shenanigans {
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, token_);
+            .computeBytesSize(2, getTokenBytes());
         }
         for (int i = 0; i < req_.size(); i++) {
           size += com.google.protobuf.CodedOutputStream
@@ -980,7 +1012,7 @@ public final class Shenanigans {
           super.clear();
           mac_ = "";
           bitField0_ = (bitField0_ & ~0x00000001);
-          token_ = com.google.protobuf.ByteString.EMPTY;
+          token_ = "";
           bitField0_ = (bitField0_ & ~0x00000002);
           req_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000004);
@@ -1032,7 +1064,9 @@ public final class Shenanigans {
             
           }
           if (other.hasToken()) {
-            setToken(other.getToken());
+            bitField0_ |= 0x00000002;
+            token_ = other.token_;
+            
           }
           if (!other.req_.isEmpty()) {
             if (req_.isEmpty()) {
@@ -1150,24 +1184,49 @@ public final class Shenanigans {
           return this;
         }
 
-        // optional bytes token = 2;
-        private com.google.protobuf.ByteString token_ = com.google.protobuf.ByteString.EMPTY;
+        // optional string token = 2;
+        private java.lang.Object token_ = "";
         /**
-         * <code>optional bytes token = 2;</code>
+         * <code>optional string token = 2;</code>
          */
         public boolean hasToken() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         /**
-         * <code>optional bytes token = 2;</code>
+         * <code>optional string token = 2;</code>
          */
-        public com.google.protobuf.ByteString getToken() {
-          return token_;
+        public java.lang.String getToken() {
+          java.lang.Object ref = token_;
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
+            token_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
         }
         /**
-         * <code>optional bytes token = 2;</code>
+         * <code>optional string token = 2;</code>
          */
-        public Builder setToken(com.google.protobuf.ByteString value) {
+        public com.google.protobuf.ByteString
+            getTokenBytes() {
+          java.lang.Object ref = token_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            token_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string token = 2;</code>
+         */
+        public Builder setToken(
+            java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -1177,11 +1236,24 @@ public final class Shenanigans {
           return this;
         }
         /**
-         * <code>optional bytes token = 2;</code>
+         * <code>optional string token = 2;</code>
          */
         public Builder clearToken() {
           bitField0_ = (bitField0_ & ~0x00000002);
           token_ = getDefaultInstance().getToken();
+          
+          return this;
+        }
+        /**
+         * <code>optional string token = 2;</code>
+         */
+        public Builder setTokenBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          token_ = value;
           
           return this;
         }

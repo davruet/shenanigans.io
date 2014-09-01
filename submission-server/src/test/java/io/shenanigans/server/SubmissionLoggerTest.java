@@ -23,13 +23,11 @@ public class SubmissionLoggerTest {
 			
 			@Override
 			public void save(List<SubmissionReceipt> submissions) throws StoreException {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void close() {
-				// TODO Auto-generated method stub
 				
 			}
 		};

@@ -210,14 +210,14 @@ class Submission_ProbeGroup : public ::google::protobuf::MessageLite {
   inline ::std::string* release_mac();
   inline void set_allocated_mac(::std::string* mac);
 
-  // optional bytes token = 2;
+  // optional string token = 2;
   inline bool has_token() const;
   inline void clear_token();
   static const int kTokenFieldNumber = 2;
   inline const ::std::string& token() const;
   inline void set_token(const ::std::string& value);
   inline void set_token(const char* value);
-  inline void set_token(const void* value, size_t size);
+  inline void set_token(const char* value, size_t size);
   inline ::std::string* mutable_token();
   inline ::std::string* release_token();
   inline void set_allocated_token(::std::string* token);
@@ -568,7 +568,7 @@ inline void Submission_ProbeGroup::set_allocated_mac(::std::string* mac) {
   }
 }
 
-// optional bytes token = 2;
+// optional string token = 2;
 inline bool Submission_ProbeGroup::has_token() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -601,7 +601,7 @@ inline void Submission_ProbeGroup::set_token(const char* value) {
   }
   token_->assign(value);
 }
-inline void Submission_ProbeGroup::set_token(const void* value, size_t size) {
+inline void Submission_ProbeGroup::set_token(const char* value, size_t size) {
   set_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     token_ = new ::std::string;

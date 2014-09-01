@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='shenanigans.proto',
   package='io.shenanigans.proto',
-  serialized_pb='\n\x11shenanigans.proto\x12\x14io.shenanigans.proto\"\xe2\x01\n\nSubmission\x12:\n\x05group\x18\x01 \x03(\x0b\x32+.io.shenanigans.proto.Submission.ProbeGroup\x1a\x97\x01\n\nProbeGroup\x12\x0b\n\x03mac\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\x0c\x12\x41\n\x03req\x18\x03 \x03(\x0b\x32\x34.io.shenanigans.proto.Submission.ProbeGroup.ProbeReq\x1a*\n\x08ProbeReq\x12\x0c\n\x04ssid\x18\x01 \x01(\t\x12\x10\n\x08reqBytes\x18\x02 \x02(\x0c\x42\x02H\x03')
+  serialized_pb='\n\x11shenanigans.proto\x12\x14io.shenanigans.proto\"\xe2\x01\n\nSubmission\x12:\n\x05group\x18\x01 \x03(\x0b\x32+.io.shenanigans.proto.Submission.ProbeGroup\x1a\x97\x01\n\nProbeGroup\x12\x0b\n\x03mac\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x41\n\x03req\x18\x03 \x03(\x0b\x32\x34.io.shenanigans.proto.Submission.ProbeGroup.ProbeReq\x1a*\n\x08ProbeReq\x12\x0c\n\x04ssid\x18\x01 \x01(\t\x12\x10\n\x08reqBytes\x18\x02 \x02(\x0c\x42\x02H\x03')
 
 
 
@@ -68,8 +68,8 @@ _SUBMISSION_PROBEGROUP = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='token', full_name='io.shenanigans.proto.Submission.ProbeGroup.token', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value="",
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

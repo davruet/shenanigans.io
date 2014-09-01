@@ -3,6 +3,7 @@ package io.shenanigans.server;
 import io.shenanigans.proto.Shenanigans.Submission;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,17 +29,21 @@ public class SubmissionReceipt {
 	private Submission submission;
 	private String ip;
 	private String headers;
+	private Date dateSubmitted;
+
 	@OneToMany(cascade = {CascadeType.ALL})
 	private List<ProbeGroupData> probeGroups = new ArrayList<>();
+	
 
 	public SubmissionReceipt() {
 
 	}
 
-	public SubmissionReceipt(Submission submission, String ip,
+	public SubmissionReceipt(Submission submission, String ip, Date dateSubmitted,
 			HashMap<String, String> headers) {
 		this.submission = submission;
 		this.ip = ip;
+		this.dateSubmitted = dateSubmitted;
 		this.headers = makeHeadersString(headers);
 		submission.getGroupList().forEach(group ->
 			probeGroups.add(new ProbeGroupData(group)));
@@ -108,5 +113,16 @@ public class SubmissionReceipt {
 			return new SubmissionReceipt();
 		}
 	};
+
+
+	public Date getDateSubmitted() {
+		return dateSubmitted;
+	}
+
+	public void setDateSubmitted(Date dateSubmitted) {
+		this.dateSubmitted = dateSubmitted;
+	}
+	
+	
 
 }
