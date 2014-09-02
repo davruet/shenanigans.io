@@ -373,9 +373,9 @@
 			productReference = 215E877E19880916003BBF94 /* libsniffprobereq.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		21E26AF419807CD300FE32F9 /* shenanigans_osx */ = {
+		21E26AF419807CD300FE32F9 /* Shenanigans */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "shenanigans_osx" */;
+			buildConfigurationList = 21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "Shenanigans" */;
 			buildPhases = (
 				216EF7E119A3C2BC0094E601 /* ShellScript */,
 				21E26AF119807CD300FE32F9 /* Sources */,
@@ -390,7 +390,7 @@
 				215E878C19880BB9003BBF94 /* PBXTargetDependency */,
 				215E876B1983877D003BBF94 /* PBXTargetDependency */,
 			);
-			name = shenanigans_osx;
+			name = Shenanigans;
 			productName = shenanigans_osx;
 			productReference = 21E26AF519807CD300FE32F9 /* shenanigans_osx.app */;
 			productType = "com.apple.product-type.application";
@@ -462,7 +462,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				21E26AF419807CD300FE32F9 /* shenanigans_osx */,
+				21E26AF419807CD300FE32F9 /* Shenanigans */,
 				21E26B1519807CD300FE32F9 /* shenanigans_osxTests */,
 				21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */,
 				215E877D19880916003BBF94 /* sniffprobereq */,
@@ -573,7 +573,7 @@
 		};
 		21E26B1B19807CD300FE32F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 21E26AF419807CD300FE32F9 /* shenanigans_osx */;
+			target = 21E26AF419807CD300FE32F9 /* Shenanigans */;
 			targetProxy = 21E26B1A19807CD300FE32F9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -885,7 +885,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "shenanigans_osx" */ = {
+		21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "Shenanigans" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21E26B2719807CD300FE32F9 /* Debug */,

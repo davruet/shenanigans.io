@@ -24,11 +24,11 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="shenanigans_osx" id="1Xt-HY-uBw">
+                <menuItem title="Shenanigans" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="shenanigans_osx" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Shenanigans" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About shenanigans_osx" id="5kV-Vb-QxS">
+                            <menuItem title="About Shenanigans" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
@@ -42,7 +42,7 @@
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Hide shenanigans_osx" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide Shenanigans" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
@@ -60,7 +60,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit shenanigans_osx" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit Shenanigans" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -671,7 +671,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="shenanigans_osx" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Shenanigans. De-identify your device" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="763" height="481"/>
@@ -686,7 +686,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Install" identifier="" id="4GP-bR-7gX">
-                                <view key="view" id="Btx-Oz-p66">
+                                <view key="view" ambiguous="YES" id="Btx-Oz-p66">
                                     <rect key="frame" x="10" y="33" width="203" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -768,7 +768,7 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Submit Fingerprint(s)" identifier="" id="I3s-ag-gU6">
-                                <view key="view" ambiguous="YES" id="aw4-IV-S1w">
+                                <view key="view" id="aw4-IV-S1w">
                                     <rect key="frame" x="10" y="33" width="717" height="402"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -808,7 +808,7 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Z8h-fC-HHn">
-                                                <rect key="frame" x="623" y="1" width="16" height="260"/>
+                                                <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
