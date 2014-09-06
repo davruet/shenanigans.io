@@ -37,6 +37,20 @@ void protobuf_ShutdownFile_shenanigans_2eproto();
 class Submission;
 class Submission_ProbeGroup;
 class Submission_ProbeGroup_ProbeReq;
+class ServerStatusQuery;
+class ServerStatusResponse;
+
+enum ServerStatusResponse_StatusCode {
+  ServerStatusResponse_StatusCode_READY = 0,
+  ServerStatusResponse_StatusCode_CLIENT_MUST_UPGRADE = 1,
+  ServerStatusResponse_StatusCode_SERVER_SLOW = 2,
+  ServerStatusResponse_StatusCode_SERVER_ENGULFED_IN_FLAMES = 3,
+  ServerStatusResponse_StatusCode_SERVER_ABANDONED = 4
+};
+bool ServerStatusResponse_StatusCode_IsValid(int value);
+const ServerStatusResponse_StatusCode ServerStatusResponse_StatusCode_StatusCode_MIN = ServerStatusResponse_StatusCode_READY;
+const ServerStatusResponse_StatusCode ServerStatusResponse_StatusCode_StatusCode_MAX = ServerStatusResponse_StatusCode_SERVER_ABANDONED;
+const int ServerStatusResponse_StatusCode_StatusCode_ARRAYSIZE = ServerStatusResponse_StatusCode_StatusCode_MAX + 1;
 
 // ===================================================================
 
@@ -316,10 +330,29 @@ class Submission : public ::google::protobuf::MessageLite {
 
   // accessors -------------------------------------------------------
 
-  // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
+  // optional string token = 1;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 1;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const char* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // optional int64 date = 2;
+  inline bool has_date() const;
+  inline void clear_date();
+  static const int kDateFieldNumber = 2;
+  inline ::google::protobuf::int64 date() const;
+  inline void set_date(::google::protobuf::int64 value);
+
+  // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;
   inline int group_size() const;
   inline void clear_group();
-  static const int kGroupFieldNumber = 1;
+  static const int kGroupFieldNumber = 3;
   inline const ::io::shenanigans::proto::Submission_ProbeGroup& group(int index) const;
   inline ::io::shenanigans::proto::Submission_ProbeGroup* mutable_group(int index);
   inline ::io::shenanigans::proto::Submission_ProbeGroup* add_group();
@@ -330,11 +363,17 @@ class Submission : public ::google::protobuf::MessageLite {
 
   // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission)
  private:
+  inline void set_has_token();
+  inline void clear_has_token();
+  inline void set_has_date();
+  inline void clear_has_date();
 
+  ::std::string* token_;
+  ::google::protobuf::int64 date_;
   ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup > group_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
@@ -346,6 +385,228 @@ class Submission : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static Submission* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ServerStatusQuery : public ::google::protobuf::MessageLite {
+ public:
+  ServerStatusQuery();
+  virtual ~ServerStatusQuery();
+
+  ServerStatusQuery(const ServerStatusQuery& from);
+
+  inline ServerStatusQuery& operator=(const ServerStatusQuery& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ServerStatusQuery& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ServerStatusQuery* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(ServerStatusQuery* other);
+
+  // implements Message ----------------------------------------------
+
+  ServerStatusQuery* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ServerStatusQuery& from);
+  void MergeFrom(const ServerStatusQuery& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string token = 1;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 1;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const char* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // optional int64 date = 2;
+  inline bool has_date() const;
+  inline void clear_date();
+  static const int kDateFieldNumber = 2;
+  inline ::google::protobuf::int64 date() const;
+  inline void set_date(::google::protobuf::int64 value);
+
+  // optional string version = 3;
+  inline bool has_version() const;
+  inline void clear_version();
+  static const int kVersionFieldNumber = 3;
+  inline const ::std::string& version() const;
+  inline void set_version(const ::std::string& value);
+  inline void set_version(const char* value);
+  inline void set_version(const char* value, size_t size);
+  inline ::std::string* mutable_version();
+  inline ::std::string* release_version();
+  inline void set_allocated_version(::std::string* version);
+
+  // @@protoc_insertion_point(class_scope:io.shenanigans.proto.ServerStatusQuery)
+ private:
+  inline void set_has_token();
+  inline void clear_has_token();
+  inline void set_has_date();
+  inline void clear_has_date();
+  inline void set_has_version();
+  inline void clear_has_version();
+
+  ::std::string* token_;
+  ::google::protobuf::int64 date_;
+  ::std::string* version_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_shenanigans_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_shenanigans_2eproto();
+  friend void protobuf_ShutdownFile_shenanigans_2eproto();
+
+  void InitAsDefaultInstance();
+  static ServerStatusQuery* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ServerStatusResponse : public ::google::protobuf::MessageLite {
+ public:
+  ServerStatusResponse();
+  virtual ~ServerStatusResponse();
+
+  ServerStatusResponse(const ServerStatusResponse& from);
+
+  inline ServerStatusResponse& operator=(const ServerStatusResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ServerStatusResponse& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ServerStatusResponse* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(ServerStatusResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  ServerStatusResponse* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ServerStatusResponse& from);
+  void MergeFrom(const ServerStatusResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  typedef ServerStatusResponse_StatusCode StatusCode;
+  static const StatusCode READY = ServerStatusResponse_StatusCode_READY;
+  static const StatusCode CLIENT_MUST_UPGRADE = ServerStatusResponse_StatusCode_CLIENT_MUST_UPGRADE;
+  static const StatusCode SERVER_SLOW = ServerStatusResponse_StatusCode_SERVER_SLOW;
+  static const StatusCode SERVER_ENGULFED_IN_FLAMES = ServerStatusResponse_StatusCode_SERVER_ENGULFED_IN_FLAMES;
+  static const StatusCode SERVER_ABANDONED = ServerStatusResponse_StatusCode_SERVER_ABANDONED;
+  static inline bool StatusCode_IsValid(int value) {
+    return ServerStatusResponse_StatusCode_IsValid(value);
+  }
+  static const StatusCode StatusCode_MIN =
+    ServerStatusResponse_StatusCode_StatusCode_MIN;
+  static const StatusCode StatusCode_MAX =
+    ServerStatusResponse_StatusCode_StatusCode_MAX;
+  static const int StatusCode_ARRAYSIZE =
+    ServerStatusResponse_StatusCode_StatusCode_ARRAYSIZE;
+
+  // accessors -------------------------------------------------------
+
+  // optional int64 serverDate = 1;
+  inline bool has_serverdate() const;
+  inline void clear_serverdate();
+  static const int kServerDateFieldNumber = 1;
+  inline ::google::protobuf::int64 serverdate() const;
+  inline void set_serverdate(::google::protobuf::int64 value);
+
+  // optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;
+  inline bool has_statuscode() const;
+  inline void clear_statuscode();
+  static const int kStatusCodeFieldNumber = 2;
+  inline ::io::shenanigans::proto::ServerStatusResponse_StatusCode statuscode() const;
+  inline void set_statuscode(::io::shenanigans::proto::ServerStatusResponse_StatusCode value);
+
+  // @@protoc_insertion_point(class_scope:io.shenanigans.proto.ServerStatusResponse)
+ private:
+  inline void set_has_serverdate();
+  inline void clear_has_serverdate();
+  inline void set_has_statuscode();
+  inline void clear_has_statuscode();
+
+  ::google::protobuf::int64 serverdate_;
+  int statuscode_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_shenanigans_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_shenanigans_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_shenanigans_2eproto();
+  friend void protobuf_ShutdownFile_shenanigans_2eproto();
+
+  void InitAsDefaultInstance();
+  static ServerStatusResponse* default_instance_;
 };
 // ===================================================================
 
@@ -667,7 +928,99 @@ Submission_ProbeGroup::mutable_req() {
 
 // Submission
 
-// repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
+// optional string token = 1;
+inline bool Submission::has_token() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Submission::set_has_token() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Submission::clear_has_token() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Submission::clear_token() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    token_->clear();
+  }
+  clear_has_token();
+}
+inline const ::std::string& Submission::token() const {
+  return *token_;
+}
+inline void Submission::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void Submission::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void Submission::set_token(const char* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Submission::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  return token_;
+}
+inline ::std::string* Submission::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Submission::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
+  if (token) {
+    set_has_token();
+    token_ = token;
+  } else {
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional int64 date = 2;
+inline bool Submission::has_date() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Submission::set_has_date() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Submission::clear_has_date() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Submission::clear_date() {
+  date_ = GOOGLE_LONGLONG(0);
+  clear_has_date();
+}
+inline ::google::protobuf::int64 Submission::date() const {
+  return date_;
+}
+inline void Submission::set_date(::google::protobuf::int64 value) {
+  set_has_date();
+  date_ = value;
+}
+
+// repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;
 inline int Submission::group_size() const {
   return group_.size();
 }
@@ -690,6 +1043,221 @@ Submission::group() const {
 inline ::google::protobuf::RepeatedPtrField< ::io::shenanigans::proto::Submission_ProbeGroup >*
 Submission::mutable_group() {
   return &group_;
+}
+
+// -------------------------------------------------------------------
+
+// ServerStatusQuery
+
+// optional string token = 1;
+inline bool ServerStatusQuery::has_token() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ServerStatusQuery::set_has_token() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ServerStatusQuery::clear_has_token() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ServerStatusQuery::clear_token() {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    token_->clear();
+  }
+  clear_has_token();
+}
+inline const ::std::string& ServerStatusQuery::token() const {
+  return *token_;
+}
+inline void ServerStatusQuery::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void ServerStatusQuery::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(value);
+}
+inline void ServerStatusQuery::set_token(const char* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  token_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ServerStatusQuery::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    token_ = new ::std::string;
+  }
+  return token_;
+}
+inline ::std::string* ServerStatusQuery::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ServerStatusQuery::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::kEmptyString) {
+    delete token_;
+  }
+  if (token) {
+    set_has_token();
+    token_ = token;
+  } else {
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional int64 date = 2;
+inline bool ServerStatusQuery::has_date() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ServerStatusQuery::set_has_date() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ServerStatusQuery::clear_has_date() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ServerStatusQuery::clear_date() {
+  date_ = GOOGLE_LONGLONG(0);
+  clear_has_date();
+}
+inline ::google::protobuf::int64 ServerStatusQuery::date() const {
+  return date_;
+}
+inline void ServerStatusQuery::set_date(::google::protobuf::int64 value) {
+  set_has_date();
+  date_ = value;
+}
+
+// optional string version = 3;
+inline bool ServerStatusQuery::has_version() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ServerStatusQuery::set_has_version() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ServerStatusQuery::clear_has_version() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ServerStatusQuery::clear_version() {
+  if (version_ != &::google::protobuf::internal::kEmptyString) {
+    version_->clear();
+  }
+  clear_has_version();
+}
+inline const ::std::string& ServerStatusQuery::version() const {
+  return *version_;
+}
+inline void ServerStatusQuery::set_version(const ::std::string& value) {
+  set_has_version();
+  if (version_ == &::google::protobuf::internal::kEmptyString) {
+    version_ = new ::std::string;
+  }
+  version_->assign(value);
+}
+inline void ServerStatusQuery::set_version(const char* value) {
+  set_has_version();
+  if (version_ == &::google::protobuf::internal::kEmptyString) {
+    version_ = new ::std::string;
+  }
+  version_->assign(value);
+}
+inline void ServerStatusQuery::set_version(const char* value, size_t size) {
+  set_has_version();
+  if (version_ == &::google::protobuf::internal::kEmptyString) {
+    version_ = new ::std::string;
+  }
+  version_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ServerStatusQuery::mutable_version() {
+  set_has_version();
+  if (version_ == &::google::protobuf::internal::kEmptyString) {
+    version_ = new ::std::string;
+  }
+  return version_;
+}
+inline ::std::string* ServerStatusQuery::release_version() {
+  clear_has_version();
+  if (version_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_;
+    version_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void ServerStatusQuery::set_allocated_version(::std::string* version) {
+  if (version_ != &::google::protobuf::internal::kEmptyString) {
+    delete version_;
+  }
+  if (version) {
+    set_has_version();
+    version_ = version;
+  } else {
+    clear_has_version();
+    version_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// ServerStatusResponse
+
+// optional int64 serverDate = 1;
+inline bool ServerStatusResponse::has_serverdate() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ServerStatusResponse::set_has_serverdate() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ServerStatusResponse::clear_has_serverdate() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ServerStatusResponse::clear_serverdate() {
+  serverdate_ = GOOGLE_LONGLONG(0);
+  clear_has_serverdate();
+}
+inline ::google::protobuf::int64 ServerStatusResponse::serverdate() const {
+  return serverdate_;
+}
+inline void ServerStatusResponse::set_serverdate(::google::protobuf::int64 value) {
+  set_has_serverdate();
+  serverdate_ = value;
+}
+
+// optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;
+inline bool ServerStatusResponse::has_statuscode() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ServerStatusResponse::set_has_statuscode() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ServerStatusResponse::clear_has_statuscode() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ServerStatusResponse::clear_statuscode() {
+  statuscode_ = 0;
+  clear_has_statuscode();
+}
+inline ::io::shenanigans::proto::ServerStatusResponse_StatusCode ServerStatusResponse::statuscode() const {
+  return static_cast< ::io::shenanigans::proto::ServerStatusResponse_StatusCode >(statuscode_);
+}
+inline void ServerStatusResponse::set_statuscode(::io::shenanigans::proto::ServerStatusResponse_StatusCode value) {
+  assert(::io::shenanigans::proto::ServerStatusResponse_StatusCode_IsValid(value));
+  set_has_statuscode();
+  statuscode_ = value;
 }
 
 

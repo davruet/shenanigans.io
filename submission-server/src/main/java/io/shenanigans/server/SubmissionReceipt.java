@@ -99,12 +99,12 @@ public class SubmissionReceipt {
 		return ""; //FIXME - nyi
 	}
 
-	public void copyFrom(SubmissionReceipt another){
-		this.submission = another.submission;
-		this.ip = another.ip;
-		this.id = another.id;
-		this.headers = another.headers;
-		this.probeGroups = new ArrayList<>(another.probeGroups);
+	public static void translate(SubmissionReceipt receipt, long id, SubmissionReceipt another){
+		another.submission = another.submission;
+		another.ip = another.ip;
+		another.id = another.id;
+		another.headers = another.headers;
+		another.probeGroups = new ArrayList<>(another.probeGroups);
 		
 	}
 

@@ -19,6 +19,8 @@
 #include <assert.h>
 #include "shenanigans.pb.h"
 #include "token.h"
+#include "NSURLConnectionWithData.h"
+#include "AFHTTPRequestOperationManager.h"
 
 
 // FIXME - TODO - stop the sniffer.
@@ -37,9 +39,76 @@
     return 0;
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+
+{
+    // initialize the persistent ID
+    [self initPersistentID];
+    io::shenanigans::proto::ServerStatusQuery query;
+    NSTimeInterval interval = [[NSDate date]timeIntervalSince1970];
+
+    query.set_date((interval * 1000)); // FIXME, let's get this in MS
+    query.set_token([persistentID UTF8String]);
+    query.set_version(SHENANIGANS_VERSION);
+    
+    NSLog(@"VERSION: %s\n", SHENANIGANS_VERSION);
+    std::string queryStr = query.SerializeAsString();
+    [self sendMessage:&queryStr url:@"https://localhost:8000/versionCheck" successCallback:^(NSData * data) {
+        NSLog(@"Version check success." );
+        io::shenanigans::proto::ServerStatusResponse response;
+        bool parsed = response.ParseFromArray([data bytes], (int)[data length]);
+        if (!parsed){
+            NSError * error = [self makeError:@"Could not start Shenanigans." reason:@"The server replied with a corrupted response." suggestion:@"Try restarting this application later." domain:@"ServerConnect"];
+            [self showError:error];
+            [NSApp terminate:self];
+            
+        } else {
+            switch (response.statuscode()) {
+                case io::shenanigans::proto::ServerStatusResponse_StatusCode_CLIENT_MUST_UPGRADE:
+                    {
+                        NSError * error = [self makeError:@"This app is out of date." reason:@"You are using an old version of Shenanigans that isn't compatible with the server." suggestion:@"Please download the latest version from https://shenanigans.io/download" domain:@"ServerConnect"];
+                        [self showError:error];
+                        [NSApp terminate:self];
+                        break;
+                    }
+                case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_ABANDONED:
+                {
+                    NSError * error = [self makeError:@"Shenanigans is a zombie." reason:@"Nobody has checked in recently to confirm that everything on the server is still working. Proceed at your own risk." suggestion:@"Nothing you can really do about this, sorry!" domain:@"ServerConnect"];
+                    [self showError:error];
+                    break;
+                }
+                case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_SLOW:
+                {
+                    NSError * error = [self makeError:@"Please bear with us..." reason:@"Lots of people are submitting their WiFi fingerprints right now, so please be patient, as your submission might not finish right away. Apologies for the delay!" suggestion:@"Nothing you can really do about this, sorry!" domain:@"ServerConnect"];
+                    [self showError:error];
+                    break;
+                }
+                case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_ENGULFED_IN_FLAMES:
+                {
+                    NSError * error = [self makeError:@"The server is too busy." reason:@"Many apologies, but the server is practically engulfed in flames due to all of the activity. Please try again in an hour or so after we've put out the fires." suggestion:@"Please try again later." domain:@"ServerConnect"];
+                    [self showError:error];
+                    [NSApp terminate:self];
+                    break;
+                }
+                case io::shenanigans::proto::ServerStatusResponse_StatusCode_READY:
+                default:
+                    break;
+            }
+        }
+    } failureCallback:^(NSError * err) {
+        NSError * userError = [self makeError:@"Could not start Shenanigans" reason:@"Could not contact the server. You'll need a working internet connection to submit your signature." suggestion:@"Make sure that you are connected to the internet." domain:@"ServerConnect"];
+        [self logError:err];
+        [self showError:userError];
+        [NSApp terminate:self];
+    }];
+
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+
 {
+    
+    
     probeGroupNodes = [[NSMutableArray alloc] init];
     probeGroupNodeDict = [[NSMutableDictionary alloc] init];
     
@@ -48,10 +117,37 @@
     
     [btnSelectDevice setEnabled:NO];
     [submissionTextView setFont:[NSFont userFixedPitchFontOfSize:0.0]];
-    //[myBrowser setAllowsBranchSelection:NO];
-    //[myBrowser setAllowsMultipleSelection:YES];
+    
+    // initialize sniffing permissions
+    [self checkAndFixPermissions];
     
     
+    // Add a listener for new probe groups to the probe request sniffer.
+    // TODO - make sure that passing the self reference here is safe + correct
+    ProbeGroupListener func = [self] (ProbeGroup * group, ProbeReq * req, int status){
+        [self probeSeen:group req:req status:status];
+    };
+    sniffer.addNewGroupListener(func);
+    
+    CWInterface *en0 = [CWInterface interface];
+    if (![en0 powerOn]){
+        NSError * error = [self makeError:@"Please turn on WiFi!" reason:@"You have to enable your computer's WiFi to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];
+        [self showError:error];
+
+    }
+    printf("en0.");
+    /* IBSS snippet
+    NSError * error = nil;
+    CWInterface *en0 = [CWInterface interface];
+    NSData *ssid = [@"shenanigans" dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *password = @"AFDBA";
+    BOOL created = [en0 startIBSSModeWithSSID:ssid security:kCWIBSSModeSecurityWEP40 channel:6 password:password error:&error];
+    NSLog(@"Created IBSS: %d", created);
+    */
+    
+}
+
+- (void)checkAndFixPermissions{
     bpfCheckResult = [self checkBPFStatus];
     if (bpfCheckResult.processHasAccess){
         // no need to change permissions. Proceed to next step.
@@ -67,7 +163,7 @@
             case CHECKBPF_SHENANIGANS:
                 detailMessage = @"The /dev/bpf* permissions have been successfully modified, but to access the WiFi hardware you must run this app as a user that's a member of the admin group.";
                 [installLabel setStringValue:detailMessage];
-                // 
+                //
             case CHECKBPF_ERROR: {
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
@@ -82,24 +178,28 @@
                 break;
         }
     }
-    
-    // Add a listener for new probe groups to the probe request sniffer.
-    // FIXME - not sure if passing the self reference here is safe or correct.
-    ProbeGroupListener func = [self] (ProbeGroup * group, ProbeReq * req, int status){
-        [self probeSeen:group req:req status:status];
-    };
-    sniffer.addNewGroupListener(func);
-    
-    /* IBSS snippet
-    NSError * error = nil;
-    CWInterface *en0 = [CWInterface interface];
-    NSData *ssid = [@"shenanigans" dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *password = @"AFDBA";
-    BOOL created = [en0 startIBSSModeWithSSID:ssid security:kCWIBSSModeSecurityWEP40 channel:6 password:password error:&error];
-    NSLog(@"Created IBSS: %d", created);
-    */
-    
-    
+
+}
+
+- (void)initPersistentID {
+    NSDictionary *appDefaults = [NSDictionary
+                                 dictionaryWithObject:@"" forKey:ID_KEY];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+
+    NSString * id = [[NSUserDefaults standardUserDefaults] stringForKey:ID_KEY];
+    if ([id isEqualToString:@""]) {
+        uint8_t buf[ID_SIZE];
+        arc4random_buf(&buf, ID_SIZE);
+        NSData * data = [NSData dataWithBytes:buf length:ID_SIZE];
+        NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:dataStr forKey:ID_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        persistentID = dataStr;
+    } else {
+        persistentID = id;
+    }
+
 }
 
 - (void)probeSeen:(ProbeGroup *)group req:(ProbeReq *)req status:(int)status
@@ -138,6 +238,7 @@
     return YES;
 }
 
+// FIXME / TODO - factor this out into another class.
 - (void)callHelperToChmodBPF:(id)sender error:(NSError **)nsError
 {
     OSStatus                    err;
@@ -294,8 +395,12 @@
 {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:error.localizedDescription];
-    [alert setInformativeText:error.localizedFailureReason];
+    if (error.localizedDescription != nil){
+        [alert setMessageText:error.localizedDescription];
+    } else {
+        [alert setMessageText:@"An error occurred -- please try again later."];
+    }
+    if (error.localizedFailureReason != nil) [alert setInformativeText:error.localizedFailureReason];
     [alert setAlertStyle:NSWarningAlertStyle];
     
     [alert runModal];
@@ -360,15 +465,17 @@
     commandBlock(nil);
 }
 
-- (IBAction)startListening:(id)sender {
+- (IBAction)nextTab:(id)sender {
     [[self tabView] selectNextTabViewItem:sender];
 
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
-    if ([[tabViewItem label] isEqualToString:@"Discover Devices"]){
+    // Start sniffing before the user adds the network - adding the network triggers a probe request.
+    if ([[tabViewItem label] isEqualToString:@"Configure Device"]){
         sniffer.start();
         
+        // start the UI redraw / sniffer update timer.
         if ([self repeatingTimer]) [self.repeatingTimer invalidate];
         
         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5
@@ -383,24 +490,10 @@
 
 - (void)targetMethod:(NSTimer*)theTimer {
     sniffer.update();
-    /*
-    std::map<std::string, ProbeGroup*>* groupMap = sniffer.getGroupMap();
-    for (std::map<std::string, ProbeGroup*>::iterator it = groupMap->begin(); it != groupMap->end(); ++it){
-        ProbeGroup* group = it->second;
-        printf("MAC: %s", group->mac.c_str());
-    }*/
-    
-
 }
 
 // Browser delegate methods
-/*
-- (id)rootItemForBrowser:(NSBrowser *)browser {
-    if (_rootNode == nil) {
-        _rootNode = [[FileSystemNode alloc] initWithURL:[NSURL fileURLWithPath:@"/"]];
-    }
-    return _rootNode;
-}*/
+
 
 - (NSInteger)browser:(NSBrowser *)browser numberOfChildrenOfItem:(id)item {
     if (item){
@@ -472,10 +565,33 @@
     //[myItem probeGroup]
     
 }
+
+// end browser delegate
+
 - (IBAction)selectDevice:(id)sender {
     [_tabView selectNextTabViewItem:sender];
 }
 
+
+- (void)sendMessage:(std::string *)message url:(NSString *)url successCallback:(void(^)(NSData *))success failureCallback:(void(^)(NSError *))failure{
+    NSLog(@"Sending message: %s\n", message->c_str());
+    NSData *data = [NSData dataWithBytes:message->c_str() length:message->length()];
+    
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [postRequest setValue:@"application/x-protobuf" forHTTPHeaderField:@"Content-Type"];
+    [postRequest setHTTPMethod:@"POST"];
+    [postRequest setHTTPBody:data];
+    
+    NSURLConnectionWithData *conn = [NSURLConnectionWithData alloc];
+    
+    conn.requestSuccess =  success;
+    conn.requestFailed = failure;
+    
+    conn = [conn initWithRequest:postRequest delegate:conn];
+    
+    
+}
 
 
 - (IBAction)submitFingerprint:(id)sender {
@@ -484,7 +600,7 @@
     std::vector<ProbeReq*>::iterator reqIt;
     
     io::shenanigans::proto::Submission submission;
-    
+    submission.set_token([persistentID UTF8String]);
 
     for (it = selectedProbeGroups.begin(); it != selectedProbeGroups.end(); it++){
         io::shenanigans::proto::Submission_ProbeGroup *outputGroup = submission.add_group();
@@ -515,82 +631,30 @@
         delete token;
         
     }
-
     
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8000/submitFingerprint"]];
-    
-    // Set the request's content type to application/x-www-form-urlencoded
-    [postRequest setValue:@"application/x-protobuf" forHTTPHeaderField:@"Content-Type"];
-    
-    // Designate the request a POST request and specify its body data
-    [postRequest setHTTPMethod:@"POST"];
-    std::string submissionStr = submission.SerializeAsString();
-    
-    std::cout << "SUBMISSION STRING: '" << submissionStr << "'" << std::endl;
-    //NSString *string = [NSString stringWithUTF8String:submissionStr.c_str()];
-    NSData *data = [NSData dataWithBytes:submissionStr.c_str() length:submissionStr.length()];
-    //NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"LENGTH:  %lu\n", (unsigned long)[data length]);
-    [postRequest setHTTPBody:data];
-    
-    receivedData = [NSMutableData dataWithCapacity: 0];
-    
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:postRequest delegate:self];
-    if (!theConnection) {
-           receivedData = nil;
-        NSLog(@"%@\n",@"Connection failed.");
-    } else {
-         NSLog(@"%@\n",@"Connection is cool.");
+    std::string message = submission.SerializeAsString();
+    [self sendMessage:&message url:@"https://localhost:8000/submitFingerprint" successCallback:^(NSData * data){
+        // do something with the data
+        // receivedData is declared as a property elsewhere
+        
+        NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)[data length]);
+        NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];
+        BOOL written = [data writeToFile:filePath atomically:NO];
+        if (!written){
+            NSLog(@"Couldn't write to file: '%@'.", filePath);
+        } else {
+            BOOL opened = [[NSWorkspace sharedWorkspace] openFile:filePath withApplication:@"Preview" ];
+            if (!opened){
+                // FIXME - show something to the user.
+            }
+            
+        }
     }
+    failureCallback:^(NSError * error){
+      [self showError:error];
+    }];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    // This method is called when the server has determined that it
-    // has enough information to create the NSURLResponse object.
-    
-    // It can be called multiple times, for example in the case of a
-    // redirect, so each time we reset the data.
-    
-    // receivedData is an instance variable declared elsewhere.
-    [receivedData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // Append the new data to receivedData.
-    // receivedData is an instance variable declared elsewhere.
-    [receivedData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection
-  didFailWithError:(NSError *)error
-{
-
-    
-    // inform the user
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    // do something with the data
-    // receivedData is declared as a property elsewhere
-    NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)[receivedData length]);
-    NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];
-    BOOL written = [receivedData writeToFile:filePath atomically:NO];
-    if (!written){
-        NSLog(@"Couldn't write to file: '%@'.", filePath);
-    } else {
-        [[NSWorkspace sharedWorkspace] openFile:filePath withApplication:@"Preview"];
-    }
-    NSLog(@"%@\n", [[NSString alloc]initWithData:receivedData encoding:NSUTF8StringEncoding]);
-    
-    // release receivedData
-    receivedData = nil;
-}
 
 
 - (void)logText:(NSString *)text

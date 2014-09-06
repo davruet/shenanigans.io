@@ -9,16 +9,19 @@ import javax.persistence.Persistence;
 
 /** Instances are not thread-safe. Best used on a single thread with a multithreaded
  * batching frontend.
+ * 
+ * Uses the generic <Object> template of BatchProcessor, as JPA doesn't have a base abstract
+ * class for entities.
  * @author dr
  *
  */
-public class JPASubmissionStore implements BatchSubmissionStore {
+public class JPABatchStore implements BatchProcessor<PersistEntityEvent> {
 
 
 	private EntityManagerFactory m_entityManagerFactory;
 	private EntityManager m_entityManager;
 
-	public JPASubmissionStore() {
+	public JPABatchStore() {
 	    m_entityManagerFactory = Persistence.createEntityManagerFactory("shenanigans");
 	    System.out.println("ENTITIES:: " + m_entityManagerFactory.getMetamodel().getEntities());
 		m_entityManager = m_entityManagerFactory.createEntityManager();
@@ -26,19 +29,18 @@ public class JPASubmissionStore implements BatchSubmissionStore {
 	}
 
 	@Override
-	public void save(List<SubmissionReceipt> submissions)
-			throws StoreException {
+	public void process(List<? extends PersistEntityEvent> submissions)
+			throws BatchProcessorException {
 		m_entityManager.getTransaction().begin();
 
 		m_entityManager.setFlushMode(FlushModeType.AUTO);
 		submissions.forEach(submission ->
-			m_entityManager.persist(submission));
+			m_entityManager.persist(submission.entity));
 		m_entityManager.getTransaction().commit();
 		//FIXME - exceptions
 
 	}
 
-	@Override
 	public void close() {
 		m_entityManager.close();
 		m_entityManagerFactory.close();

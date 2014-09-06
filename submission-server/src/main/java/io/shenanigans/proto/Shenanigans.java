@@ -11,18 +11,43 @@ public final class Shenanigans {
   public interface SubmissionOrBuilder
       extends com.google.protobuf.MessageLiteOrBuilder {
 
-    // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
+    // optional string token = 1;
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>optional string token = 1;</code>
+     */
+    boolean hasToken();
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    java.lang.String getToken();
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getTokenBytes();
+
+    // optional int64 date = 2;
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    boolean hasDate();
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    long getDate();
+
+    // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;
+    /**
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     java.util.List<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> 
         getGroupList();
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     io.shenanigans.proto.Shenanigans.Submission.ProbeGroup getGroup(int index);
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     int getGroupCount();
   }
@@ -70,9 +95,19 @@ public final class Shenanigans {
               break;
             }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              bitField0_ |= 0x00000001;
+              token_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              date_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
                 group_ = new java.util.ArrayList<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup>();
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000004;
               }
               group_.add(input.readMessage(io.shenanigans.proto.Shenanigans.Submission.ProbeGroup.PARSER, extensionRegistry));
               break;
@@ -85,7 +120,7 @@ public final class Shenanigans {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           group_ = java.util.Collections.unmodifiableList(group_);
         }
         makeExtensionsImmutable();
@@ -1394,36 +1429,96 @@ public final class Shenanigans {
       // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission.ProbeGroup)
     }
 
-    // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
-    public static final int GROUP_FIELD_NUMBER = 1;
+    private int bitField0_;
+    // optional string token = 1;
+    public static final int TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object token_;
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public boolean hasToken() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public java.lang.String getToken() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          token_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTokenBytes() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        token_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int64 date = 2;
+    public static final int DATE_FIELD_NUMBER = 2;
+    private long date_;
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    public boolean hasDate() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    public long getDate() {
+      return date_;
+    }
+
+    // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;
+    public static final int GROUP_FIELD_NUMBER = 3;
     private java.util.List<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> group_;
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     public java.util.List<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> getGroupList() {
       return group_;
     }
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     public java.util.List<? extends io.shenanigans.proto.Shenanigans.Submission.ProbeGroupOrBuilder> 
         getGroupOrBuilderList() {
       return group_;
     }
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     public int getGroupCount() {
       return group_.size();
     }
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     public io.shenanigans.proto.Shenanigans.Submission.ProbeGroup getGroup(int index) {
       return group_.get(index);
     }
     /**
-     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+     * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
      */
     public io.shenanigans.proto.Shenanigans.Submission.ProbeGroupOrBuilder getGroupOrBuilder(
         int index) {
@@ -1431,6 +1526,8 @@ public final class Shenanigans {
     }
 
     private void initFields() {
+      token_ = "";
+      date_ = 0L;
       group_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -1451,8 +1548,14 @@ public final class Shenanigans {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, date_);
+      }
       for (int i = 0; i < group_.size(); i++) {
-        output.writeMessage(1, group_.get(i));
+        output.writeMessage(3, group_.get(i));
       }
     }
 
@@ -1462,9 +1565,17 @@ public final class Shenanigans {
       if (size != -1) return size;
 
       size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, date_);
+      }
       for (int i = 0; i < group_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, group_.get(i));
+          .computeMessageSize(3, group_.get(i));
       }
       memoizedSerializedSize = size;
       return size;
@@ -1557,8 +1668,12 @@ public final class Shenanigans {
 
       public Builder clear() {
         super.clear();
-        group_ = java.util.Collections.emptyList();
+        token_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        date_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        group_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -1581,20 +1696,38 @@ public final class Shenanigans {
       public io.shenanigans.proto.Shenanigans.Submission buildPartial() {
         io.shenanigans.proto.Shenanigans.Submission result = new io.shenanigans.proto.Shenanigans.Submission(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.token_ = token_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.date_ = date_;
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           group_ = java.util.Collections.unmodifiableList(group_);
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000004);
         }
         result.group_ = group_;
+        result.bitField0_ = to_bitField0_;
         return result;
       }
 
       public Builder mergeFrom(io.shenanigans.proto.Shenanigans.Submission other) {
         if (other == io.shenanigans.proto.Shenanigans.Submission.getDefaultInstance()) return this;
+        if (other.hasToken()) {
+          bitField0_ |= 0x00000001;
+          token_ = other.token_;
+          
+        }
+        if (other.hasDate()) {
+          setDate(other.getDate());
+        }
         if (!other.group_.isEmpty()) {
           if (group_.isEmpty()) {
             group_ = other.group_;
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000004);
           } else {
             ensureGroupIsMutable();
             group_.addAll(other.group_);
@@ -1633,36 +1766,143 @@ public final class Shenanigans {
       }
       private int bitField0_;
 
-      // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;
+      // optional string token = 1;
+      private java.lang.Object token_ = "";
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public boolean hasToken() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          token_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTokenBytes() {
+        java.lang.Object ref = token_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          token_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        token_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder clearToken() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        token_ = getDefaultInstance().getToken();
+        
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        token_ = value;
+        
+        return this;
+      }
+
+      // optional int64 date = 2;
+      private long date_ ;
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public boolean hasDate() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public long getDate() {
+        return date_;
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public Builder setDate(long value) {
+        bitField0_ |= 0x00000002;
+        date_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public Builder clearDate() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        date_ = 0L;
+        
+        return this;
+      }
+
+      // repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;
       private java.util.List<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> group_ =
         java.util.Collections.emptyList();
       private void ensureGroupIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
           group_ = new java.util.ArrayList<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup>(group_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000004;
          }
       }
 
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public java.util.List<io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> getGroupList() {
         return java.util.Collections.unmodifiableList(group_);
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public int getGroupCount() {
         return group_.size();
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public io.shenanigans.proto.Shenanigans.Submission.ProbeGroup getGroup(int index) {
         return group_.get(index);
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder setGroup(
           int index, io.shenanigans.proto.Shenanigans.Submission.ProbeGroup value) {
@@ -1675,7 +1915,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder setGroup(
           int index, io.shenanigans.proto.Shenanigans.Submission.ProbeGroup.Builder builderForValue) {
@@ -1685,7 +1925,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder addGroup(io.shenanigans.proto.Shenanigans.Submission.ProbeGroup value) {
         if (value == null) {
@@ -1697,7 +1937,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder addGroup(
           int index, io.shenanigans.proto.Shenanigans.Submission.ProbeGroup value) {
@@ -1710,7 +1950,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder addGroup(
           io.shenanigans.proto.Shenanigans.Submission.ProbeGroup.Builder builderForValue) {
@@ -1720,7 +1960,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder addGroup(
           int index, io.shenanigans.proto.Shenanigans.Submission.ProbeGroup.Builder builderForValue) {
@@ -1730,7 +1970,7 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder addAllGroup(
           java.lang.Iterable<? extends io.shenanigans.proto.Shenanigans.Submission.ProbeGroup> values) {
@@ -1740,16 +1980,16 @@ public final class Shenanigans {
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder clearGroup() {
         group_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000004);
 
         return this;
       }
       /**
-       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 1;</code>
+       * <code>repeated .io.shenanigans.proto.Submission.ProbeGroup group = 3;</code>
        */
       public Builder removeGroup(int index) {
         ensureGroupIsMutable();
@@ -1767,6 +2007,1155 @@ public final class Shenanigans {
     }
 
     // @@protoc_insertion_point(class_scope:io.shenanigans.proto.Submission)
+  }
+
+  public interface ServerStatusQueryOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
+
+    // optional string token = 1;
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    boolean hasToken();
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    java.lang.String getToken();
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getTokenBytes();
+
+    // optional int64 date = 2;
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    boolean hasDate();
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    long getDate();
+
+    // optional string version = 3;
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    boolean hasVersion();
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    java.lang.String getVersion();
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getVersionBytes();
+  }
+  /**
+   * Protobuf type {@code io.shenanigans.proto.ServerStatusQuery}
+   */
+  public static final class ServerStatusQuery extends
+      com.google.protobuf.GeneratedMessageLite
+      implements ServerStatusQueryOrBuilder {
+    // Use ServerStatusQuery.newBuilder() to construct.
+    private ServerStatusQuery(com.google.protobuf.GeneratedMessageLite.Builder builder) {
+      super(builder);
+
+    }
+    private ServerStatusQuery(boolean noInit) {}
+
+    private static final ServerStatusQuery defaultInstance;
+    public static ServerStatusQuery getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ServerStatusQuery getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private ServerStatusQuery(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              token_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              date_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              version_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static com.google.protobuf.Parser<ServerStatusQuery> PARSER =
+        new com.google.protobuf.AbstractParser<ServerStatusQuery>() {
+      public ServerStatusQuery parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ServerStatusQuery(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ServerStatusQuery> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional string token = 1;
+    public static final int TOKEN_FIELD_NUMBER = 1;
+    private java.lang.Object token_;
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public boolean hasToken() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public java.lang.String getToken() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          token_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTokenBytes() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        token_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int64 date = 2;
+    public static final int DATE_FIELD_NUMBER = 2;
+    private long date_;
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    public boolean hasDate() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int64 date = 2;</code>
+     */
+    public long getDate() {
+      return date_;
+    }
+
+    // optional string version = 3;
+    public static final int VERSION_FIELD_NUMBER = 3;
+    private java.lang.Object version_;
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    public boolean hasVersion() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          version_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string version = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getVersionBytes() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        version_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      token_ = "";
+      date_ = 0L;
+      version_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, date_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getVersionBytes());
+      }
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, date_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getVersionBytes());
+      }
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusQuery parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(io.shenanigans.proto.Shenanigans.ServerStatusQuery prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    /**
+     * Protobuf type {@code io.shenanigans.proto.ServerStatusQuery}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          io.shenanigans.proto.Shenanigans.ServerStatusQuery, Builder>
+        implements io.shenanigans.proto.Shenanigans.ServerStatusQueryOrBuilder {
+      // Construct using io.shenanigans.proto.Shenanigans.ServerStatusQuery.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private void maybeForceBuilderInitialization() {
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        token_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        date_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        version_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusQuery getDefaultInstanceForType() {
+        return io.shenanigans.proto.Shenanigans.ServerStatusQuery.getDefaultInstance();
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusQuery build() {
+        io.shenanigans.proto.Shenanigans.ServerStatusQuery result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusQuery buildPartial() {
+        io.shenanigans.proto.Shenanigans.ServerStatusQuery result = new io.shenanigans.proto.Shenanigans.ServerStatusQuery(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.token_ = token_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.date_ = date_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.version_ = version_;
+        result.bitField0_ = to_bitField0_;
+        return result;
+      }
+
+      public Builder mergeFrom(io.shenanigans.proto.Shenanigans.ServerStatusQuery other) {
+        if (other == io.shenanigans.proto.Shenanigans.ServerStatusQuery.getDefaultInstance()) return this;
+        if (other.hasToken()) {
+          bitField0_ |= 0x00000001;
+          token_ = other.token_;
+          
+        }
+        if (other.hasDate()) {
+          setDate(other.getDate());
+        }
+        if (other.hasVersion()) {
+          bitField0_ |= 0x00000004;
+          version_ = other.version_;
+          
+        }
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        io.shenanigans.proto.Shenanigans.ServerStatusQuery parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (io.shenanigans.proto.Shenanigans.ServerStatusQuery) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional string token = 1;
+      private java.lang.Object token_ = "";
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public boolean hasToken() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          token_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTokenBytes() {
+        java.lang.Object ref = token_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          token_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        token_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder clearToken() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        token_ = getDefaultInstance().getToken();
+        
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        token_ = value;
+        
+        return this;
+      }
+
+      // optional int64 date = 2;
+      private long date_ ;
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public boolean hasDate() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public long getDate() {
+        return date_;
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public Builder setDate(long value) {
+        bitField0_ |= 0x00000002;
+        date_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional int64 date = 2;</code>
+       */
+      public Builder clearDate() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        date_ = 0L;
+        
+        return this;
+      }
+
+      // optional string version = 3;
+      private java.lang.Object version_ = "";
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public boolean hasVersion() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public java.lang.String getVersion() {
+        java.lang.Object ref = version_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          version_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getVersionBytes() {
+        java.lang.Object ref = version_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          version_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public Builder setVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        version_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public Builder clearVersion() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        version_ = getDefaultInstance().getVersion();
+        
+        return this;
+      }
+      /**
+       * <code>optional string version = 3;</code>
+       */
+      public Builder setVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        version_ = value;
+        
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:io.shenanigans.proto.ServerStatusQuery)
+    }
+
+    static {
+      defaultInstance = new ServerStatusQuery(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:io.shenanigans.proto.ServerStatusQuery)
+  }
+
+  public interface ServerStatusResponseOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
+
+    // optional int64 serverDate = 1;
+    /**
+     * <code>optional int64 serverDate = 1;</code>
+     */
+    boolean hasServerDate();
+    /**
+     * <code>optional int64 serverDate = 1;</code>
+     */
+    long getServerDate();
+
+    // optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;
+    /**
+     * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+     */
+    boolean hasStatusCode();
+    /**
+     * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+     */
+    io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode getStatusCode();
+  }
+  /**
+   * Protobuf type {@code io.shenanigans.proto.ServerStatusResponse}
+   */
+  public static final class ServerStatusResponse extends
+      com.google.protobuf.GeneratedMessageLite
+      implements ServerStatusResponseOrBuilder {
+    // Use ServerStatusResponse.newBuilder() to construct.
+    private ServerStatusResponse(com.google.protobuf.GeneratedMessageLite.Builder builder) {
+      super(builder);
+
+    }
+    private ServerStatusResponse(boolean noInit) {}
+
+    private static final ServerStatusResponse defaultInstance;
+    public static ServerStatusResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ServerStatusResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private ServerStatusResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              serverDate_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode value = io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode.valueOf(rawValue);
+              if (value != null) {
+                bitField0_ |= 0x00000002;
+                statusCode_ = value;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static com.google.protobuf.Parser<ServerStatusResponse> PARSER =
+        new com.google.protobuf.AbstractParser<ServerStatusResponse>() {
+      public ServerStatusResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ServerStatusResponse(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ServerStatusResponse> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code io.shenanigans.proto.ServerStatusResponse.StatusCode}
+     */
+    public enum StatusCode
+        implements com.google.protobuf.Internal.EnumLite {
+      /**
+       * <code>READY = 0;</code>
+       */
+      READY(0, 0),
+      /**
+       * <code>CLIENT_MUST_UPGRADE = 1;</code>
+       */
+      CLIENT_MUST_UPGRADE(1, 1),
+      /**
+       * <code>SERVER_SLOW = 2;</code>
+       */
+      SERVER_SLOW(2, 2),
+      /**
+       * <code>SERVER_ENGULFED_IN_FLAMES = 3;</code>
+       */
+      SERVER_ENGULFED_IN_FLAMES(3, 3),
+      /**
+       * <code>SERVER_ABANDONED = 4;</code>
+       */
+      SERVER_ABANDONED(4, 4),
+      ;
+
+      /**
+       * <code>READY = 0;</code>
+       */
+      public static final int READY_VALUE = 0;
+      /**
+       * <code>CLIENT_MUST_UPGRADE = 1;</code>
+       */
+      public static final int CLIENT_MUST_UPGRADE_VALUE = 1;
+      /**
+       * <code>SERVER_SLOW = 2;</code>
+       */
+      public static final int SERVER_SLOW_VALUE = 2;
+      /**
+       * <code>SERVER_ENGULFED_IN_FLAMES = 3;</code>
+       */
+      public static final int SERVER_ENGULFED_IN_FLAMES_VALUE = 3;
+      /**
+       * <code>SERVER_ABANDONED = 4;</code>
+       */
+      public static final int SERVER_ABANDONED_VALUE = 4;
+
+
+      public final int getNumber() { return value; }
+
+      public static StatusCode valueOf(int value) {
+        switch (value) {
+          case 0: return READY;
+          case 1: return CLIENT_MUST_UPGRADE;
+          case 2: return SERVER_SLOW;
+          case 3: return SERVER_ENGULFED_IN_FLAMES;
+          case 4: return SERVER_ABANDONED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<StatusCode>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<StatusCode>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<StatusCode>() {
+              public StatusCode findValueByNumber(int number) {
+                return StatusCode.valueOf(number);
+              }
+            };
+
+      private final int value;
+
+      private StatusCode(int index, int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:io.shenanigans.proto.ServerStatusResponse.StatusCode)
+    }
+
+    private int bitField0_;
+    // optional int64 serverDate = 1;
+    public static final int SERVERDATE_FIELD_NUMBER = 1;
+    private long serverDate_;
+    /**
+     * <code>optional int64 serverDate = 1;</code>
+     */
+    public boolean hasServerDate() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int64 serverDate = 1;</code>
+     */
+    public long getServerDate() {
+      return serverDate_;
+    }
+
+    // optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;
+    public static final int STATUSCODE_FIELD_NUMBER = 2;
+    private io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode statusCode_;
+    /**
+     * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+     */
+    public boolean hasStatusCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+     */
+    public io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode getStatusCode() {
+      return statusCode_;
+    }
+
+    private void initFields() {
+      serverDate_ = 0L;
+      statusCode_ = io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode.READY;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt64(1, serverDate_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, statusCode_.getNumber());
+      }
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, serverDate_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, statusCode_.getNumber());
+      }
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static io.shenanigans.proto.Shenanigans.ServerStatusResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(io.shenanigans.proto.Shenanigans.ServerStatusResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    /**
+     * Protobuf type {@code io.shenanigans.proto.ServerStatusResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          io.shenanigans.proto.Shenanigans.ServerStatusResponse, Builder>
+        implements io.shenanigans.proto.Shenanigans.ServerStatusResponseOrBuilder {
+      // Construct using io.shenanigans.proto.Shenanigans.ServerStatusResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private void maybeForceBuilderInitialization() {
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        serverDate_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        statusCode_ = io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode.READY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusResponse getDefaultInstanceForType() {
+        return io.shenanigans.proto.Shenanigans.ServerStatusResponse.getDefaultInstance();
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusResponse build() {
+        io.shenanigans.proto.Shenanigans.ServerStatusResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public io.shenanigans.proto.Shenanigans.ServerStatusResponse buildPartial() {
+        io.shenanigans.proto.Shenanigans.ServerStatusResponse result = new io.shenanigans.proto.Shenanigans.ServerStatusResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.serverDate_ = serverDate_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.statusCode_ = statusCode_;
+        result.bitField0_ = to_bitField0_;
+        return result;
+      }
+
+      public Builder mergeFrom(io.shenanigans.proto.Shenanigans.ServerStatusResponse other) {
+        if (other == io.shenanigans.proto.Shenanigans.ServerStatusResponse.getDefaultInstance()) return this;
+        if (other.hasServerDate()) {
+          setServerDate(other.getServerDate());
+        }
+        if (other.hasStatusCode()) {
+          setStatusCode(other.getStatusCode());
+        }
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        io.shenanigans.proto.Shenanigans.ServerStatusResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (io.shenanigans.proto.Shenanigans.ServerStatusResponse) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int64 serverDate = 1;
+      private long serverDate_ ;
+      /**
+       * <code>optional int64 serverDate = 1;</code>
+       */
+      public boolean hasServerDate() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int64 serverDate = 1;</code>
+       */
+      public long getServerDate() {
+        return serverDate_;
+      }
+      /**
+       * <code>optional int64 serverDate = 1;</code>
+       */
+      public Builder setServerDate(long value) {
+        bitField0_ |= 0x00000001;
+        serverDate_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional int64 serverDate = 1;</code>
+       */
+      public Builder clearServerDate() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        serverDate_ = 0L;
+        
+        return this;
+      }
+
+      // optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;
+      private io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode statusCode_ = io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode.READY;
+      /**
+       * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+       */
+      public boolean hasStatusCode() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+       */
+      public io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode getStatusCode() {
+        return statusCode_;
+      }
+      /**
+       * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+       */
+      public Builder setStatusCode(io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        statusCode_ = value;
+        
+        return this;
+      }
+      /**
+       * <code>optional .io.shenanigans.proto.ServerStatusResponse.StatusCode statusCode = 2;</code>
+       */
+      public Builder clearStatusCode() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        statusCode_ = io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode.READY;
+        
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:io.shenanigans.proto.ServerStatusResponse)
+    }
+
+    static {
+      defaultInstance = new ServerStatusResponse(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:io.shenanigans.proto.ServerStatusResponse)
   }
 
 

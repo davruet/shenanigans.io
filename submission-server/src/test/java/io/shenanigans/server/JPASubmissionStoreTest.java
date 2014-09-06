@@ -9,13 +9,13 @@ public class JPASubmissionStoreTest {
 
 	@Test
 	public void testStoreSubmissions() throws Exception{
-		JPASubmissionStore store = new JPASubmissionStore();
-		List<SubmissionReceipt> submissions = new ArrayList<>();
+		JPABatchStore store = new JPABatchStore();
+		List<PersistEntityEvent> submissions = new ArrayList<>();
 		
 		for (int i = 0; i < 300; i++){
-			submissions.add(makeReceipt());
+			submissions.add(new PersistEntityEvent(makeReceipt()));
 		}
-		store.save(submissions);
+		store.process(submissions);
 		store.close();
 	}
 

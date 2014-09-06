@@ -18,6 +18,10 @@
 #define CHECKBPF_STOCK 0
 #define CHECKBPF_ALTERED 1
 #define CHECKBPF_SHENANIGANS 2
+#define ID_SIZE 512
+#define SHENANIGANS_VERSION "0.1a"
+
+#define ID_KEY @"ApplicationID"
 
 struct BPFCheckResult {
     
@@ -36,6 +40,8 @@ struct BPFCheckResult {
     BPFCheckResult bpfCheckResult;
     std::vector<ProbeGroup*> selectedProbeGroups;
     NSMutableData *receivedData;
+    NSString * persistentID;
+    
     __weak NSButton *btnSelectDevice;
     __weak NSTextField *installLabel;
     __weak NSBrowser *myBrowser;

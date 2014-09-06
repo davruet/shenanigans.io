@@ -10,31 +10,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SubmissionLoggerTest {
+import com.lmax.disruptor.EventTranslatorOneArg;
+
+public class AsyncConcurrentBatchingProcessorTest {
 
 	private CountDownLatch m_latch;
-	private AsyncBatchSubmissionLogger m_logger;
-	private List<List<SubmissionReceipt>>m_receivedEvents = new ArrayList<List<SubmissionReceipt>>();
+	private AsyncConcurrentBatchingProcessor<Object> m_processor;
+	private List<List<Object>>m_receivedEvents = new ArrayList<List<Object>>();
 	
 	@Before
 	public void init(){
 		m_latch = new CountDownLatch(1);
-		BatchSubmissionStore store = new BatchSubmissionStore() {
-			
-			@Override
-			public void save(List<SubmissionReceipt> submissions) throws StoreException {
-				
-			}
-			
-			@Override
-			public void close() {
-				
-			}
-		};
-		m_logger = new AsyncBatchSubmissionLogger(store){
+		BatchProcessor<Object> bp = new BatchProcessor<Object>() {
 
 			@Override
-			protected void persistBatch(List<SubmissionReceipt> batch) {
+			public void process(List<? extends Object> batch) throws BatchProcessorException {
 				m_receivedEvents.add(new ArrayList<>(batch));
 				for (int i = 0; i < batch.size(); i++){
 					m_latch.countDown();
@@ -43,21 +33,25 @@ public class SubmissionLoggerTest {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}				
 			}
 			
+			
 		};
+		m_processor = new AsyncConcurrentBatchingProcessor<Object>(bp, Object::new, new EventTranslatorOneArg<Object, Object>() {
+			public void translateTo(Object event, long sequence, Object arg0) {};
+		});
 	}
+	
 	@After
 	public void stop(){
-		m_logger.stop();
+		m_processor.stop();
 	}
 	
 	@Test
 	public void testSubmission() throws Exception {
 		
-		SubmissionReceipt submission = new SubmissionReceipt();
-		m_logger.logSubmission(submission);
+		m_processor.processEvent(new Object());
 	
 		awaitCompletion();
 		Assert.assertTrue(m_receivedEvents.get(0).size() == 1);
@@ -72,7 +66,7 @@ public class SubmissionLoggerTest {
 		int count = 100;
 		m_latch = new CountDownLatch(count);
 		for (int i = 0; i < count; i++){
-			m_logger.logSubmission(new SubmissionReceipt());
+			m_processor.processEvent(new Object());
 		}
 		awaitCompletion();
 		for (List<?> list : m_receivedEvents){

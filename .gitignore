@@ -1,3 +1,5 @@
+# java keystores
+*.jks
 *.db
 shenanigans.xcodeproj
 .DS_Store
