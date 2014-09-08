@@ -51,9 +51,3 @@ void ProbeGroup::addProbe(ProbeReq& req){
     probeMap[req.ssid] = newReq;
     printf("New probe: %s %s\n", newReq->mac.c_str(), newReq->ssid.c_str());
 }
-/*
-ProbeReq::ProbeReq(const ProbeReq& req){
-    ssid = req.ssid;
-    mac = req.mac;
-    lastSeen = req.lastSeen
-}*/

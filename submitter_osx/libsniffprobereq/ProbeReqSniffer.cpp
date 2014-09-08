@@ -37,7 +37,6 @@ void ProbeReqSniffer::update(){
     for (ptr = packetBuffer.begin(); ptr != packetBuffer.end(); ptr++){
         ProbeGroupMapType::iterator groupPtr = groupMap.find(ptr->mac);
         
-        //std::iterator ptr = groupMap.find(ptr->mac);
         int status;
         ProbeGroup * group;
         if (groupPtr == groupMap.end()){
@@ -58,7 +57,7 @@ void ProbeReqSniffer::update(){
         std::vector<ProbeGroupListener>::iterator listenerPtr;
         for (listenerPtr = groupListeners.begin(); listenerPtr != groupListeners.end(); listenerPtr++){
             ProbeGroupListener func = *listenerPtr;
-            func(group, &*ptr, status); // FIXME-- &*ptr? :/ is this right?
+            func(group, &(*ptr), status);
         }
     
     }
@@ -78,7 +77,7 @@ void ProbeReqSniffer::SnifferRunnable::run(){
         launchMutex.lock();
         //std::string defaultInterface = NetworkInterface::default_interface().name();
         //printf("Starting sniffer on interface: %s\n", defaultInterface.c_str());
-        
+        //FIXME: evaluate/handle cases where en0 is not the desired interface.
         sniffer = new Sniffer("en0", Sniffer::PROMISC, "type mgt subtype probe-req", true);
         sniffer->set_timeout(1000);
 

@@ -13,7 +13,9 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="btnGrantPermission" destination="XFg-kw-Dzq" id="7UF-bz-xB1"/>
                 <outlet property="btnSelectDevice" destination="WmL-hN-rpF" id="fHY-Fn-rrp"/>
+                <outlet property="btnSubmitFingerprint" destination="8sS-R5-bUr" id="Rku-dw-57u"/>
                 <outlet property="installLabel" destination="U9G-cg-654" id="jQM-0H-Ldx"/>
                 <outlet property="myBrowser" destination="Jgx-jL-d5T" id="mBI-M4-jia"/>
                 <outlet property="submissionTextView" destination="So5-eG-EnO" id="TKk-iu-QKu"/>
@@ -686,12 +688,12 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Install" identifier="" id="4GP-bR-7gX">
-                                <view key="view" id="Btx-Oz-p66">
-                                    <rect key="frame" x="10" y="33" width="267" height="0.0"/>
+                                <view key="view" ambiguous="YES" id="Btx-Oz-p66">
+                                    <rect key="frame" x="10" y="33" width="592" height="402"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-cg-654">
-                                            <rect key="frame" x="68" y="-228" width="441" height="153"/>
+                                            <rect key="frame" x="68" y="174" width="441" height="153"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3T8-yz-e4u">
                                                 <font key="font" metaFont="system"/>
@@ -700,8 +702,8 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
-                                            <rect key="frame" x="337" y="-305" width="159" height="32"/>
+                                        <button identifier="btnGrantPermission" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
+                                            <rect key="frame" x="337" y="97" width="159" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Grant Permission..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I9t-FG-Ef0">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -796,7 +798,7 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Submit Fingerprint" identifier="" id="I3s-ag-gU6">
-                                <view key="view" ambiguous="YES" id="aw4-IV-S1w">
+                                <view key="view" id="aw4-IV-S1w">
                                     <rect key="frame" x="10" y="33" width="592" height="402"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

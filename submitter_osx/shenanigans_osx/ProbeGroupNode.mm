@@ -69,16 +69,15 @@
             // Wrap the child url with our node
             ProbeReqNode *node = [[ProbeReqNode alloc] init:probeReq];
             [newChildren setObject:node forKey:probeReqKey];
-            //[node release];
             
         }
-        //[_children release];
         children = newChildren;
         _childrenDirty = NO;
     }
     
     NSArray *result = [children allValues];
-    // Sort the children by the display name and return it
+    
+
     result = [result sortedArrayUsingComparator:^(id obj1, id obj2) {
         NSString *objName = [obj1 displayName];
         NSString *obj2Name = [obj2 displayName];

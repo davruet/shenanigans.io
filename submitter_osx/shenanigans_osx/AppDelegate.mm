@@ -20,10 +20,8 @@
 #include "shenanigans.pb.h"
 #include "token.h"
 #include "NSURLConnectionWithData.h"
-#include "AFHTTPRequestOperationManager.h"
 
 
-// FIXME - TODO - stop the sniffer.
 // TODO - add handling of server request (proper display of progress and errors)
 
 
@@ -116,6 +114,7 @@
     [myBrowser setTitle:@"Device networks" ofColumn:1];
     
     [btnSelectDevice setEnabled:NO];
+    [_btnSubmitFingerprint setEnabled:NO];
     [submissionTextView setFont:[NSFont userFixedPitchFontOfSize:0.0]];
     
     // initialize sniffing permissions
@@ -136,7 +135,8 @@
 
     }
     printf("en0.");
-    /* IBSS snippet
+    
+    /* TODO, add IBSS feature- Start in IBSS mode:
     NSError * error = nil;
     CWInterface *en0 = [CWInterface interface];
     NSData *ssid = [@"shenanigans" dataUsingEncoding:NSUTF8StringEncoding];
@@ -153,10 +153,12 @@
         // no need to change permissions. Proceed to next step.
         //[[self tabView] selectNextTabViewItem:0];
         [installLabel setStringValue:@"Your WiFi hardware is already configured. Click \"Next...\" to continue."];
+        [_btnGrantPermission setTitle:@"Next..."];
     } else {
         NSString* detailMessage;
         switch (bpfCheckResult.permissionsType){
             case CHECKBPF_ALTERED:
+                // FIXME - add another option to continue without changing.
                 detailMessage = @"Access to the /dev/bpf* devices has been been changed by another packet sniffing app on your system, and we don't want to mess anything up! If you proceed, the other app may be affected.";
                 [installLabel setStringValue:detailMessage];
                 break;
@@ -221,11 +223,11 @@
             break;
         }
     }
-    //[myBrowser reloadColumn:0];
     
+    //FIXME - need smart reloading, maybe?
+    //[myBrowser reloadColumn:0];
     //NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, [myBrowser ])];
     
-    //FIXME - need smart reloading.
     for (NSInteger col = [myBrowser lastColumn]; col >= 0; col--){
         //[myBrowser reloadDataForRowIndexes:set inColumn:col];
         [myBrowser reloadColumn:col];
@@ -528,14 +530,13 @@
     
     NSArray * paths = [myBrowser selectionIndexPaths];
     [btnSelectDevice setEnabled:[paths count] > 0];
+    [_btnSubmitFingerprint setEnabled:[paths count] > 0];
     selectedProbeGroups.clear();
     NSMutableString * submissionString = [NSMutableString new];
     for (NSIndexPath * indexPath in paths){
-    //NSIndexPath *indexPath = [myBrowser selectionIndexPath];
         id myItem = [myBrowser itemAtIndexPath:indexPath];
         if ([myItem isKindOfClass:[ProbeGroupNode class]]){
             ProbeGroup * group = [myItem probeGroup];
-           // printf("Selected: %s\n", group->mac.c_str());
             selectedProbeGroups.push_back(group);
             [submissionString appendString:@"MAC: "];
             [submissionString appendString:[NSString stringWithUTF8String:group->mac.c_str()]];
@@ -544,9 +545,7 @@
             for (it = group->probeReqs.begin(); it != group->probeReqs.end(); it++){
                 ProbeReq * req = *it;
                 [submissionString appendString:[NSString stringWithUTF8String:req->ssid.c_str()]];
-                /*if ((it + 1) != group->probeReqs.end()){
-                    [submissionString appendString:@", "];
-                }*/
+
                 NSData * data = [NSData dataWithBytes:&(req->rawBytes[0]) length:req->rawBytes.size()];
                 NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
                 [submissionString appendString:@"\n"];
@@ -560,9 +559,7 @@
         }
     }
     [submissionTextView setString:submissionString];
-    NSLog(@"%@\n", submissionString);
 
-    //[myItem probeGroup]
     
 }
 
@@ -587,6 +584,7 @@
     
     conn.requestSuccess =  success;
     conn.requestFailed = failure;
+    conn.certName = CERT_NAME;
     
     conn = [conn initWithRequest:postRequest delegate:conn];
     
@@ -611,14 +609,8 @@
         for (reqIt = probeGroup->probeReqs.begin(); reqIt != probeGroup->probeReqs.end(); reqIt++){
             io::shenanigans::proto::Submission_ProbeGroup_ProbeReq *outputReq = outputGroup->add_req();
             ProbeReq * req = *reqIt;
-            //packet_bytes::iterator byteIt;
-            /*
-            for (byteIt = req->rawBytes.begin(); byteIt != req->rawBytes.end(); byteIt++){
-                outputbytes.push_back(*byteIt);
-                i++;
-            }*/
-            outputReq->set_ssid(req->ssid);
-            //outputReq->set_reqbytes(std::string(req->rawBytes.begin(), req->rawBytes.end()));
+                       outputReq->set_ssid(req->ssid);
+
             outputReq->set_reqbytes(&(req->rawBytes[0]), req->rawBytes.size());
             tokenInput.insert(tokenInput.end(), req->rawBytes.begin(), req->rawBytes.end());
             
@@ -634,18 +626,18 @@
     
     std::string message = submission.SerializeAsString();
     [self sendMessage:&message url:@"https://localhost:8000/submitFingerprint" successCallback:^(NSData * data){
-        // do something with the data
-        // receivedData is declared as a property elsewhere
         
-        NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)[data length]);
+        NSLog(@"Received %lu bytes of data",(unsigned long)[data length]);
         NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];
         BOOL written = [data writeToFile:filePath atomically:NO];
         if (!written){
             NSLog(@"Couldn't write to file: '%@'.", filePath);
         } else {
+            // FIXME - if preview has been closed, and we submit another item, we get a crash: malloc: *** error for object 0x600000019580: Freeing already free'd pointer
             BOOL opened = [[NSWorkspace sharedWorkspace] openFile:filePath withApplication:@"Preview" ];
-            if (!opened){
-                // FIXME - show something to the user.
+            if (!opened){ // FIXME - test this more and handle more error cases.
+                NSError * error = [self makeError:@"Couldn't create a valid certificate." reason:@"The server responded with an invalid document." suggestion:@"Contact a site administrator" domain:@"ServerConnect"];
+                [self showError:error];
             }
             
         }

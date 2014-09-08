@@ -10,6 +10,7 @@
 
 @interface NSURLConnectionWithData : NSURLConnection
 @property(nonatomic, strong) NSMutableData *receivedData;
+@property(nonatomic, strong) NSString *certName;
 @property(nonatomic, copy) void (^requestSuccess)(NSData * data);
 @property(nonatomic, copy) void (^requestFailed)(NSError * error);
 @end

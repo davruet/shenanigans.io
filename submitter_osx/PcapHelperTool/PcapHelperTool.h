@@ -1,5 +1,5 @@
 /*
-     File: HelperTool.h
+     Original File: HelperTool.h
  Abstract: The main object in the helper tool.
   Version: 1.0
  

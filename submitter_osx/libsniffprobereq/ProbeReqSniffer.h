@@ -18,6 +18,7 @@
 typedef std::function<void(ProbeGroup*, ProbeReq*, int)> ProbeGroupListener;
 typedef std::map<std::string, ProbeGroup*> ProbeGroupMapType;
 
+// FIXME - This whole library should be a submodule.
 class ProbeReqSniffer {
  
     class SnifferRunnable: public Poco::Runnable {
@@ -46,7 +47,7 @@ private:
     Poco::Thread thread;
     SnifferRunnable snifferRunnable;
     std::vector<ProbeReq> packetBuffer;
-    // we keep track of all probe groups seen.
+    // keep track of all probe groups seen.
     ProbeGroupMapType groupMap;
     bool noconsent = true;
     std::vector<ProbeGroupListener> groupListeners;

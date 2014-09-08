@@ -28,7 +28,6 @@ public:
     }
     
     ProbeReq(){};
-    //ProbeReq(const ProbeReq& req);
     std::string ssid;
     std::string mac;
     std::string key;

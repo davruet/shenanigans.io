@@ -12,23 +12,17 @@
 @synthesize receivedData;
 @synthesize requestSuccess;
 @synthesize requestFailed;
+@synthesize certName;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    // This method is called when the server has determined that it
-    // has enough information to create the NSURLResponse object.
-    
-    // It can be called multiple times, for example in the case of a
-    // redirect, so each time we reset the data.
+
     receivedData = [NSMutableData dataWithCapacity: 0];
-    // receivedData is an instance variable declared elsewhere.
     [receivedData setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    // Append the new data to receivedData.
-    // receivedData is an instance variable declared elsewhere.
     [receivedData appendData:data];
 }
 
@@ -37,7 +31,7 @@ didFailWithError:(NSError *)error
 {
     
     if (requestFailed) requestFailed(error);
-    // inform the user
+    // log
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
@@ -61,10 +55,13 @@ didFailWithError:(NSError *)error
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
         (void) SecTrustEvaluate(serverTrust, NULL);
         
-        NSData *myCert = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource: @"shenanigans" ofType: @"cer"]];
+        NSData *myCert = nil;
+        if (certName != nil){
+            myCert = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource: certName ofType: @"cer"]];
+
+        }
         if (myCert == nil){
             NSLog(@"Cert not found.");
-            //[[challenge sender] cancelAuthenticationChallenge: challenge];
             [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
             return;
         }
@@ -82,11 +79,11 @@ didFailWithError:(NSError *)error
         }
     }
 }
-
+/*
 - (BOOL)shouldTrustProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     
     return TRUE; // FIXME - implement cert pinning
-}
+}*/
 
 
 @end

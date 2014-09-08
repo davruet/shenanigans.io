@@ -32,7 +32,7 @@
 - (void)invalidateChildren;
 
 @property(readonly) ProbeGroup *probeGroup;
-//@property(readonly, retain) NSImage *icon;
+//@property(readonly, retain) NSImage *icon; // FIXME - add icons??
 //@property(readonly, retain) NSColor *labelColor;
 
 

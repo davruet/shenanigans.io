@@ -22,6 +22,7 @@
 #define SHENANIGANS_VERSION "0.1a"
 
 #define ID_KEY @"ApplicationID"
+#define CERT_NAME @"shenanigans"
 
 struct BPFCheckResult {
     
@@ -43,6 +44,8 @@ struct BPFCheckResult {
     NSString * persistentID;
     
     __weak NSButton *btnSelectDevice;
+    __weak NSButton *_btnSubmitFingerprint;
+    __weak NSButton *_btnGrantPermission;
     __weak NSTextField *installLabel;
     __weak NSBrowser *myBrowser;
     __unsafe_unretained NSTextView *submissionTextView;
@@ -56,8 +59,6 @@ struct BPFCheckResult {
 
 @property (weak) IBOutlet NSBrowser *myBrowser;
 
-// private stuff
-
 @property (atomic, copy,   readwrite) NSData *                  authorization;
 @property (atomic, strong, readwrite) NSXPCConnection *         helperToolConnection;
 
@@ -69,6 +70,8 @@ struct BPFCheckResult {
 @property (weak) IBOutlet NSTextField *installLabel;
 @property (weak) IBOutlet NSButton *btnSelectDevice;
 
+@property (weak) IBOutlet NSButton *btnGrantPermission;
+@property (weak) IBOutlet NSButton *btnSubmitFingerprint;
 @end
 
 
