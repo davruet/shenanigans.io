@@ -1,4 +1,4 @@
-package io.shenanigans.server;
+package io.shenanigans.concurrent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +20,35 @@ import com.lmax.disruptor.dsl.Disruptor;
  *
  * @param <T>
  */
-public class AsyncConcurrentBatchingProcessor <T> implements ConcurrentEventProcessor<T>{
+public class AsyncConcurrentBatchingProcessor <T> implements ConcurrentEventProcessor<T>, EventHandler<T>{
 	
 	public static final int MAX_BATCH_SIZE_DEFAULT = 50;
 	
 	private int maxBatchSize = MAX_BATCH_SIZE_DEFAULT;
 	private ArrayList<T> m_batch = new ArrayList<T>(maxBatchSize);
 	
+	// disruptor member variables. 
+    private RingBuffer<T> m_buffer;
+	private Disruptor<T> m_disruptor;
+	private BatchProcessor<T> m_processor;
+	private EventTranslatorOneArg<T,T> m_translator;
+	
+	@SuppressWarnings("unchecked")
+	public AsyncConcurrentBatchingProcessor(BatchProcessor<T> processor, EventFactory<T> factory, EventTranslatorOneArg<T,T> translator ){
+		Executor executor = Executors.newSingleThreadExecutor();
+		int bufferSize = 1024;		
+		m_disruptor = new Disruptor<T>(factory, bufferSize, executor);
+		m_disruptor.handleEventsWith(this);
+		m_buffer = m_disruptor.start();
+		m_processor = processor;
+		m_translator = translator;
+	}
 	
     public int getMaxBatchSize() {
 		return maxBatchSize;
 	}
 
-	protected void handleEvent(T event, long sequence, boolean endOfBatch){
+	public void onEvent(T event, long sequence, boolean endOfBatch){
     	m_batch.add(event);
     	if (endOfBatch || m_batch.size() > maxBatchSize) flush(m_batch);
     }
@@ -49,26 +65,6 @@ public class AsyncConcurrentBatchingProcessor <T> implements ConcurrentEventProc
 			LogManager.getLogger(this).error("Couldn't persist submission batch.", e);
 		}
 	}
-	
-    private RingBuffer<T> m_buffer;
-
-	private Disruptor<T> m_disruptor;
-
-	private BatchProcessor<T> m_processor;
-
-	private EventTranslatorOneArg<T,T> m_translator;
-	
-	public AsyncConcurrentBatchingProcessor(BatchProcessor<T> processor, EventFactory<T> factory, EventTranslatorOneArg<T,T> translator ){
-		Executor executor = Executors.newSingleThreadExecutor();
-		int bufferSize = 1024;		
-		m_disruptor = new Disruptor<T>(factory, bufferSize, executor);
-		EventHandler<T> handler = this::handleEvent;
-		m_disruptor.handleEventsWith(handler );
-		m_buffer = m_disruptor.start();
-		m_processor = processor;
-		m_translator = translator;
-	}
-	
 
 	public void processEvent(T event){
 		m_buffer.publishEvent(m_translator, event);

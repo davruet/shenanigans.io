@@ -1,4 +1,7 @@
-package io.shenanigans.server;
+package io.shenanigans.persistence;
+
+import io.shenanigans.concurrent.BatchProcessor;
+import io.shenanigans.concurrent.BatchProcessorException;
 
 import java.util.List;
 
@@ -7,11 +10,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 
-/** Instances are not thread-safe. Best used on a single thread with a multithreaded
+/** Implementation of BatchProcessor<PersistEntityEvent> that persists supplied entity events using
+ * the JPA.
+ * 
+ * Instances are not thread-safe. Best used on a single thread with a multi-threaded
  * batching frontend.
  * 
- * Uses the generic <Object> template of BatchProcessor, as JPA doesn't have a base abstract
- * class for entities.
  * @author dr
  *
  */
@@ -23,7 +27,6 @@ public class JPABatchStore implements BatchProcessor<PersistEntityEvent> {
 
 	public JPABatchStore() {
 	    m_entityManagerFactory = Persistence.createEntityManagerFactory("shenanigans");
-	    System.out.println("ENTITIES:: " + m_entityManagerFactory.getMetamodel().getEntities());
 		m_entityManager = m_entityManagerFactory.createEntityManager();
 
 	}
@@ -37,16 +40,13 @@ public class JPABatchStore implements BatchProcessor<PersistEntityEvent> {
 		submissions.forEach(submission ->
 			m_entityManager.persist(submission.entity));
 		m_entityManager.getTransaction().commit();
-		//FIXME - exceptions
-
+		//FIXME - perform exception handling testing
 	}
 
 	public void close() {
 		m_entityManager.close();
 		m_entityManagerFactory.close();
 	}
-	
-	
 	
 
 }

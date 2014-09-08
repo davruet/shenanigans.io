@@ -5,10 +5,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 version="2.1">
 <persistence-unit name="shenanigans">
 	<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->	
-	<class>io.shenanigans.server.SubmissionReceipt</class>
-	<class>io.shenanigans.server.ProbeGroupData</class>
-	<class>io.shenanigans.server.ProbeReqData</class>
-		<class>io.shenanigans.server.ServerStatusQueryData</class>
+	<class>io.shenanigans.server.persistence.SubmissionReceipt</class>
+	<class>io.shenanigans.server.persistence.ProbeGroupData</class>
+	<class>io.shenanigans.server.persistence.ProbeReqData</class>
+	<class>io.shenanigans.server.persistence.ServerStatusQueryData</class>
 	
 	<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
 	
@@ -18,7 +18,7 @@ version="2.1">
 		<property name="javax.persistence.jdbc.user" value="shenanigans"/>
 		<property name="javax.persistence.jdbc.password" value="shenanigans"/>
 		<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-		<!-- <property name="eclipselink.logging.level" value="ALL"/> -->
+		<property name="eclipselink.logging.level" value="ALL"/>
 		
 	</properties>
 </persistence-unit>

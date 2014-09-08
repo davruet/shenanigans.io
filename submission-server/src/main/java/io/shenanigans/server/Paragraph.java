@@ -6,7 +6,12 @@ import java.util.List;
 
 import org.apache.pdfbox.pdmodel.font.PDFont;
 
-class Paragraph {
+/** Basic word-wrapping functionality for PDFBox. Splits a paragraph into
+ * a {@link java.util.List} of lines.
+ * @author dr
+ *
+ */
+public class Paragraph {
 	private float m_maxWidth;
 	private String m_text;
 	private PDFont m_font;
@@ -19,6 +24,11 @@ class Paragraph {
 		m_fontSize = fontSize;
 	}
 	
+	/** Gets the list of lines in this paragraph, split according to length and the parameters
+	 * supplied in the constructor.
+	 * @return
+	 * @throws IOException
+	 */
 	public List<String> getLines() throws IOException {
 		String[] strings = m_text.split(" ");
 		

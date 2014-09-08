@@ -27,6 +27,39 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.8.1</version>        
+        <configuration>
+          <repositoryLayout>flat</repositoryLayout>
+          <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>         
+
+          <daemons>
+            <daemon>
+              <id>shenanigans</id>
+              <mainClass>io.shenanigans.server.Server</mainClass>
+<!--               <commandLineArguments> -->
+<!--                 <commandLineArgument>start</commandLineArgument> -->
+<!--               </commandLineArguments> -->
+              <platforms>
+                <platform>jsw</platform>
+              </platforms>              
+            </daemon>
+          </daemons>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-jsw-scripts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate-daemons</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
 		</plugins>
 	</build>
 
@@ -86,6 +119,13 @@
     <!-- eclipselink 2.5.x just silently drops classes that use lambdas. ugh. -->
     <version>2.6.0-M3</version>
 </dependency>
+
+<!--  Netty dependencies -->
+<!-- <dependency>
+	<groupId>io.netty</groupId>
+	<artifactId>netty-all</artifactId>
+	<version>4.0.23.Final</version>
+</dependency> -->
 
   </dependencies>
 </project>
