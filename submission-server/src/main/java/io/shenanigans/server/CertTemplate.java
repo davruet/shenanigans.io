@@ -24,6 +24,9 @@ import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 
 public class CertTemplate {
 
+	private static final String PREFERRED_NETWORK_INTRO = "HAVING PREFERRED NETWORK NAMES INCLUDING %s";
+	private static final String MAC_FONT_NAME = "src/resource/SnellRoundhand-Bold.ttf";
+	private static final String SSID_FONT_NAME = "src/resource/Dosis-Regular.ttf";
 	private static final float SSID_FONT_SIZE = 10.5f;
 	private static final int MAC_FONT_SIZE = 46;
 	
@@ -77,17 +80,19 @@ public class CertTemplate {
 			cert.addPage(page);
 			PDPageContentStream stream = new PDPageContentStream(cert, page, false, false);
 			// TODO - Make sure that we can't cache these somehow.
-			PDTrueTypeFont ssidFont = PDTrueTypeFont.loadTTF(cert, new File("src/resource/Dosis-Regular.ttf"));
-			PDTrueTypeFont macFont = PDTrueTypeFont.loadTTF(cert, new File("src/resource/SnellRoundhand-Bold.ttf"));		
+			PDTrueTypeFont ssidFont = PDTrueTypeFont.loadTTF(cert, new File(SSID_FONT_NAME));
+			PDTrueTypeFont macFont = PDTrueTypeFont.loadTTF(cert, new File(MAC_FONT_NAME));		
 			
 			stream.beginText();
 			stream.setFont( ssidFont, SSID_FONT_SIZE );
 			stream.moveTextPositionByAmount( 205, 203 );
-			String ssidStr = String.format("HAVING PREFERRED NETWORK NAMES INCLUDING %s", ssid);
+			String ssidStr = String.format(PREFERRED_NETWORK_INTRO, ssid);
 			Paragraph p = new Paragraph(ssidFont,SSID_FONT_SIZE, 385, ssidStr);
 			Iterator<String> it = p.getLines().iterator();
-		    stream.appendRawCommands(ssidFont.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * SSID_FONT_SIZE + " TL\n");
-
+			
+		    stream.appendRawCommands(
+		    		ssidFont.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * SSID_FONT_SIZE 
+		    		+ " TL\n");
 			while (it.hasNext()){
 				stream.drawString(it.next());
 				if (it.hasNext()) {
@@ -110,9 +115,7 @@ public class CertTemplate {
 		
 		Overlay overlay = new Overlay();
 		PDDocument endDoc = overlay.overlay(m_template, cert);
-		//cert.close();
-		// Save the results and ensure that the document is properly closed:
-		//endDoc.save( "Hello World.pdf");
+
 		return endDoc;
 		
 	}

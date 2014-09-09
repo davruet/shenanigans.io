@@ -1,4 +1,4 @@
-package io.shenanigans.server;
+package io.shenanigans.persistence;
 
 import io.shenanigans.proto.Shenanigans.Submission.ProbeGroup;
 
@@ -15,6 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table
+/** JPA Data entity wrapper for a Probe Group, a collection of probes with a common MAC
+ *  associated with an individual device.
+ * 
+ * @author dr
+ *
+ */
 public class ProbeGroupData {
 
 	@Id

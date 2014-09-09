@@ -128,6 +128,7 @@
     };
     sniffer.addNewGroupListener(func);
     
+    //FIXME -make sure that we handle cases where en0 is not the default.
     CWInterface *en0 = [CWInterface interface];
     if (![en0 powerOn]){
         NSError * error = [self makeError:@"Please turn on WiFi!" reason:@"You have to enable your computer's WiFi to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];

@@ -1,4 +1,4 @@
-package io.shenanigans.server;
+package io.shenanigans.persistence;
 
 import io.shenanigans.proto.Shenanigans.Submission;
 

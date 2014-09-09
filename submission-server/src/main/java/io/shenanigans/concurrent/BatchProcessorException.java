@@ -1,4 +1,4 @@
-package io.shenanigans.server;
+package io.shenanigans.concurrent;
 
 public class BatchProcessorException extends Exception {
 
