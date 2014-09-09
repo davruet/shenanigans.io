@@ -11,7 +11,9 @@ import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
 
-/** Handles Grizzly POSTs asynchronously.
+/** Handles Grizzly POSTs asynchronously. Asynchronously reads all of the post body data,
+ *  then delegates the request and response to handlers (on success or failure). These
+ *  handlers must be capable of handling multiple concurrent messages.
  * 
  * @author dr
  *

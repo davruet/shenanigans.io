@@ -112,6 +112,7 @@ public class Server
 		//|Set trust store
 		//URL keystoreUrl = cl.getResource("etc/keystore.jks"); // FIXME - use real key
 		//if(keystoreUrl != null){
+			
 			sslContextConfig.setKeyStoreFile("etc/keystore.jks");
 			sslContextConfig.setKeyStorePass("changeit"); // FIXME - need mechanism for password entry on server.
 		//} else {
