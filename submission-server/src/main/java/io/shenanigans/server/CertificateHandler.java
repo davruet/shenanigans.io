@@ -24,6 +24,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 class CertificateHandler implements AsyncPostHandler.SuccessHandler {
 	
+	private static final String PDF_CONTENT_TYPE = "application/pdf";
 	private CertTemplate m_template;
 	private ConcurrentEventProcessor<PersistEntityEvent> m_processor;
 	private AsyncPostHandler.ErrorHandler m_errorHandler;
@@ -40,11 +41,9 @@ class CertificateHandler implements AsyncPostHandler.SuccessHandler {
 		try {
 			// Parse the submission
 			Submission submission = Submission.parseFrom(ByteString.copyFrom(postBytes));
-			
-			getAllHeaders(req);
 			m_processor.processEvent(new PersistEntityEvent(
 					new SubmissionReceipt(
-							submission, req.getRemoteAddr(), new Date(), getAllHeaders(req))));
+							submission, req.getRemoteAddr(), new Date(), req.toString())));
 			int size = submission.getGroupList().size();
 			
 			List<String> macs = new ArrayList<String>(size);
@@ -62,6 +61,7 @@ class CertificateHandler implements AsyncPostHandler.SuccessHandler {
 			PDDocument doc = m_template.fillTemplate(macs, ssids);
 			NIOOutputStream out = resp.getNIOOutputStream();
 			try {
+				resp.setContentType(PDF_CONTENT_TYPE);
 				doc.save(out);
 			} catch (COSVisitorException e){
 				m_errorHandler.handleInvalidPost(postBytes, resp, e);

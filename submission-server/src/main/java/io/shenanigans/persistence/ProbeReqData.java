@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="probe_req")
 /** JPA Data entity wrapper for a Probe Request, an 802.11 message.
  * 
  * @author dr

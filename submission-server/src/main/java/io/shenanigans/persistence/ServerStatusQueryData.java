@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="status_query")
 public class ServerStatusQueryData {
 	
 	@Id
@@ -23,13 +23,17 @@ public class ServerStatusQueryData {
 	private String token;
 	
 	private String version;
+	
+	private String ip;
+	
 
 	public ServerStatusQueryData(){}
 	
-	public ServerStatusQueryData(ServerStatusQuery proto) {
+	public ServerStatusQueryData(ServerStatusQuery proto, String ip) {
 		date = new Date(proto.getDate());
 		token = proto.getToken();
 		version = proto.getVersion();
+		this.ip = ip;
 	}
 
 	public Long getId() {

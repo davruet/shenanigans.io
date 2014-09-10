@@ -67,7 +67,7 @@
             }
             // We didn't find it, add a new one
             // Wrap the child url with our node
-            ProbeReqNode *node = [[ProbeReqNode alloc] init:probeReq];
+            ProbeReqNode *node = [[ProbeReqNode alloc] init:probeReq parent:probeGroup];
             [newChildren setObject:node forKey:probeReqKey];
             
         }
@@ -96,20 +96,20 @@
 @implementation ProbeReqNode {
 
 @private
-    ProbeGroup *probeGroup;
     NSArray *children;
 
 }
 
-- (id)init:(ProbeReq *)req {
+- (id)init:(ProbeReq *)req parent:(ProbeGroup *)parent{
     if (self = [super init]) {
         probeReq = req;
+        parentGroup = parent;
         displayName = [NSString stringWithUTF8String:probeReq->ssid.c_str()];
     }
     return self;
 }
 
 @synthesize probeReq;
-
+@synthesize parentGroup;
 
 @end

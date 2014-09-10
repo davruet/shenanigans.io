@@ -20,6 +20,8 @@ import com.google.protobuf.ByteString;
 
 class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 
+	private static final String PROTOBUF_CONTENT_TYPE = "application/x-protobuf";
+	
 	private ConcurrentEventProcessor<PersistEntityEvent> m_processor;
 	private StatusCode serverStatus = StatusCode.READY;
 	private HashSet<String> m_compatibleVersions = new HashSet<>();
@@ -36,13 +38,14 @@ class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 			throws IOException {
 		try {
 			ServerStatusQuery query = ServerStatusQuery.parseFrom(ByteString.copyFrom(postBytes));
-			m_processor.processEvent(new PersistEntityEvent(new ServerStatusQueryData(query)));
+			m_processor.processEvent(new PersistEntityEvent(new ServerStatusQueryData(query, req.getRemoteAddr())));
 			ServerStatusResponse.Builder response = ServerStatusResponse.newBuilder();
 			response.setServerDate(new Date().getTime());
 			response.setStatusCode(getStatusCode(query));
 			
 			NIOOutputStream out = resp.getNIOOutputStream();
 			try {
+				resp.setContentType(PROTOBUF_CONTENT_TYPE);
 				response.build().writeTo(out);
 			} finally {
 				out.close();

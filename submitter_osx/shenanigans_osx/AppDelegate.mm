@@ -129,13 +129,12 @@
     sniffer.addNewGroupListener(func);
     
     //FIXME -make sure that we handle cases where en0 is not the default.
-    CWInterface *en0 = [CWInterface interface];
-    if (![en0 powerOn]){
+    CWInterface *interface = [CWInterface interfaceWithName:[NSString stringWithUTF8String:INTERFACE]];
+    if (![interface powerOn]){
         NSError * error = [self makeError:@"Please turn on WiFi!" reason:@"You have to enable your computer's WiFi to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];
         [self showError:error];
 
     }
-    printf("en0.");
     
     /* TODO, add IBSS feature- Start in IBSS mode:
     NSError * error = nil;
@@ -476,7 +475,7 @@
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
     // Start sniffing before the user adds the network - adding the network triggers a probe request.
     if ([[tabViewItem label] isEqualToString:@"Configure Device"]){
-        sniffer.start();
+        sniffer.start(INTERFACE);
         
         // start the UI redraw / sniffer update timer.
         if ([self repeatingTimer]) [self.repeatingTimer invalidate];
@@ -536,28 +535,36 @@
     NSMutableString * submissionString = [NSMutableString new];
     for (NSIndexPath * indexPath in paths){
         id myItem = [myBrowser itemAtIndexPath:indexPath];
+        ProbeGroup * group;
         if ([myItem isKindOfClass:[ProbeGroupNode class]]){
-            ProbeGroup * group = [myItem probeGroup];
-            selectedProbeGroups.push_back(group);
-            [submissionString appendString:@"MAC: "];
-            [submissionString appendString:[NSString stringWithUTF8String:group->mac.c_str()]];
-            [submissionString appendString:@" - SSIDs:\n"];
-            std::vector<ProbeReq*>::iterator it;
-            for (it = group->probeReqs.begin(); it != group->probeReqs.end(); it++){
-                ProbeReq * req = *it;
-                [submissionString appendString:[NSString stringWithUTF8String:req->ssid.c_str()]];
+            group = [myItem probeGroup];
+        } else if ([myItem isKindOfClass:[ProbeReqNode class]]){
+            group = [myItem parentGroup];
+        } else {
+            // something else was put in, we don't know what it is.
+            NSLog(@"%@", @"Invalid node found.");
+            continue;
+        }
+        selectedProbeGroups.push_back(group);
+        [submissionString appendString:@"MAC: "];
+        [submissionString appendString:[NSString stringWithUTF8String:group->mac.c_str()]];
+        [submissionString appendString:@" - SSIDs:\n"];
+        std::vector<ProbeReq*>::iterator it;
+        for (it = group->probeReqs.begin(); it != group->probeReqs.end(); it++){
+            ProbeReq * req = *it;
+            [submissionString appendString:[NSString stringWithUTF8String:req->ssid.c_str()]];
 
-                NSData * data = [NSData dataWithBytes:&(req->rawBytes[0]) length:req->rawBytes.size()];
-                NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-                [submissionString appendString:@"\n"];
-                [submissionString appendString:dataStr];
-                [submissionString appendString:@"\n"];
-                
-                
-            }
+            NSData * data = [NSData dataWithBytes:&(req->rawBytes[0]) length:req->rawBytes.size()];
+            NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+            [submissionString appendString:@"\n"];
+            [submissionString appendString:dataStr];
             [submissionString appendString:@"\n"];
             
+            
         }
+        [submissionString appendString:@"\n"];
+            
+        
     }
     [submissionTextView setString:submissionString];
 

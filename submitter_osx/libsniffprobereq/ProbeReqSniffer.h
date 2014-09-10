@@ -33,7 +33,7 @@ class ProbeReqSniffer {
         std::vector<ProbeReq>packetQueue;
         Poco::Mutex queueMutex;
         Tins::Sniffer *sniffer;
-        
+        std::string interface;
         // the thread function
         void run();
         
@@ -51,13 +51,14 @@ private:
     ProbeGroupMapType groupMap;
     bool noconsent = true;
     std::vector<ProbeGroupListener> groupListeners;
+    std::string interface;
 
     
 public:
     ProbeReqSniffer();
     ~ProbeReqSniffer();
     void update();
-    void start();
+    void start(std::string interface);
     void stop();
     pcap_t *pcap;
     struct pcap_pkthdr header;

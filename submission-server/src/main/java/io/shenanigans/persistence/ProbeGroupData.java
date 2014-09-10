@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="probe_group")
 /** JPA Data entity wrapper for a Probe Group, a collection of probes with a common MAC
  *  associated with an individual device.
  * 

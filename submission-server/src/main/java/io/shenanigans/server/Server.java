@@ -11,6 +11,8 @@ import org.apache.commons.configuration.ConfigurationConverter;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.logging.log4j.LogManager;
+import org.glassfish.grizzly.http.CompressionConfig;
+import org.glassfish.grizzly.http.EncodingFilter;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.http.server.Response;
@@ -67,7 +69,14 @@ public class Server
 		networkListener.setSecure(true);
 		networkListener.setSSLEngineConfig(makeSSLConfig(m_properties));
 
+		CompressionConfig compressionConfig =
+		        networkListener.getCompressionConfig();
+		compressionConfig.setCompressionMode(CompressionConfig.CompressionMode.ON); // the mode
+		compressionConfig.setCompressionMinSize(100); // the min amount of bytes to compress
+		compressionConfig.setCompressableMimeTypes("text/plain", "text/html", "application/x-protobuf", "application/pdf"); // the mime types to compress
+		
 		m_httpServer.addListener(networkListener);
+		
 
 		// Create a concurrent, nonblocking, asynchronous, batching JPA-based store for persistence
 		// of request data. Async is OK, as persistence failures do not need to be handled by the client.
@@ -84,7 +93,6 @@ public class Server
 		AsyncPostHandler.ErrorHandler errorHandler = 
 				(ByteBuffer postBytes, Response resp, Throwable t) -> {
 					LogManager.getLogger(this).warn("Invalid submission.", t);
-					t.printStackTrace();
 					resp.sendError(300);
 					resp.finish();
 				};
@@ -113,25 +121,10 @@ public class Server
 
 		SSLContextConfigurator sslContextConfig = new SSLContextConfigurator();
 
-		//Set key store
-		ClassLoader cl = Server.class.getClassLoader();/*
-        URL cacertsUrl = cl.getResource("ssltest-cacerts.jks");
-        if(cacertsUrl != null){
-            sslContextConfig.setTrustStoreFile(cacertsUrl.getFile());
-            sslContextConfig.setTrustStorePass("changeit");
-        }*/
-
-		//|Set trust store
-		//URL keystoreUrl = cl.getResource("etc/keystore.jks"); // FIXME - use real key
-		//if(keystoreUrl != null){
-			
-			sslContextConfig.setKeyStoreFile(properties.getString(PROPERTY_KEYSTORE_FILE));
-			sslContextConfig.setKeyStorePass(properties.getString(PROPERTY_KEYSTORE_PASS)); // FIXME - need mechanism for password entry on server.
-		//} else {
-		//	throw new RuntimeException("No keys!!");
-		//}
-
-		//|Create SSLEngine configurator
+		
+		sslContextConfig.setKeyStoreFile(properties.getString(PROPERTY_KEYSTORE_FILE));
+		sslContextConfig.setKeyStorePass(properties.getString(PROPERTY_KEYSTORE_PASS)); 
+		
 		return new SSLEngineConfigurator(sslContextConfig.createSSLContext(), false, false, false);
 	}
 

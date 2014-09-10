@@ -44,11 +44,13 @@
 
 @private
     ProbeReq *probeReq;
+    ProbeGroup *parentGroup;
 }
 
 @property(readonly) ProbeReq *probeReq;
+@property(readonly) ProbeGroup *parentGroup;
 
-- (id)init:(ProbeReq *)req;
+- (id)init:(ProbeReq *)req parent:(ProbeGroup *)parent;
 
 
 @end

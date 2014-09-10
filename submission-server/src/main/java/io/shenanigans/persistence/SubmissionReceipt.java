@@ -4,7 +4,6 @@ import io.shenanigans.proto.Shenanigans.Submission;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +18,7 @@ import javax.persistence.Transient;
 import com.lmax.disruptor.EventFactory;
 
 @Entity
-@Table
+@Table(name="submission")
 public class SubmissionReceipt {
 
 	@Id
@@ -29,6 +28,7 @@ public class SubmissionReceipt {
 	private Submission submission;
 	private String ip;
 	private String headers;
+	private String token;
 	private Date dateSubmitted;
 
 	@OneToMany(cascade = {CascadeType.ALL})
@@ -40,11 +40,12 @@ public class SubmissionReceipt {
 	}
 
 	public SubmissionReceipt(Submission submission, String ip, Date dateSubmitted,
-			HashMap<String, String> headers) {
+			String headers) {
 		this.submission = submission;
 		this.ip = ip;
 		this.dateSubmitted = dateSubmitted;
-		this.headers = makeHeadersString(headers);
+		this.headers = headers;
+		this.token = submission.getToken();
 		submission.getGroupList().forEach(group ->
 			probeGroups.add(new ProbeGroupData(group)));
 		
@@ -90,14 +91,7 @@ public class SubmissionReceipt {
 		this.ip = ip;
 	}
 
-	public void setHeaders(HashMap<String, String> headers) {
-		
-		this.headers = makeHeadersString(headers);
-	}
-	
-	private String makeHeadersString(HashMap<String, String> headers2) {
-		return ""; //FIXME - nyi
-	}
+
 
 	public static void translate(SubmissionReceipt receipt, long id, SubmissionReceipt another){
 		another.submission = another.submission;
