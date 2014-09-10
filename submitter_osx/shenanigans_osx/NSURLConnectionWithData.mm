@@ -50,7 +50,9 @@ didFailWithError:(NSError *)error
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
+
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    printf("X\n\n\n\n");
     if ([[[challenge protectionSpace] authenticationMethod] isEqualToString: NSURLAuthenticationMethodServerTrust]) {
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
         (void) SecTrustEvaluate(serverTrust, NULL);
@@ -79,13 +81,16 @@ didFailWithError:(NSError *)error
         }
     }
 }
-/*
+
 - (BOOL)shouldTrustProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     
     return TRUE; // FIXME - implement cert pinning
-}*/
+}
 
-
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+    return YES;
+}
 @end
 
 

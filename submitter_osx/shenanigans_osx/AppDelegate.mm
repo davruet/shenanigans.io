@@ -51,7 +51,7 @@
     
     NSLog(@"VERSION: %s\n", SHENANIGANS_VERSION);
     std::string queryStr = query.SerializeAsString();
-    [self sendMessage:&queryStr url:@"https://localhost:8000/versionCheck" successCallback:^(NSData * data) {
+    [self sendMessage:&queryStr url:@"https://shenanigans.io:8023/versionCheck" successCallback:^(NSData * data) {
         NSLog(@"Version check success." );
         io::shenanigans::proto::ServerStatusResponse response;
         bool parsed = response.ParseFromArray([data bytes], (int)[data length]);
@@ -568,6 +568,7 @@
 
 - (IBAction)selectDevice:(id)sender {
     [_tabView selectNextTabViewItem:sender];
+    sniffer.stop();
 }
 
 
@@ -626,7 +627,7 @@
     }
     
     std::string message = submission.SerializeAsString();
-    [self sendMessage:&message url:@"https://localhost:8000/submitFingerprint" successCallback:^(NSData * data){
+    [self sendMessage:&message url:@"https://shenanigans.io:8023/submitFingerprint" successCallback:^(NSData * data){
         
         NSLog(@"Received %lu bytes of data",(unsigned long)[data length]);
         NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];

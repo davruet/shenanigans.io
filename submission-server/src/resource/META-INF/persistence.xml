@@ -16,9 +16,11 @@ version="2.1">
 	<properties>
 		<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8889/shenanigansData"/>
-		<property name="javax.persistence.jdbc.user" value="shenanigans"/>
-		<property name="javax.persistence.jdbc.password" value="shenanigans"/>
-		<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+		<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/shenanigansData"/>
+		
+		<!-- <property name="javax.persistence.jdbc.user" value="shenanigans"/>
+		<property name="javax.persistence.jdbc.password" value="shenanigans"/>-->
+		<property name="javax.persistence.schema-generation.database.action" value="create"/>
 		<property name="eclipselink.logging.level" value="ALL"/>
 		
 	</properties>

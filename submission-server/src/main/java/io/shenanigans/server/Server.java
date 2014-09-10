@@ -4,11 +4,12 @@ import io.shenanigans.concurrent.AsyncConcurrentBatchingProcessor;
 import io.shenanigans.persistence.JPABatchStore;
 import io.shenanigans.persistence.PersistEntityEvent;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.ByteBuffer;
 
+import org.apache.commons.configuration.ConfigurationConverter;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
@@ -32,34 +33,45 @@ public class Server
 	private static final String NET_LISTENER_NAME = "secured-listener";
 	private static final String PATH_VERSION_CHECK = "/versionCheck";
 	private static final String PATH_SUBMIT = "/submitFingerprint";
-	private static final String CERT_TEMPLATE_PATH = "src/resource/cert-template.pdf";
-	public static final String HOST = "localhost";
-	public static final int PORT = 8000;
+	private static final String CERT_TEMPLATE_PATH = "/cert-template.pdf";
+	public static final String DEFAULT_HOST = "localhost";
+	public static final int DEFAULT_PORT = 8000;
 	public static final int MAX_POST_SIZE = 100000; // FIXME - revisit this
 	public static final int MIN_POST_SIZE = 15;
+	private static final String CONFIG_FILE_NAME = "etc/server.properties";
+	
+	private static final String PROPERTY_PORT = "server.port";
+	private static final String PROPERTY_HOST = "server.host";
+	private static final String PROPERTY_KEYSTORE_FILE = "keystore.file";
+	private static final String PROPERTY_KEYSTORE_PASS = "keystore.password";
+
 
 	private HttpServer m_httpServer;
 	private JPABatchStore m_store;
 	private static Server g_server;
 	private AsyncConcurrentBatchingProcessor<PersistEntityEvent> m_batchPersister;
+	private PropertiesConfiguration m_properties;
 
-	public Server(String host, int port) throws IOException {
+	public Server(PropertiesConfiguration properties) throws IOException {
+		m_properties = properties;
 		m_httpServer = new HttpServer();
-
+		
+		int port = properties.getInt(PROPERTY_PORT, DEFAULT_PORT);
+		String host = properties.getString(PROPERTY_HOST, DEFAULT_HOST);
 		final NetworkListener networkListener = new NetworkListener(
 				NET_LISTENER_NAME,
-				HOST,
-				PORT);
+				host,
+				port);
 
 		// Enable SSL on the listener
 		networkListener.setSecure(true);
-		networkListener.setSSLEngineConfig(makeSSLConfig());
+		networkListener.setSSLEngineConfig(makeSSLConfig(m_properties));
 
 		m_httpServer.addListener(networkListener);
 
 		// Create a concurrent, nonblocking, asynchronous, batching JPA-based store for persistence
 		// of request data. Async is OK, as persistence failures do not need to be handled by the client.
-		m_store = new JPABatchStore();
+		m_store = new JPABatchStore(ConfigurationConverter.getMap(m_properties));
 		m_batchPersister = new AsyncConcurrentBatchingProcessor<PersistEntityEvent>(
 				m_store,
 				PersistEntityEvent::new,
@@ -97,7 +109,7 @@ public class Server
 	}
 
 
-	private static SSLEngineConfigurator makeSSLConfig(){
+	private static SSLEngineConfigurator makeSSLConfig(PropertiesConfiguration properties){
 
 		SSLContextConfigurator sslContextConfig = new SSLContextConfigurator();
 
@@ -113,8 +125,8 @@ public class Server
 		//URL keystoreUrl = cl.getResource("etc/keystore.jks"); // FIXME - use real key
 		//if(keystoreUrl != null){
 			
-			sslContextConfig.setKeyStoreFile("etc/keystore.jks");
-			sslContextConfig.setKeyStorePass("changeit"); // FIXME - need mechanism for password entry on server.
+			sslContextConfig.setKeyStoreFile(properties.getString(PROPERTY_KEYSTORE_FILE));
+			sslContextConfig.setKeyStorePass(properties.getString(PROPERTY_KEYSTORE_PASS)); // FIXME - need mechanism for password entry on server.
 		//} else {
 		//	throw new RuntimeException("No keys!!");
 		//}
@@ -123,8 +135,8 @@ public class Server
 		return new SSLEngineConfigurator(sslContextConfig.createSSLContext(), false, false, false);
 	}
 
-	public static void main( String[] args ) throws IOException, InterruptedException {
-		g_server = new Server(HOST, PORT);
+	public static void main( String[] args ) throws IOException, InterruptedException, ConfigurationException {
+		g_server = new Server(new PropertiesConfiguration(CONFIG_FILE_NAME));
 		g_server.start();
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run() {

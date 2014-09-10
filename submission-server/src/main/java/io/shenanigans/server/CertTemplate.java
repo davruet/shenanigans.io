@@ -2,7 +2,10 @@ package io.shenanigans.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,8 +28,8 @@ import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 public class CertTemplate {
 
 	private static final String PREFERRED_NETWORK_INTRO = "HAVING PREFERRED NETWORK NAMES INCLUDING %s";
-	private static final String MAC_FONT_NAME = "src/resource/SnellRoundhand-Bold.ttf";
-	private static final String SSID_FONT_NAME = "src/resource/Dosis-Regular.ttf";
+	private static final String MAC_FONT_NAME = "/fonts/SnellRoundhand-Bold.ttf";
+	private static final String SSID_FONT_NAME = "/fonts/Dosis-Regular.ttf";
 	private static final float SSID_FONT_SIZE = 10.5f;
 	private static final int MAC_FONT_SIZE = 46;
 	
@@ -38,7 +41,8 @@ public class CertTemplate {
 	
 	public CertTemplate(String path) throws IOException {
 		m_template = PDDocument.load(
-				new File(path));
+				getClass().getResource(path));
+
 	}
 	
 	public void close() throws IOException {
@@ -80,8 +84,10 @@ public class CertTemplate {
 			cert.addPage(page);
 			PDPageContentStream stream = new PDPageContentStream(cert, page, false, false);
 			// TODO - Make sure that we can't cache these somehow.
-			PDTrueTypeFont ssidFont = PDTrueTypeFont.loadTTF(cert, new File(SSID_FONT_NAME));
-			PDTrueTypeFont macFont = PDTrueTypeFont.loadTTF(cert, new File(MAC_FONT_NAME));		
+		
+			PDTrueTypeFont ssidFont = loadFontResource(cert, SSID_FONT_NAME);
+			
+			PDTrueTypeFont macFont = loadFontResource(cert, MAC_FONT_NAME);		
 			
 			stream.beginText();
 			stream.setFont( ssidFont, SSID_FONT_SIZE );
@@ -118,5 +124,17 @@ public class CertTemplate {
 
 		return endDoc;
 		
+	}
+	
+	private PDTrueTypeFont loadFontResource(PDDocument doc, String resourceName) throws IOException{
+		//System.out.println(Arrays.toString((((URLClassLoader) CertTemplate.class.getClassLoader()).getURLs())));
+
+		InputStream in = getClass().getResourceAsStream(resourceName);
+		if (in == null) throw new IOException("Couldn't find font: " + resourceName);
+		try {
+			return PDTrueTypeFont.loadTTF(doc, in);
+		} finally {
+			in.close();
+		}
 	}
 }

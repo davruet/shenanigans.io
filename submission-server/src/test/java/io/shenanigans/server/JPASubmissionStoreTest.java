@@ -1,7 +1,5 @@
 package io.shenanigans.server;
 
-import io.shenanigans.persistence.JPABatchStore;
-import io.shenanigans.persistence.PersistEntityEvent;
 import io.shenanigans.persistence.ProbeGroupData;
 import io.shenanigans.persistence.ProbeReqData;
 import io.shenanigans.persistence.SubmissionReceipt;

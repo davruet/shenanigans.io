@@ -7,23 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210CE58419C091AE00397F94 /* ProbeReqSniffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */; };
+		210CE58519C091AE00397F94 /* ProbeGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878519880A08003BBF94 /* ProbeGroup.cpp */; };
+		210CE58919C094FB00397F94 /* libsniffprobereq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 210CE58019C0919B00397F94 /* libsniffprobereq.a */; };
 		2150535819AB722900E814DC /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2150535719AB722900E814DC /* CoreWLAN.framework */; };
-		2150535A19B22EF000E814DC /* libhashcash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2150535919B22EF000E814DC /* libhashcash.a */; };
 		215E87671983840E003BBF94 /* com.davidrueter.shenanigans.PcapHelperTool in Copy Files */ = {isa = PBXBuildFile; fileRef = 21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */; };
 		215E8768198384F2003BBF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB1FDA198229F7009BEAA1 /* main.m */; };
 		215E876F198412D9003BBF94 /* PcapHelperTool-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDB198229F7009BEAA1 /* PcapHelperTool-Info.plist */; };
 		215E8770198412D9003BBF94 /* PcapHelperTool-Launchd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDC198229F7009BEAA1 /* PcapHelperTool-Launchd.plist */; };
-		215E878919880B23003BBF94 /* ProbeReqSniffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */; };
-		215E878A19880B23003BBF94 /* ProbeGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878519880A08003BBF94 /* ProbeGroup.cpp */; };
-		215E8791198819B3003BBF94 /* libPocoFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 215E878F198819B3003BBF94 /* libPocoFoundation.dylib */; };
-		215E879819887EAB003BBF94 /* libsniffprobereq.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 215E877E19880916003BBF94 /* libsniffprobereq.dylib */; };
 		215E879B19898831003BBF94 /* ProbeGroupNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 215E879A19898831003BBF94 /* ProbeGroupNode.mm */; };
-		215E8881198EBE01003BBF94 /* libsniffprobereq.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 215E877E19880916003BBF94 /* libsniffprobereq.dylib */; };
 		216EF7D319A3881B0094E601 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216EF7D219A3881B0094E601 /* token.cpp */; };
-		216EF7DC19A3A1D20094E601 /* libtins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 216EF7DB19A3A1D20094E601 /* libtins.a */; };
-		216EF7DD19A3A3C60094E601 /* libtins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 216EF7DB19A3A1D20094E601 /* libtins.a */; };
-		216EF7DF19A3A44D0094E601 /* libPocoFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 216EF7DE19A3A44D0094E601 /* libPocoFoundation.a */; };
-		216EF7E019A3A4D60094E601 /* libprotobuf-lite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 216EF7D919A398FE0094E601 /* libprotobuf-lite.a */; };
 		21D5EC5419B73AF40017D7DD /* NSURLConnectionWithData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21D5EC5319B73AF40017D7DD /* NSURLConnectionWithData.mm */; };
 		21D5EC5719B759DB0017D7DD /* shenanigans.cer in CopyFiles */ = {isa = PBXBuildFile; fileRef = 21D5EC5619B759DB0017D7DD /* shenanigans.cer */; };
 		21E26AF919807CD300FE32F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E26AF819807CD300FE32F9 /* Cocoa.framework */; };
@@ -48,19 +41,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		210CE58619C0923600397F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 210CE57F19C0919B00397F94;
+			remoteInfo = libsniffprobereq;
+		};
 		215E876A1983877D003BBF94 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 21FB1FEE19822AAB009BEAA1;
 			remoteInfo = PcapHelperTool;
-		};
-		215E878B19880BB9003BBF94 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 215E877D19880916003BBF94;
-			remoteInfo = sniffprobereq;
 		};
 		21E26B1A19807CD300FE32F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -81,16 +74,6 @@
 				215E87671983840E003BBF94 /* com.davidrueter.shenanigans.PcapHelperTool in Copy Files */,
 			);
 			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		215E879319882AC6003BBF94 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				215E8881198EBE01003BBF94 /* libsniffprobereq.dylib in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		21D5EC5519B759AD0017D7DD /* CopyFiles */ = {
@@ -115,10 +98,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		210CE57819BFF05F00397F94 /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../../../../../opt/local/lib/libprotobuf-lite.a"; sourceTree = "<group>"; };
+		210CE57A19BFF09B00397F94 /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../../libprotobuf-lite.a"; sourceTree = "<group>"; };
+		210CE58019C0919B00397F94 /* libsniffprobereq.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsniffprobereq.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		210CE58A19C0968200397F94 /* libpcap.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpcap.A.dylib; path = ../../../../../usr/lib/libpcap.A.dylib; sourceTree = "<group>"; };
 		214C41281990416A007EAA90 /* libzmq.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libzmq.3.dylib; path = lib/libzmq.3.dylib; sourceTree = "<group>"; };
 		2150535719AB722900E814DC /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		2150535919B22EF000E814DC /* libhashcash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhashcash.a; path = ../../../../../usr/local/lib/libhashcash.a; sourceTree = "<group>"; };
-		215E877E19880916003BBF94 /* libsniffprobereq.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libsniffprobereq.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbeReqSniffer.cpp; sourceTree = "<group>"; };
 		215E878419880A08003BBF94 /* ProbeReqSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbeReqSniffer.h; sourceTree = "<group>"; };
 		215E878519880A08003BBF94 /* ProbeGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbeGroup.cpp; sourceTree = "<group>"; };
@@ -173,12 +159,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		215E877B19880916003BBF94 /* Frameworks */ = {
+		210CE57D19C0919B00397F94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				216EF7DC19A3A1D20094E601 /* libtins.a in Frameworks */,
-				215E8791198819B3003BBF94 /* libPocoFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,12 +170,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2150535A19B22EF000E814DC /* libhashcash.a in Frameworks */,
+				210CE58919C094FB00397F94 /* libsniffprobereq.a in Frameworks */,
 				2150535819AB722900E814DC /* CoreWLAN.framework in Frameworks */,
-				216EF7E019A3A4D60094E601 /* libprotobuf-lite.a in Frameworks */,
-				216EF7DF19A3A44D0094E601 /* libPocoFoundation.a in Frameworks */,
-				216EF7DD19A3A3C60094E601 /* libtins.a in Frameworks */,
-				215E879819887EAB003BBF94 /* libsniffprobereq.dylib in Frameworks */,
 				21FB1FFE19822B7E009BEAA1 /* Security.framework in Frameworks */,
 				21FB1FFD19822B77009BEAA1 /* ServiceManagement.framework in Frameworks */,
 				21E26AF919807CD300FE32F9 /* Cocoa.framework in Frameworks */,
@@ -249,7 +229,7 @@
 				21E26AF519807CD300FE32F9 /* Shenanigans.app */,
 				21E26B1619807CD300FE32F9 /* shenanigans_osxTests.xctest */,
 				21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */,
-				215E877E19880916003BBF94 /* libsniffprobereq.dylib */,
+				210CE58019C0919B00397F94 /* libsniffprobereq.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,6 +237,9 @@
 		21E26AF719807CD300FE32F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				210CE58A19C0968200397F94 /* libpcap.A.dylib */,
+				210CE57A19BFF09B00397F94 /* libprotobuf-lite.a */,
+				210CE57819BFF05F00397F94 /* libprotobuf-lite.a */,
 				2150535919B22EF000E814DC /* libhashcash.a */,
 				2150535719AB722900E814DC /* CoreWLAN.framework */,
 				216EF7DE19A3A44D0094E601 /* libPocoFoundation.a */,
@@ -364,7 +347,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		215E877C19880916003BBF94 /* Headers */ = {
+		210CE57E19C0919B00397F94 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -374,39 +357,38 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		215E877D19880916003BBF94 /* sniffprobereq */ = {
+		210CE57F19C0919B00397F94 /* sniffprobereq */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 215E877F19880916003BBF94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */;
+			buildConfigurationList = 210CE58119C0919B00397F94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */;
 			buildPhases = (
-				215E877A19880916003BBF94 /* Sources */,
-				215E877B19880916003BBF94 /* Frameworks */,
-				215E877C19880916003BBF94 /* Headers */,
+				210CE57C19C0919B00397F94 /* Sources */,
+				210CE57D19C0919B00397F94 /* Frameworks */,
+				210CE57E19C0919B00397F94 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = sniffprobereq;
-			productName = sniffprobereq;
-			productReference = 215E877E19880916003BBF94 /* libsniffprobereq.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
+			productName = libsniffprobereq;
+			productReference = 210CE58019C0919B00397F94 /* libsniffprobereq.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		21E26AF419807CD300FE32F9 /* Shenanigans */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "Shenanigans" */;
 			buildPhases = (
-				216EF7E119A3C2BC0094E601 /* ShellScript */,
+				216EF7E119A3C2BC0094E601 /* Run Script */,
 				21E26AF119807CD300FE32F9 /* Sources */,
 				21E26AF219807CD300FE32F9 /* Frameworks */,
 				21E26AF319807CD300FE32F9 /* Resources */,
 				215E876519838353003BBF94 /* Copy Files */,
-				215E879319882AC6003BBF94 /* CopyFiles */,
 				21D5EC5519B759AD0017D7DD /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				215E878C19880BB9003BBF94 /* PBXTargetDependency */,
+				210CE58719C0923600397F94 /* PBXTargetDependency */,
 				215E876B1983877D003BBF94 /* PBXTargetDependency */,
 			);
 			name = Shenanigans;
@@ -484,7 +466,7 @@
 				21E26AF419807CD300FE32F9 /* Shenanigans */,
 				21E26B1519807CD300FE32F9 /* shenanigans_osxTests */,
 				21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */,
-				215E877D19880916003BBF94 /* sniffprobereq */,
+				210CE57F19C0919B00397F94 /* sniffprobereq */,
 			);
 		};
 /* End PBXProject section */
@@ -523,13 +505,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		216EF7E119A3C2BC0094E601 /* ShellScript */ = {
+		216EF7E119A3C2BC0094E601 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,12 +522,12 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		215E877A19880916003BBF94 /* Sources */ = {
+		210CE57C19C0919B00397F94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				215E878919880B23003BBF94 /* ProbeReqSniffer.cpp in Sources */,
-				215E878A19880B23003BBF94 /* ProbeGroup.cpp in Sources */,
+				210CE58419C091AE00397F94 /* ProbeReqSniffer.cpp in Sources */,
+				210CE58519C091AE00397F94 /* ProbeGroup.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,15 +564,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		210CE58719C0923600397F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 210CE57F19C0919B00397F94 /* sniffprobereq */;
+			targetProxy = 210CE58619C0923600397F94 /* PBXContainerItemProxy */;
+		};
 		215E876B1983877D003BBF94 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */;
 			targetProxy = 215E876A1983877D003BBF94 /* PBXContainerItemProxy */;
-		};
-		215E878C19880BB9003BBF94 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 215E877D19880916003BBF94 /* sniffprobereq */;
-			targetProxy = 215E878B19880BB9003BBF94 /* PBXContainerItemProxy */;
 		};
 		21E26B1B19807CD300FE32F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -634,38 +617,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		215E878019880916003BBF94 /* Debug */ = {
+		210CE58219C0919B00397F94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
 				);
-				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		215E878119880916003BBF94 /* Release */ = {
+		210CE58319C0919B00397F94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
 				);
-				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -708,11 +687,8 @@
 					/opt/local/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib,
-					/usr/local/lib,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -751,11 +727,8 @@
 					/opt/local/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib,
-					/usr/local/lib,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -776,6 +749,13 @@
 				INFOPLIST_FILE = "shenanigans_osx/shenanigans_osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"/opt/local/lib/libprotobuf-lite.a",
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+					/usr/local/lib/libhashcash.a,
+					"-lpcap",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -798,6 +778,13 @@
 				INFOPLIST_FILE = "shenanigans_osx/shenanigans_osx-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"/opt/local/lib/libprotobuf-lite.a",
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+					/usr/local/lib/libhashcash.a,
+					"-lpcap",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -807,7 +794,7 @@
 		21E26B2A19807CD300FE32F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shenanigans_osx.app/Contents/MacOS/shenanigans_osx";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shenanigans.app/Contents/MacOS/Shenanigans";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -829,7 +816,7 @@
 		21E26B2B19807CD300FE32F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shenanigans_osx.app/Contents/MacOS/shenanigans_osx";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shenanigans.app/Contents/MacOS/Shenanigans";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -887,14 +874,13 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		215E877F19880916003BBF94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */ = {
+		210CE58119C0919B00397F94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				215E878019880916003BBF94 /* Debug */,
-				215E878119880916003BBF94 /* Release */,
+				210CE58219C0919B00397F94 /* Debug */,
+				210CE58319C0919B00397F94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 		21E26AF019807CD300FE32F9 /* Build configuration list for PBXProject "shenanigans_osx" */ = {
 			isa = XCConfigurationList;
