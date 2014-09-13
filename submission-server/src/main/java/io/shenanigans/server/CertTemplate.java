@@ -62,7 +62,6 @@ public class CertTemplate {
 			//dox.save("Hello World.pdf");
 			dox.close();
 		}
-		System.out.println("Total duration: " + (System.currentTimeMillis() - start));
 	}
 	
 	public PDDocument fillTemplate(List<String> macs, List<String> ssids) throws IOException {

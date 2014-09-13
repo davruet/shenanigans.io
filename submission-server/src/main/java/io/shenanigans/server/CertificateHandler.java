@@ -43,7 +43,8 @@ class CertificateHandler implements AsyncPostHandler.SuccessHandler {
 			Submission submission = Submission.parseFrom(ByteString.copyFrom(postBytes));
 			m_processor.processEvent(new PersistEntityEvent(
 					new SubmissionReceipt(
-							submission, req.getRemoteAddr(), new Date(), req.toString())));
+							submission, req.getRemoteAddr(), submission.getDate(),
+							new Date().getTime(),  req.getRequest().getHttpHeader().toString())));
 			int size = submission.getGroupList().size();
 			
 			List<String> macs = new ArrayList<String>(size);

@@ -4,10 +4,12 @@ import io.shenanigans.proto.Shenanigans.ServerStatusQuery;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,22 +20,17 @@ public class ServerStatusQueryData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private Date date;
-	
-	private String token;
-	
 	private String version;
 	
-	private String ip;
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Request request;
 	
 
 	public ServerStatusQueryData(){}
 	
-	public ServerStatusQueryData(ServerStatusQuery proto, String ip) {
-		date = new Date(proto.getDate());
-		token = proto.getToken();
+	public ServerStatusQueryData(ServerStatusQuery proto, String ip, String headers, long serverDate) {
 		version = proto.getVersion();
-		this.ip = ip;
+		request = new Request( proto.getDate(), serverDate, proto.getToken(), ip, headers);
 	}
 
 	public Long getId() {
@@ -44,22 +41,6 @@ public class ServerStatusQueryData {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
 	public String getVersion() {
 		return version;
 	}
@@ -67,6 +48,16 @@ public class ServerStatusQueryData {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+	
+	
 	
 	
 }

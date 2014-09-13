@@ -3,6 +3,8 @@ package io.shenanigans.server;
 import io.shenanigans.concurrent.AsyncConcurrentBatchingProcessor;
 import io.shenanigans.persistence.JPABatchStore;
 import io.shenanigans.persistence.PersistEntityEvent;
+import io.shenanigans.proto.Shenanigans.ServerStatusResponse;
+import io.shenanigans.proto.Shenanigans.ServerStatusResponse.StatusCode;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -10,9 +12,11 @@ import java.nio.ByteBuffer;
 import org.apache.commons.configuration.ConfigurationConverter;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration.event.ConfigurationEvent;
+import org.apache.commons.configuration.event.ConfigurationListener;
+import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.glassfish.grizzly.http.CompressionConfig;
-import org.glassfish.grizzly.http.EncodingFilter;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.http.server.Response;
@@ -46,6 +50,7 @@ public class Server
 	private static final String PROPERTY_HOST = "server.host";
 	private static final String PROPERTY_KEYSTORE_FILE = "keystore.file";
 	private static final String PROPERTY_KEYSTORE_PASS = "keystore.password";
+	
 
 
 	private HttpServer m_httpServer;
@@ -100,11 +105,15 @@ public class Server
 		AsyncPostHandler certHandler = 
 				new AsyncPostHandler(new CertificateHandler(m_batchPersister, CERT_TEMPLATE_PATH, errorHandler),
 						errorHandler);
-		AsyncPostHandler versionCheckHandler =
-				new AsyncPostHandler(new VersionCheckHandler(m_batchPersister), errorHandler);
+		
+		
+		AsyncPostHandler versionHandler =
+				new AsyncPostHandler(new VersionCheckHandler(m_batchPersister, properties), errorHandler);
 		config.addHttpHandler(certHandler, PATH_SUBMIT);
-		config.addHttpHandler(versionCheckHandler, PATH_VERSION_CHECK);
+		config.addHttpHandler(versionHandler, PATH_VERSION_CHECK);
+		
 	}
+	
 
 	public void start() throws IOException{
 		m_httpServer.start();
@@ -128,12 +137,17 @@ public class Server
 		return new SSLEngineConfigurator(sslContextConfig.createSSLContext(), false, false, false);
 	}
 
-	public static void main( String[] args ) throws IOException, InterruptedException, ConfigurationException {
-		g_server = new Server(new PropertiesConfiguration(CONFIG_FILE_NAME));
+	public static void main( String[] args ) throws IOException, InterruptedException, ConfigurationException {		
+		PropertiesConfiguration config = new PropertiesConfiguration(CONFIG_FILE_NAME);
+		config.setReloadingStrategy(new FileChangedReloadingStrategy());
+
+		g_server = new Server(config);
 		g_server.start();
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run() {
+				LogManager.getLogger(Server.class).info("Shutting down the server.");
 				g_server.stop();
+				LogManager.getLogger(Server.class).info("Server stopped.");
 			}
 		}); 
 	}

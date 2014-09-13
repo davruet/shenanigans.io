@@ -30,8 +30,7 @@ public class AsyncPostHandler extends HttpHandler {
 	public void service(final Request req, final Response resp) throws Exception {
 		// suspend the response, allowing for async processing
 		resp.suspend();
-		LogManager.getLogger(this).debug(String.format("Handling post %s", req));
-		System.out.println("Request: " + req.getRequest().getHttpHeader().toString());
+		LogManager.getLogger(this).info(String.format("Request: %s, IP %s", req.getRequestURI(), req.getRemoteAddr()));
 		int length = req.getContentLength();
 		if (length > Server.MAX_POST_SIZE || length < Server.MIN_POST_SIZE){
 			m_errorHandler.handleInvalidPost(null, resp, new IllegalArgumentException("Invalid content-length of " + length));

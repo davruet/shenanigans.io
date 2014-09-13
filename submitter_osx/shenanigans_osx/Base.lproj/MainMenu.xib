@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
@@ -13,12 +14,18 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="bigLogo" destination="lqm-ah-lPK" id="bUp-lP-r62"/>
                 <outlet property="btnGrantPermission" destination="XFg-kw-Dzq" id="7UF-bz-xB1"/>
                 <outlet property="btnSelectDevice" destination="WmL-hN-rpF" id="fHY-Fn-rrp"/>
+                <outlet property="btnSplashContinue" destination="GKO-3b-rVT" id="fvv-MZ-B52"/>
                 <outlet property="btnSubmitFingerprint" destination="8sS-R5-bUr" id="Rku-dw-57u"/>
                 <outlet property="installLabel" destination="U9G-cg-654" id="jQM-0H-Ldx"/>
                 <outlet property="myBrowser" destination="Jgx-jL-d5T" id="mBI-M4-jia"/>
+                <outlet property="outerTabView" destination="79e-sj-866" id="PT9-9Z-I73"/>
+                <outlet property="splashLabel" destination="PgI-aX-B5L" id="3FS-cn-PBa"/>
                 <outlet property="submissionTextView" destination="So5-eG-EnO" id="TKk-iu-QKu"/>
+                <outlet property="submitLabel" destination="ocW-Mg-oOb" id="t1G-Fa-g5w"/>
+                <outlet property="submittingLabel" destination="ocW-Mg-oOb" id="YG7-kb-6hu"/>
                 <outlet property="tabView" destination="YQA-Rq-DAB" id="gEV-fy-C1I"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -673,7 +680,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Shenanigans. De-identify your device" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Shenanigans: de-identify your device" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="643" height="481"/>
@@ -682,172 +689,259 @@
                 <rect key="frame" x="0.0" y="0.0" width="643" height="481"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YQA-Rq-DAB">
-                        <rect key="frame" x="13" y="10" width="612" height="448"/>
+                    <tabView fixedFrame="YES" type="noTabsNoBorder" initialItem="aZD-5d-P5H" translatesAutoresizingMaskIntoConstraints="NO" id="79e-sj-866">
+                        <rect key="frame" x="7" y="10" width="631" height="464"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Install" identifier="" id="4GP-bR-7gX">
-                                <view key="view" ambiguous="YES" id="Btx-Oz-p66">
-                                    <rect key="frame" x="10" y="33" width="592" height="402"/>
+                            <tabViewItem label="Connect" identifier="1" id="aZD-5d-P5H">
+                                <view key="view" wantsLayer="YES" ambiguous="YES" id="bbY-6W-Hcf">
+                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-cg-654">
-                                            <rect key="frame" x="68" y="174" width="441" height="153"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3T8-yz-e4u">
-                                                <font key="font" metaFont="system"/>
-                                                <string key="title">This app will capture the WiFi fingerprint of your mobile device, then upload it to the Shenanigans network for worldwide rebroadcast.  Step 1 of 3: Grant WiFi permission.  This app needs access to your Mac's WiFi hardware. Click "Grant Permission..." below to install a helper tool that will allow this app to read the WiFi fingerprint of your device. You'll have to enter the administrator's password.</string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button identifier="btnGrantPermission" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
-                                            <rect key="frame" x="337" y="97" width="159" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Grant Permission..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I9t-FG-Ef0">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="install:" target="Voe-Tx-rLC" id="8JM-hU-hgq"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Configure Device" identifier="" id="J6U-Gv-jfU">
-                                <view key="view" id="QtQ-aI-GOw">
-                                    <rect key="frame" x="10" y="33" width="592" height="402"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sh9-T9-eaF">
-                                            <rect key="frame" x="255" y="10" width="82" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Next..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgj-Ml-WvE">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="nextTab:" target="Voe-Tx-rLC" id="R0F-dH-5Db"/>
-                                            </connections>
-                                        </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DuV-SE-p9i">
-                                            <rect key="frame" x="36" y="78" width="327" height="289"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="KRz-23-74A">
-                                                <font key="font" metaFont="system"/>
-                                                <string key="title">Step 2 of 3: Configure your device for discovery.  * Make sure that WiFi is enabled on your device. * Add a new WiFi network named "shenanigans" to your device. This confirms that it's your device, and not your neighbor's.  (Note: you can remove this network after we're done.) 
-SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 random characters)  * For best results, make sure that your device is not connected to a WiFi network. On Android, you'll have to "forget" any WiFi networks you're currently connected to.</string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxU-KW-5A5">
-                                            <rect key="frame" x="400" y="69" width="186" height="298"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" image="android" id="ZuL-oS-Uik"/>
-                                        </imageView>
-                                    </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Select Device" identifier="1" id="sUV-5i-TYc">
-                                <view key="view" id="f3Q-4u-s7u">
-                                    <rect key="frame" x="10" y="33" width="592" height="402"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Let-Or-RCg">
-                                            <rect key="frame" x="15" y="244" width="430" height="136"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Sg6-Da-m4g">
-                                                <font key="font" metaFont="system"/>
-                                                <string key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks -- this often triggers the fingerprint broadcast we're looking for. </string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="To2-u8-dKS">
-                                            <rect key="frame" x="15" y="201" width="382" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select your device. You can select more than one if you like:" id="URU-kt-TOW">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WmL-hN-rpF">
-                                            <rect key="frame" x="451" y="0.0" width="123" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Select Device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="se5-pD-C3f">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="selectDevice:" target="Voe-Tx-rLC" id="DIo-kf-txZ"/>
-                                            </connections>
-                                        </button>
-                                        <browser verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" allowsBranchSelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="2" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-jL-d5T">
-                                            <rect key="frame" x="17" y="37" width="551" height="178"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <connections>
-                                                <action selector="browserCellSelected:" target="Voe-Tx-rLC" id="vCF-eB-e7H"/>
-                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="7kR-hz-pxu"/>
-                                            </connections>
-                                        </browser>
-                                    </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Submit Fingerprint" identifier="" id="I3s-ag-gU6">
-                                <view key="view" id="aw4-IV-S1w">
-                                    <rect key="frame" x="10" y="33" width="592" height="402"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sS-R5-bUr">
-                                            <rect key="frame" x="258" y="24" width="294" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Submit fingerprint and view certificate..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJL-b6-b7m">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="submitFingerprint:" target="Voe-Tx-rLC" id="tEM-LY-3wH"/>
-                                            </connections>
-                                        </button>
-                                        <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ah-AG-N9f">
-                                            <rect key="frame" x="42" y="78" width="504" height="220"/>
+                                        <imageView fixedFrame="YES" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="lqm-ah-lPK">
+                                            <rect key="frame" x="59" y="-24" width="512" height="512"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <clipView key="contentView" ambiguous="YES" misplaced="YES" id="cdZ-Ui-qdz">
-                                                <rect key="frame" x="1" y="1" width="502" height="218"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="So5-eG-EnO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="502" height="218"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="502" height="218"/>
-                                                        <size key="maxSize" width="640" height="10000000"/>
-                                                        <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="502" height="218"/>
-                                                        <size key="maxSize" width="640" height="10000000"/>
-                                                    </textView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="1EY-In-p7D">
-                                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Z8h-fC-HHn">
-                                                <rect key="frame" x="487" y="1" width="16" height="218"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                        </scrollView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-1G-pjJ">
-                                            <rect key="frame" x="40" y="313" width="483" height="56"/>
+                                            <shadow key="shadow" blurRadius="10">
+                                                <size key="offset" width="12" height="-9"/>
+                                                <color key="color" red="0.43803074048913049" green="0.43803074048913049" blue="0.43803074048913049" alpha="1" colorSpace="calibratedRGB"/>
+                                            </shadow>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="shenanigans-reference-square-outline" id="afi-Ia-m85"/>
+                                        </imageView>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgI-aX-B5L">
+                                            <rect key="frame" x="133" y="184" width="364" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3Ji-3F-Ny3">
+                                            <shadow key="shadow" blurRadius="2">
+                                                <color key="color" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </shadow>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please wait -- connecting..." placeholderString="Loading" id="qMg-Yj-446">
                                                 <font key="font" metaFont="system"/>
-                                                <string key="title">Congrats! The WiFi fingerprint(s) below will be submitted for worldwide rebroadcast. Click "Submit..." to upload them and get your Certificate of De-identification.</string>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKO-3b-rVT">
+                                            <rect key="frame" x="458" y="22" width="130" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Continue..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Kw-oe-Ikp">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="nextTab:" target="Voe-Tx-rLC" id="N6b-sL-Td9"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Main" identifier="2" id="i92-dn-Rrq">
+                                <view key="view" id="hYA-AY-VRZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tabView fixedFrame="YES" initialItem="4GP-bR-7gX" translatesAutoresizingMaskIntoConstraints="NO" id="YQA-Rq-DAB">
+                                            <rect key="frame" x="13" y="10" width="605" height="448"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <tabViewItems>
+                                                <tabViewItem label="Install" identifier="0" id="4GP-bR-7gX">
+                                                    <view key="view" id="Btx-Oz-p66">
+                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-cg-654">
+                                                                <rect key="frame" x="63" y="162" width="441" height="153"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3T8-yz-e4u">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <string key="title">This app will capture the WiFi fingerprint of your mobile device, then upload it to the Shenanigans network for worldwide rebroadcast.  Step 1 of 3: Grant WiFi permission.  This app needs access to your Mac's WiFi hardware. Click "Grant Permission..." below to install a helper tool that will allow this app to read the WiFi fingerprint of your device. You'll have to enter the administrator's password.</string>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button identifier="btnGrantPermission" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
+                                                                <rect key="frame" x="332" y="85" width="159" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="push" title="Grant Permission..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I9t-FG-Ef0">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="install:" target="Voe-Tx-rLC" id="8JM-hU-hgq"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Configure Device" identifier="1" id="J6U-Gv-jfU">
+                                                    <view key="view" id="QtQ-aI-GOw">
+                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sh9-T9-eaF">
+                                                                <rect key="frame" x="255" y="10" width="82" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="push" title="Next..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgj-Ml-WvE">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="nextTab:" target="Voe-Tx-rLC" id="R0F-dH-5Db"/>
+                                                                </connections>
+                                                            </button>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DuV-SE-p9i">
+                                                                <rect key="frame" x="36" y="78" width="327" height="289"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="KRz-23-74A">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <string key="title">Step 2 of 3: Configure your device for discovery.  * Make sure that WiFi is enabled on your device. * Add a new WiFi network named "shenanigans" to your device. This confirms that it's your device, and not your neighbor's.  (Note: you can remove this network after we're done.) 
+SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 random characters)  * For best results, make sure that your device is not connected to a WiFi network. On Android, you'll have to "forget" any WiFi networks you're currently connected to.</string>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxU-KW-5A5">
+                                                                <rect key="frame" x="400" y="69" width="186" height="298"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" image="android" id="ZuL-oS-Uik"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Select Device" identifier="2" id="sUV-5i-TYc">
+                                                    <view key="view" id="f3Q-4u-s7u">
+                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Let-Or-RCg">
+                                                                <rect key="frame" x="15" y="244" width="430" height="136"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Sg6-Da-m4g">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <string key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks -- this often triggers the fingerprint broadcast we're looking for. </string>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="To2-u8-dKS">
+                                                                <rect key="frame" x="15" y="201" width="382" height="17"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select your device. You can select more than one if you like:" id="URU-kt-TOW">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WmL-hN-rpF">
+                                                                <rect key="frame" x="451" y="0.0" width="123" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="push" title="Select Device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="se5-pD-C3f">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="selectDevice:" target="Voe-Tx-rLC" id="DIo-kf-txZ"/>
+                                                                </connections>
+                                                            </button>
+                                                            <browser verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" allowsBranchSelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="2" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-jL-d5T">
+                                                                <rect key="frame" x="17" y="37" width="551" height="178"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <connections>
+                                                                    <action selector="browserCellSelected:" target="Voe-Tx-rLC" id="vCF-eB-e7H"/>
+                                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="7kR-hz-pxu"/>
+                                                                </connections>
+                                                            </browser>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Submit Fingerprint" identifier="3" id="I3s-ag-gU6">
+                                                    <view key="view" ambiguous="YES" id="aw4-IV-S1w">
+                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sS-R5-bUr">
+                                                                <rect key="frame" x="258" y="24" width="294" height="32"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="push" title="Submit fingerprint and view certificate..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJL-b6-b7m">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="submitFingerprint:" target="Voe-Tx-rLC" id="tEM-LY-3wH"/>
+                                                                </connections>
+                                                            </button>
+                                                            <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ah-AG-N9f">
+                                                                <rect key="frame" x="42" y="78" width="504" height="220"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <clipView key="contentView" ambiguous="YES" misplaced="YES" id="cdZ-Ui-qdz">
+                                                                    <rect key="frame" x="1" y="1" width="502" height="218"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="So5-eG-EnO">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="502" height="218"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <size key="minSize" width="502" height="218"/>
+                                                                            <size key="maxSize" width="640" height="10000000"/>
+                                                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <size key="minSize" width="502" height="218"/>
+                                                                            <size key="maxSize" width="640" height="10000000"/>
+                                                                        </textView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </clipView>
+                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="1EY-In-p7D">
+                                                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </scroller>
+                                                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Z8h-fC-HHn">
+                                                                    <rect key="frame" x="487" y="1" width="16" height="218"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </scroller>
+                                                            </scrollView>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-1G-pjJ">
+                                                                <rect key="frame" x="40" y="313" width="483" height="56"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3Ji-3F-Ny3">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <string key="title">Congrats! The WiFi fingerprint(s) below will be submitted for worldwide rebroadcast. Click "Submit..." to upload them and get your Certificate of De-identification.</string>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                            </tabViewItems>
+                                            <connections>
+                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="a6d-OY-754"/>
+                                            </connections>
+                                        </tabView>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Done" identifier="" id="8rn-fQ-fXQ">
+                                <view key="view" id="Ebc-lV-LxR">
+                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView fixedFrame="YES" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="WaQ-TB-qp2">
+                                            <rect key="frame" x="59" y="-24" width="512" height="512"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <shadow key="shadow" blurRadius="10">
+                                                <size key="offset" width="12" height="-9"/>
+                                                <color key="color" red="0.43803074050000002" green="0.43803074050000002" blue="0.43803074050000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </shadow>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="shenanigans-reference-square-outline" id="a9B-wM-fjM"/>
+                                        </imageView>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Mg-oOb">
+                                            <rect key="frame" x="154" y="180" width="322" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <shadow key="shadow" blurRadius="2">
+                                                <color key="color" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </shadow>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Submitting fingerprints and downloading Certificate of Deidentification..." placeholderString="Loading" id="z8c-0b-xvT">
+                                                <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -856,9 +950,6 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
-                        <connections>
-                            <outlet property="delegate" destination="Voe-Tx-rLC" id="a6d-OY-754"/>
-                        </connections>
                     </tabView>
                 </subviews>
             </view>
@@ -866,5 +957,6 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
     </objects>
     <resources>
         <image name="android" width="300" height="533"/>
+        <image name="shenanigans-reference-square-outline" width="1024" height="1024"/>
     </resources>
 </document>

@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.HashSet;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.glassfish.grizzly.http.io.NIOOutputStream;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
@@ -21,15 +22,18 @@ import com.google.protobuf.ByteString;
 class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 
 	private static final String PROTOBUF_CONTENT_TYPE = "application/x-protobuf";
+	private static final String PROPERTY_SERVER_STATUS = "server.status";
+
 	
 	private ConcurrentEventProcessor<PersistEntityEvent> m_processor;
-	private StatusCode serverStatus = StatusCode.READY;
 	private HashSet<String> m_compatibleVersions = new HashSet<>();
+	private PropertiesConfiguration m_config;
 	
 	public VersionCheckHandler(
-			ConcurrentEventProcessor<PersistEntityEvent> processor) {
+			ConcurrentEventProcessor<PersistEntityEvent> processor, PropertiesConfiguration config) {
 		super();
 		m_processor = processor;
+		m_config = config;
 		m_compatibleVersions.add("0.1a");
 	}
 
@@ -38,7 +42,8 @@ class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 			throws IOException {
 		try {
 			ServerStatusQuery query = ServerStatusQuery.parseFrom(ByteString.copyFrom(postBytes));
-			m_processor.processEvent(new PersistEntityEvent(new ServerStatusQueryData(query, req.getRemoteAddr())));
+			m_processor.processEvent(new PersistEntityEvent(
+					new ServerStatusQueryData(query, req.getRemoteAddr(),  req.getRequest().getHttpHeader().toString(), new Date().getTime())));
 			ServerStatusResponse.Builder response = ServerStatusResponse.newBuilder();
 			response.setServerDate(new Date().getTime());
 			response.setStatusCode(getStatusCode(query));
@@ -57,6 +62,8 @@ class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 	}
 
 	private StatusCode getStatusCode(ServerStatusQuery query) {
+		StatusCode serverStatus = StatusCode.valueOf(
+				m_config.getInt(PROPERTY_SERVER_STATUS, StatusCode.READY_VALUE));
 		if (serverStatus != StatusCode.READY) return serverStatus;
 		if (isVersionOK(query.getVersion())) return StatusCode.READY;
 		else return StatusCode.CLIENT_MUST_UPGRADE;
@@ -65,6 +72,8 @@ class VersionCheckHandler implements AsyncPostHandler.SuccessHandler {
 	private boolean isVersionOK(String version) {
 		return m_compatibleVersions.contains(version);
 	}
+
+	
 
     
 }

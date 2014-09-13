@@ -20,9 +20,15 @@
 #define CHECKBPF_SHENANIGANS 2
 #define ID_SIZE 512
 #define SHENANIGANS_VERSION "0.1a"
+#define REMOTE_BASE_URL @"https://shenanigans.io:8023"
+#define TEST_BASE_URL @"https://localhost:8023"
 
+#define BASE_URL REMOTE_BASE_URL
+#define SUBMIT_PAGE @"/submitFingerprint"
+#define VERSION_CHECK_PAGE @"/versionCheck"
 #define ID_KEY @"ApplicationID"
 #define CERT_NAME @"shenanigans"
+
 #define INTERFACE "en0"
 
 struct BPFCheckResult {
@@ -35,6 +41,7 @@ struct BPFCheckResult {
 
 @private
     
+    __weak NSTabView *_outerTabView;
     AuthorizationRef    _authRef;
     ProbeReqSniffer sniffer;
     NSMutableArray * probeGroupNodes;
@@ -44,10 +51,15 @@ struct BPFCheckResult {
     NSMutableData *receivedData;
     NSString * persistentID;
     
+    __weak NSTextField *_submittingLabel;
+    __weak NSImageView *_bigLogo;
     __weak NSButton *btnSelectDevice;
     __weak NSButton *_btnSubmitFingerprint;
     __weak NSButton *_btnGrantPermission;
     __weak NSTextField *installLabel;
+    __weak NSTextField *_splashLabel;
+    __weak NSTextField *_submitLabel;
+    __weak NSButton *_btnSplashContinue;
     __weak NSBrowser *myBrowser;
     __unsafe_unretained NSTextView *submissionTextView;
 }
@@ -62,6 +74,7 @@ struct BPFCheckResult {
 
 @property (atomic, copy,   readwrite) NSData *                  authorization;
 @property (atomic, strong, readwrite) NSXPCConnection *         helperToolConnection;
+@property (nonatomic, readwrite) void (*continueFunction);
 
 - (void)targetMethod:(NSTimer*)theTimer;
 
@@ -73,6 +86,12 @@ struct BPFCheckResult {
 
 @property (weak) IBOutlet NSButton *btnGrantPermission;
 @property (weak) IBOutlet NSButton *btnSubmitFingerprint;
+@property (weak) IBOutlet NSImageView *bigLogo;
+@property (weak) IBOutlet NSTextField *splashLabel;
+@property (weak) IBOutlet NSButton *btnSplashContinue;
+@property (weak) IBOutlet NSTabView *outerTabView;
+@property (weak) IBOutlet NSTextField *submittingLabel;
+@property (weak) IBOutlet NSTextField *submitLabel;
 @end
 
 

@@ -9,7 +9,7 @@ version="2.1">
 	<class>io.shenanigans.persistence.ProbeGroupData</class>
 	<class>io.shenanigans.persistence.ProbeReqData</class>
 	<class>io.shenanigans.persistence.ServerStatusQueryData</class>
-	
+	<class>io.shenanigans.persistence.Request</class>
 	<!--  -->
 	<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
 	

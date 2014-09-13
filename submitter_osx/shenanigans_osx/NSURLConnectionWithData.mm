@@ -7,6 +7,8 @@
 //
 
 #import "NSURLConnectionWithData.h"
+#define USE_CERT_PINNING
+
 
 @implementation NSURLConnectionWithData
 @synthesize receivedData;
@@ -52,7 +54,7 @@ didFailWithError:(NSError *)error
 
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    printf("X\n\n\n\n");
+#ifdef USE_CERT_PINNING
     if ([[[challenge protectionSpace] authenticationMethod] isEqualToString: NSURLAuthenticationMethodServerTrust]) {
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
         (void) SecTrustEvaluate(serverTrust, NULL);
@@ -74,14 +76,19 @@ didFailWithError:(NSError *)error
         BOOL match = [myCert isEqualToData: (__bridge NSData *)remoteCertData];
         CFRelease(remoteCertData);
         
-        if (match) {
+        if (match ) {
             [[challenge sender] useCredential: [NSURLCredential credentialForTrust: serverTrust] forAuthenticationChallenge:challenge];
         } else {
             [[challenge sender] cancelAuthenticationChallenge: challenge];
         }
     }
-}
+#else
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
 
+    //[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+#endif
+}
+/*
 - (BOOL)shouldTrustProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     
     return TRUE; // FIXME - implement cert pinning
@@ -90,7 +97,7 @@ didFailWithError:(NSError *)error
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
 {
     return YES;
-}
+}*/
 @end
 
 

@@ -21,6 +21,7 @@
 #include "token.h"
 #include "NSURLConnectionWithData.h"
 
+#define MS_BETWEEN_UNIX_AND_Y2K 978307200000
 
 // TODO - add handling of server request (proper display of progress and errors)
 
@@ -29,6 +30,7 @@
 @synthesize btnSelectDevice;
 @synthesize submissionTextView;
 @synthesize installLabel;
+@synthesize continueFunction;
 
 @synthesize myBrowser;
 
@@ -37,67 +39,84 @@
     return 0;
 }
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification
+-(long) getMillis
+{
+    CFTimeInterval interval = CFAbsoluteTimeGetCurrent();
+    return lrint(interval * 1000) + MS_BETWEEN_UNIX_AND_Y2K;
+}
 
+- (void)checkConnection
 {
     // initialize the persistent ID
     [self initPersistentID];
+    
+    [_btnSplashContinue setHidden:true];
+    
+    //FIXME -make sure that we handle cases where en0 is not the default.
+    CWInterface *interface = [CWInterface interfaceWithName:[NSString stringWithUTF8String:INTERFACE]];
+    if (![interface powerOn]){
+        NSError * error = [self makeError:@"Your WiFi connection appears to be disabled." reason:@"WiFi must be enabled to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];
+        [self showFancyError:error continueText:@"Retry..." continueFunc:@selector(checkConnection)];
+        return;
+    }
+  
     io::shenanigans::proto::ServerStatusQuery query;
-    NSTimeInterval interval = [[NSDate date]timeIntervalSince1970];
 
-    query.set_date((interval * 1000)); // FIXME, let's get this in MS
+    query.set_date([self getMillis]);
     query.set_token([persistentID UTF8String]);
     query.set_version(SHENANIGANS_VERSION);
     
     NSLog(@"VERSION: %s\n", SHENANIGANS_VERSION);
     std::string queryStr = query.SerializeAsString();
-    [self sendMessage:&queryStr url:@"https://shenanigans.io:8023/versionCheck" successCallback:^(NSData * data) {
+    [self sendMessage:&queryStr url:[NSString stringWithFormat:@"%@%@", BASE_URL, VERSION_CHECK_PAGE] successCallback:^(NSData * data) {
         NSLog(@"Version check success." );
         io::shenanigans::proto::ServerStatusResponse response;
         bool parsed = response.ParseFromArray([data bytes], (int)[data length]);
         if (!parsed){
             NSError * error = [self makeError:@"Could not start Shenanigans." reason:@"The server replied with a corrupted response." suggestion:@"Try restarting this application later." domain:@"ServerConnect"];
-            [self showError:error];
-            [NSApp terminate:self];
+            [self logError:error];
+            [_splashLabel setStringValue:@"The server replied with an invalid response. Please let us know about this error, and we'll try to fix it!"];
             
         } else {
             switch (response.statuscode()) {
                 case io::shenanigans::proto::ServerStatusResponse_StatusCode_CLIENT_MUST_UPGRADE:
                     {
                         NSError * error = [self makeError:@"This app is out of date." reason:@"You are using an old version of Shenanigans that isn't compatible with the server." suggestion:@"Please download the latest version from https://shenanigans.io/download" domain:@"ServerConnect"];
-                        [self showError:error];
-                        [NSApp terminate:self];
+                        [self logError:error];
+                        [self showFancyError:error continueText:nil continueFunc:nil];
                         break;
                     }
                 case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_ABANDONED:
                 {
                     NSError * error = [self makeError:@"Shenanigans is a zombie." reason:@"Nobody has checked in recently to confirm that everything on the server is still working. Proceed at your own risk." suggestion:@"Nothing you can really do about this, sorry!" domain:@"ServerConnect"];
-                    [self showError:error];
+                    [self logError:error];
+                    [self showFancyError:error continueText:@"Proceed anyway..." continueFunc:@selector(continueFromError)];
+
                     break;
                 }
                 case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_SLOW:
                 {
-                    NSError * error = [self makeError:@"Please bear with us..." reason:@"Lots of people are submitting their WiFi fingerprints right now, so please be patient, as your submission might not finish right away. Apologies for the delay!" suggestion:@"Nothing you can really do about this, sorry!" domain:@"ServerConnect"];
-                    [self showError:error];
+                    NSError * error = [self makeError:@"The server is currently under heavy load." reason:@"Lots of people are submitting their WiFi fingerprints right now, so please be patient, as your submission might not finish right away. Apologies for the delay!" suggestion:@"Thanks for your patience!" domain:@"ServerConnect"];
+                    [self logError:error];
+                    [self showFancyError:error continueText:@"Continue..." continueFunc:@selector(continueFromError) ];
                     break;
                 }
                 case io::shenanigans::proto::ServerStatusResponse_StatusCode_SERVER_ENGULFED_IN_FLAMES:
                 {
                     NSError * error = [self makeError:@"The server is too busy." reason:@"Many apologies, but the server is practically engulfed in flames due to all of the activity. Please try again in an hour or so after we've put out the fires." suggestion:@"Please try again later." domain:@"ServerConnect"];
-                    [self showError:error];
-                    [NSApp terminate:self];
+                    [self logError:error];
+                    [self showFancyError:error continueText:nil continueFunc:nil];
                     break;
                 }
                 case io::shenanigans::proto::ServerStatusResponse_StatusCode_READY:
-                default:
+                    [_outerTabView selectNextTabViewItem:self];
                     break;
             }
         }
     } failureCallback:^(NSError * err) {
         NSError * userError = [self makeError:@"Could not start Shenanigans" reason:@"Could not contact the server. You'll need a working internet connection to submit your signature." suggestion:@"Make sure that you are connected to the internet." domain:@"ServerConnect"];
         [self logError:err];
-        [self showError:userError];
-        [NSApp terminate:self];
+        [self showFancyError:userError continueText:nil continueFunc:nil];
     }];
 
 }
@@ -105,7 +124,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 
 {
-    
+    [self checkConnection];
     
     probeGroupNodes = [[NSMutableArray alloc] init];
     probeGroupNodeDict = [[NSMutableDictionary alloc] init];
@@ -114,7 +133,7 @@
     [myBrowser setTitle:@"Device networks" ofColumn:1];
     
     [btnSelectDevice setEnabled:NO];
-    [_btnSubmitFingerprint setEnabled:NO];
+    //[_btnSubmitFingerprint setEnabled:NO];
     [submissionTextView setFont:[NSFont userFixedPitchFontOfSize:0.0]];
     
     // initialize sniffing permissions
@@ -127,14 +146,6 @@
         [self probeSeen:group req:req status:status];
     };
     sniffer.addNewGroupListener(func);
-    
-    //FIXME -make sure that we handle cases where en0 is not the default.
-    CWInterface *interface = [CWInterface interfaceWithName:[NSString stringWithUTF8String:INTERFACE]];
-    if (![interface powerOn]){
-        NSError * error = [self makeError:@"Please turn on WiFi!" reason:@"You have to enable your computer's WiFi to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];
-        [self showError:error];
-
-    }
     
     /* TODO, add IBSS feature- Start in IBSS mode:
     NSError * error = nil;
@@ -193,7 +204,7 @@
         uint8_t buf[ID_SIZE];
         arc4random_buf(&buf, ID_SIZE);
         NSData * data = [NSData dataWithBytes:buf length:ID_SIZE];
-        NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSString * dataStr = [data base64Encoding];
         
         [[NSUserDefaults standardUserDefaults] setObject:dataStr forKey:ID_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -376,7 +387,7 @@
                 isStock = false;
             }
             if (![fileManager isWritableFileAtPath:filePath] || ![fileManager isReadableFileAtPath:filePath]){
-                printf("File %s is not readable or writable:", filePath.UTF8String);
+                NSLog(@"File %@ is not readable or writable:", filePath);
                 result.processHasAccess = false;
             }
             
@@ -390,6 +401,22 @@
     }
     return result;
 
+}
+
+-(void)showFancyError:(NSError *)error continueText:(NSString *)continueText continueFunc:(SEL)continueFunc
+
+{
+    continueFunction = continueFunc;
+    if (continueFunc)[_btnSplashContinue setAction:continueFunc];
+    NSString * combined = [NSString stringWithFormat:@"%@\n%@\n%@", error.localizedDescription, error.localizedFailureReason, error.localizedRecoverySuggestion];
+    [_splashLabel setStringValue:combined];
+    if (continueText != nil) [_btnSplashContinue setStringValue:continueText];
+    [_btnSplashContinue setHidden:(continueText == nil)];
+    NSTabViewItem * errorPane = [_outerTabView tabViewItemAtIndex:0];
+    if (_outerTabView.selectedTabViewItem != errorPane){
+        [_outerTabView selectTabViewItem:errorPane];
+    }
+    
 }
 
 -(void)showError:(NSError *)error
@@ -441,7 +468,7 @@
             self.helperToolConnection.invalidationHandler = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 self.helperToolConnection = nil;
-                printf("Connection invalidated.");
+                NSLog(@"%@",@"Connection invalidated.");
             }];
         };
 #pragma clang diagnostic pop
@@ -469,8 +496,13 @@
 
 - (IBAction)nextTab:(id)sender {
     [[self tabView] selectNextTabViewItem:sender];
-
+    
 }
+
+- (IBAction)continueFromError {
+    [_outerTabView selectNextTabViewItem:self];
+}
+
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
     // Start sniffing before the user adds the network - adding the network triggers a probe request.
@@ -486,7 +518,6 @@
         self.repeatingTimer = timer;
         
     }
-    printf("will select item %s", [tabViewItem label].UTF8String );
 }
 
 
@@ -525,12 +556,25 @@
     return ((Node *)item).displayName;
 }
 
+- (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+    if ([[tabViewItem identifier] intValue] == 3){
+        return [self getSelectedDeviceCount] > 0;
+    } else {
+        return YES;
+    }
+}
+
+- (int) getSelectedDeviceCount {
+    NSArray * paths = [myBrowser selectionIndexPaths];
+    return (int)[paths count];
+}
 
 - (IBAction) browserCellSelected:(id)sender {
     
     NSArray * paths = [myBrowser selectionIndexPaths];
-    [btnSelectDevice setEnabled:[paths count] > 0];
-    [_btnSubmitFingerprint setEnabled:[paths count] > 0];
+    [btnSelectDevice setEnabled:([self getSelectedDeviceCount] > 0)];
+    /*NSTabViewItem *submitItem = [_tabView tabViewItemAtIndex:3];
+    [_btnSubmitFingerprint setEnabled:[paths count] > 0];*/
     selectedProbeGroups.clear();
     NSMutableString * submissionString = [NSMutableString new];
     for (NSIndexPath * indexPath in paths){
@@ -555,7 +599,9 @@
             [submissionString appendString:[NSString stringWithUTF8String:req->ssid.c_str()]];
 
             NSData * data = [NSData dataWithBytes:&(req->rawBytes[0]) length:req->rawBytes.size()];
-            NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+
+            NSString * dataStr = [data base64Encoding];
+            //NSString * dataStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
             [submissionString appendString:@"\n"];
             [submissionString appendString:dataStr];
             [submissionString appendString:@"\n"];
@@ -575,7 +621,7 @@
 
 - (IBAction)selectDevice:(id)sender {
     [_tabView selectNextTabViewItem:sender];
-    sniffer.stop();
+    //sniffer.stop();
 }
 
 
@@ -603,57 +649,71 @@
 
 - (IBAction)submitFingerprint:(id)sender {
     
-    std::vector<ProbeGroup*>::iterator it;
-    std::vector<ProbeReq*>::iterator reqIt;
-    
-    io::shenanigans::proto::Submission submission;
-    submission.set_token([persistentID UTF8String]);
-
-    for (it = selectedProbeGroups.begin(); it != selectedProbeGroups.end(); it++){
-        io::shenanigans::proto::Submission_ProbeGroup *outputGroup = submission.add_group();
+    [_outerTabView selectNextTabViewItem:sender];
+    [_submitLabel setStringValue:@"Submitting fingerprints and downloading Certificate of De-identification..."];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        std::vector<ProbeGroup*>::iterator it;
+        std::vector<ProbeReq*>::iterator reqIt;
         
+        io::shenanigans::proto::Submission submission;
+        submission.set_token([persistentID UTF8String]);
         
-        ProbeGroup * probeGroup = *it;
-        std::string tokenInput;
-        for (reqIt = probeGroup->probeReqs.begin(); reqIt != probeGroup->probeReqs.end(); reqIt++){
-            io::shenanigans::proto::Submission_ProbeGroup_ProbeReq *outputReq = outputGroup->add_req();
-            ProbeReq * req = *reqIt;
-                       outputReq->set_ssid(req->ssid);
-
-            outputReq->set_reqbytes(&(req->rawBytes[0]), req->rawBytes.size());
-            tokenInput.insert(tokenInput.end(), req->rawBytes.begin(), req->rawBytes.end());
+        for (it = selectedProbeGroups.begin(); it != selectedProbeGroups.end(); it++){
+            io::shenanigans::proto::Submission_ProbeGroup *outputGroup = submission.add_group();
             
-        }
-        outputGroup->set_mac(probeGroup->mac);
-        
-        std::string *token = computeToken(&tokenInput);
-        std::cout << "Token is: " << *token << std::endl;
-        outputGroup->set_token(token->c_str(), token->size());
-        delete token;
-        
-    }
-    
-    std::string message = submission.SerializeAsString();
-    [self sendMessage:&message url:@"https://shenanigans.io:8023/submitFingerprint" successCallback:^(NSData * data){
-        
-        NSLog(@"Received %lu bytes of data",(unsigned long)[data length]);
-        NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];
-        BOOL written = [data writeToFile:filePath atomically:NO];
-        if (!written){
-            NSLog(@"Couldn't write to file: '%@'.", filePath);
-        } else {
-            // FIXME - if preview has been closed, and we submit another item, we get a crash: malloc: *** error for object 0x600000019580: Freeing already free'd pointer
-            BOOL opened = [[NSWorkspace sharedWorkspace] openFile:filePath withApplication:@"Preview" ];
-            if (!opened){ // FIXME - test this more and handle more error cases.
-                NSError * error = [self makeError:@"Couldn't create a valid certificate." reason:@"The server responded with an invalid document." suggestion:@"Contact a site administrator" domain:@"ServerConnect"];
-                [self showError:error];
+            
+            ProbeGroup * probeGroup = *it;
+            std::string tokenInput;
+            for (reqIt = probeGroup->probeReqs.begin(); reqIt != probeGroup->probeReqs.end(); reqIt++){
+                io::shenanigans::proto::Submission_ProbeGroup_ProbeReq *outputReq = outputGroup->add_req();
+                ProbeReq * req = *reqIt;
+                outputReq->set_ssid(req->ssid);
+                
+                outputReq->set_reqbytes(&(req->rawBytes[0]), req->rawBytes.size());
+                tokenInput.insert(tokenInput.end(), req->rawBytes.begin(), req->rawBytes.end());
+                
             }
+            outputGroup->set_mac(probeGroup->mac);
+            
+            std::string *token = computeToken(&tokenInput);
+            std::cout << "Token is: " << *token << std::endl;
+            outputGroup->set_token(token->c_str(), token->size());
+            delete token;
             
         }
-    }
-    failureCallback:^(NSError * error){
-      [self showError:error];
-    }];
+        submission.set_date([self getMillis]);
+        submission.set_token([persistentID UTF8String]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            std::string message = submission.SerializeAsString();
+            [self sendMessage:&message url:[NSString stringWithFormat:@"%@%@", BASE_URL, SUBMIT_PAGE] successCallback:^(NSData * data){
+                
+                NSLog(@"Received %lu bytes of data",(unsigned long)[data length]);
+                NSString * filePath = [self pathForTemporaryFileWithPrefix: @"shenanigans"];
+                BOOL written = [data writeToFile:filePath atomically:NO];
+                if (!written){
+                    NSLog(@"Couldn't write to file: '%@'.", filePath);
+                } else {
+                     // FIXME - if preview has been closed, and we submit another item, we get a crash: malloc: *** error for object 0x600000019580: Freeing already free'd pointer
+                    BOOL opened = [[NSWorkspace sharedWorkspace] openFile:filePath withApplication:@"Preview" ];
+                    if (!opened){ // FIXME - test this more and handle more error cases.
+                        NSError * error = [self makeError:@"Couldn't create a valid certificate." reason:@"The server responded with an invalid document." suggestion:@"Contact a site administrator" domain:@"ServerConnect"];
+                        [self showFancyError:error continueText:@"Try again..." continueFunc:@selector(continueFromError)];
+
+
+                    } else {
+                        [_submitLabel setStringValue:@"Your WiFi fingerprints are now in the Shenanigans database. Thank you for your participation. Soon, you'll be everywhere!"];
+                    }
+                    
+                }
+            }
+              failureCallback:^(NSError * error){
+                  [self showFancyError:error continueText:@"Try again..." continueFunc:@selector(continueFromError)];
+                
+              }];
+
+        });
+        
+    });
 }
 
 

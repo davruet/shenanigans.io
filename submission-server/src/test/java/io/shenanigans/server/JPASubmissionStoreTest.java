@@ -25,8 +25,8 @@ public class JPASubmissionStoreTest {
 
 	protected SubmissionReceipt makeReceipt() {
 		SubmissionReceipt r1 = new SubmissionReceipt();
-		r1.setHeaders("headers");
-		r1.setIp("127.0.0.1");
+		//r1.setHeaders("headers");
+		//r1.setIp("127.0.0.1");
 		List<ProbeGroupData> groups = new ArrayList<>();
 		ProbeGroupData group = new ProbeGroupData();
 		group.setMac("DE:AD:BE:EF:A1:A2");
