@@ -64,7 +64,7 @@
     // command line this so you can handle app upgrades cleanly.
 
 
-- (void)chmodBPF:(NSData *)authData withReply:(void(^)(NSError * error))reply;
+- (void)chmodBPF:(NSData *)authData enable:(BOOL)enable withReply:(void(^)(NSError * error))reply;
 //- (void)chmodBPF:(NSData *)authData withReply:(void(^)(NSError * error))reply;
 
 @end

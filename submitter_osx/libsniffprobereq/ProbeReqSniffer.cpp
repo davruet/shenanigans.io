@@ -79,25 +79,23 @@ void ProbeReqSniffer::SnifferRunnable::run(){
         //printf("Starting sniffer on interface: %s\n", defaultInterface.c_str());
         //FIXME: evaluate/handle cases where en0 is not the desired interface.
         sniffer = new Sniffer(interface, Sniffer::PROMISC, "type mgt subtype probe-req", true);
-        sniffer->set_timeout(1000);
+        sniffer->set_timeout(SNIFFER_TIMEOUT);
         
         initialized = true;
         launchMutex.unlock();
         sniffer->sniff_loop(Tins::make_sniffer_handler(this, &SnifferRunnable::handle));
         sniffer->stop_sniff();
         
-        sniffer = new Sniffer("en0", Sniffer::PROMISC, "", false);
+       /* sniffer = new Sniffer("en0", Sniffer::PROMISC, "", false);
         sniffer->set_timeout(10);
-        sniffer->next_packet();
+        sniffer->next_packet();*/
 
         
     } catch(std::exception const & ex) {
         printf("Exception thrown starting sniffer loop: %s\n", ex.what());
         running = false;
-        launchMutex.unlock();
-        
     }
-    
+    delete sniffer;
     printf("Sniffer thread stopped.\n");
     
 }
@@ -107,7 +105,7 @@ bool ProbeReqSniffer::SnifferRunnable::handle(PDU &pdu){
     const Dot11ProbeRequest &probe = pdu.rfind_pdu<Dot11ProbeRequest>();
     
     if (probe.ssid() == "BROADCAST"){
-        return true;
+        return true; // skip these, they contain no SSID.
     }
     
     queueMutex.lock();
@@ -140,12 +138,16 @@ void ProbeReqSniffer::addNewGroupListener(ProbeGroupListener listener){
     groupListeners.push_back(listener);
 }
 
+bool ProbeReqSniffer::isRunning(){
+    return snifferRunnable.running;
+}
 
 
 void ProbeReqSniffer::start(std::string interface){ // FIXME - this should throw an exception if starting fails, and it should wait until initialized.
     if (snifferRunnable.running){
         printf("Sniffer is already running.");
     } else {
+        if (thread.isRunning()) thread.join(SNIFFER_TIMEOUT); // thread is stopping -- wait for it to stop before starting again.
         snifferRunnable.running = true;
         snifferRunnable.interface = interface;
         thread.start(snifferRunnable);

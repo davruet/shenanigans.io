@@ -14,10 +14,13 @@
 @protected
     NSMutableDictionary *children;
     NSString *displayName;
+    NSColor *labelColor;
 }
 
 @property(readonly, retain) NSArray *children;
 @property(readonly, copy) NSString *displayName;
+@property(readonly, retain) NSColor *labelColor;
+
 
 @end
 
@@ -26,6 +29,7 @@
 @private
     ProbeGroup *probeGroup;
     BOOL _childrenDirty;
+    
 }
 
 - (id)init:(ProbeGroup *)group;
@@ -33,7 +37,6 @@
 
 @property(readonly) ProbeGroup *probeGroup;
 //@property(readonly, retain) NSImage *icon; // FIXME - add icons??
-//@property(readonly, retain) NSColor *labelColor;
 
 
 

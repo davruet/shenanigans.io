@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreWLAN/CoreWLAN.h>
+#import <WebKit/WebKit.h>
 
 #include "ProbeReqSniffer.h"
 
@@ -46,7 +47,7 @@ struct BPFCheckResult {
     ProbeReqSniffer sniffer;
     NSMutableArray * probeGroupNodes;
     NSMutableDictionary * probeGroupNodeDict;
-    BPFCheckResult bpfCheckResult;
+    BPFCheckResult initialBPFCheckResult;
     std::vector<ProbeGroup*> selectedProbeGroups;
     NSMutableData *receivedData;
     NSString * persistentID;
@@ -59,6 +60,7 @@ struct BPFCheckResult {
     __weak NSTextField *installLabel;
     __weak NSTextField *_splashLabel;
     __weak NSTextField *_submitLabel;
+    __weak WebView *_configureWebView;
     __weak NSButton *_btnSplashContinue;
     __weak NSBrowser *myBrowser;
     __unsafe_unretained NSTextView *submissionTextView;
@@ -76,7 +78,7 @@ struct BPFCheckResult {
 @property (atomic, strong, readwrite) NSXPCConnection *         helperToolConnection;
 @property (nonatomic, readwrite) void (*continueFunction);
 
-- (void)targetMethod:(NSTimer*)theTimer;
+- (void)timerUpdate:(NSTimer*)theTimer;
 
 @property (unsafe_unretained) IBOutlet NSTextView *submissionTextView;
 
@@ -92,6 +94,7 @@ struct BPFCheckResult {
 @property (weak) IBOutlet NSTabView *outerTabView;
 @property (weak) IBOutlet NSTextField *submittingLabel;
 @property (weak) IBOutlet NSTextField *submitLabel;
+@property (weak) IBOutlet WebView *configureWebView;
 @end
 
 

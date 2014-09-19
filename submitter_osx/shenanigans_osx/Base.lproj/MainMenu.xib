@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -19,13 +20,12 @@
                 <outlet property="btnSelectDevice" destination="WmL-hN-rpF" id="fHY-Fn-rrp"/>
                 <outlet property="btnSplashContinue" destination="GKO-3b-rVT" id="fvv-MZ-B52"/>
                 <outlet property="btnSubmitFingerprint" destination="8sS-R5-bUr" id="Rku-dw-57u"/>
+                <outlet property="configureWebView" destination="7cs-kT-duC" id="FwK-Uy-tO7"/>
                 <outlet property="installLabel" destination="U9G-cg-654" id="jQM-0H-Ldx"/>
                 <outlet property="myBrowser" destination="Jgx-jL-d5T" id="mBI-M4-jia"/>
                 <outlet property="outerTabView" destination="79e-sj-866" id="PT9-9Z-I73"/>
                 <outlet property="splashLabel" destination="PgI-aX-B5L" id="3FS-cn-PBa"/>
                 <outlet property="submissionTextView" destination="So5-eG-EnO" id="TKk-iu-QKu"/>
-                <outlet property="submitLabel" destination="ocW-Mg-oOb" id="t1G-Fa-g5w"/>
-                <outlet property="submittingLabel" destination="ocW-Mg-oOb" id="YG7-kb-6hu"/>
                 <outlet property="tabView" destination="YQA-Rq-DAB" id="gEV-fy-C1I"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -683,24 +683,24 @@
         <window title="Shenanigans: de-identify your device" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="643" height="481"/>
+            <rect key="contentRect" x="335" y="390" width="600" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="643" height="481"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <tabView fixedFrame="YES" type="noTabsNoBorder" initialItem="aZD-5d-P5H" translatesAutoresizingMaskIntoConstraints="NO" id="79e-sj-866">
-                        <rect key="frame" x="7" y="10" width="631" height="464"/>
+                    <tabView type="noTabsNoBorder" initialItem="aZD-5d-P5H" translatesAutoresizingMaskIntoConstraints="NO" id="79e-sj-866">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Connect" identifier="1" id="aZD-5d-P5H">
-                                <view key="view" wantsLayer="YES" ambiguous="YES" id="bbY-6W-Hcf">
-                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
+                                <view key="view" wantsLayer="YES" id="bbY-6W-Hcf">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView fixedFrame="YES" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="lqm-ah-lPK">
-                                            <rect key="frame" x="59" y="-24" width="512" height="512"/>
+                                        <imageView alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="lqm-ah-lPK">
+                                            <rect key="frame" x="-212" y="-279" width="1024" height="1024"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <shadow key="shadow" blurRadius="10">
                                                 <size key="offset" width="12" height="-9"/>
@@ -708,8 +708,8 @@
                                             </shadow>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="shenanigans-reference-square-outline" id="afi-Ia-m85"/>
                                         </imageView>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgI-aX-B5L">
-                                            <rect key="frame" x="133" y="184" width="364" height="90"/>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgI-aX-B5L">
+                                            <rect key="frame" x="118" y="194" width="380" height="64"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="2">
                                                 <color key="color" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -720,8 +720,8 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKO-3b-rVT">
-                                            <rect key="frame" x="458" y="22" width="130" height="32"/>
+                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKO-3b-rVT">
+                                            <rect key="frame" x="392" y="158" width="110" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Continue..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Kw-oe-Ikp">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -732,25 +732,33 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerX" secondItem="PgI-aX-B5L" secondAttribute="centerX" constant="-8" id="6mA-gq-sqe"/>
+                                        <constraint firstAttribute="centerX" secondItem="lqm-ah-lPK" secondAttribute="centerX" id="7uK-Pe-VHU"/>
+                                        <constraint firstAttribute="centerY" secondItem="PgI-aX-B5L" secondAttribute="centerY" constant="1" id="dAa-na-h0W"/>
+                                        <constraint firstItem="GKO-3b-rVT" firstAttribute="top" secondItem="PgI-aX-B5L" secondAttribute="bottom" constant="8" id="gvO-FT-MkO"/>
+                                        <constraint firstAttribute="centerY" secondItem="lqm-ah-lPK" secondAttribute="centerY" constant="8" id="jPI-8f-hrS"/>
+                                        <constraint firstItem="GKO-3b-rVT" firstAttribute="trailing" secondItem="PgI-aX-B5L" secondAttribute="trailing" id="zCV-2s-GZe"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Main" identifier="2" id="i92-dn-Rrq">
                                 <view key="view" id="hYA-AY-VRZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tabView fixedFrame="YES" initialItem="4GP-bR-7gX" translatesAutoresizingMaskIntoConstraints="NO" id="YQA-Rq-DAB">
-                                            <rect key="frame" x="13" y="10" width="605" height="448"/>
+                                        <tabView initialItem="4GP-bR-7gX" translatesAutoresizingMaskIntoConstraints="NO" id="YQA-Rq-DAB">
+                                            <rect key="frame" x="13" y="5" width="574" height="437"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <tabViewItems>
                                                 <tabViewItem label="Install" identifier="0" id="4GP-bR-7gX">
                                                     <view key="view" id="Btx-Oz-p66">
-                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <rect key="frame" x="10" y="33" width="554" height="391"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-cg-654">
-                                                                <rect key="frame" x="63" y="162" width="441" height="153"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-cg-654">
+                                                                <rect key="frame" x="57" y="126" width="441" height="153"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3T8-yz-e4u">
                                                                     <font key="font" metaFont="system"/>
@@ -759,8 +767,8 @@
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <button identifier="btnGrantPermission" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
-                                                                <rect key="frame" x="332" y="85" width="159" height="32"/>
+                                                            <button identifier="btnGrantPermission" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-kw-Dzq">
+                                                                <rect key="frame" x="343" y="90" width="159" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <buttonCell key="cell" type="push" title="Grant Permission..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I9t-FG-Ef0">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -771,15 +779,21 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="XFg-kw-Dzq" firstAttribute="top" secondItem="U9G-cg-654" secondAttribute="bottom" constant="8" id="ajx-cf-XMz"/>
+                                                            <constraint firstItem="XFg-kw-Dzq" firstAttribute="trailing" secondItem="U9G-cg-654" secondAttribute="trailing" id="e60-zv-faq"/>
+                                                            <constraint firstAttribute="centerX" secondItem="U9G-cg-654" secondAttribute="centerX" constant="-0.5" id="fAD-cb-e3a"/>
+                                                            <constraint firstAttribute="centerY" secondItem="U9G-cg-654" secondAttribute="centerY" constant="7" id="rXn-HT-zzt"/>
+                                                        </constraints>
                                                     </view>
                                                 </tabViewItem>
                                                 <tabViewItem label="Configure Device" identifier="1" id="J6U-Gv-jfU">
                                                     <view key="view" id="QtQ-aI-GOw">
-                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <rect key="frame" x="10" y="33" width="554" height="391"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sh9-T9-eaF">
-                                                                <rect key="frame" x="255" y="10" width="82" height="32"/>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sh9-T9-eaF">
+                                                                <rect key="frame" x="461" y="12" width="82" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <buttonCell key="cell" type="push" title="Next..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgj-Ml-WvE">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -789,51 +803,61 @@
                                                                     <action selector="nextTab:" target="Voe-Tx-rLC" id="R0F-dH-5Db"/>
                                                                 </connections>
                                                             </button>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DuV-SE-p9i">
-                                                                <rect key="frame" x="36" y="78" width="327" height="289"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bsw-KU-tcK">
+                                                                <rect key="frame" x="15" y="364" width="309" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="KRz-23-74A">
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Step 2 of 3: Configure your device for discovery." id="y1j-Fc-QyG">
                                                                     <font key="font" metaFont="system"/>
-                                                                    <string key="title">Step 2 of 3: Configure your device for discovery.  * Make sure that WiFi is enabled on your device. * Add a new WiFi network named "shenanigans" to your device. This confirms that it's your device, and not your neighbor's.  (Note: you can remove this network after we're done.) 
-SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 random characters)  * For best results, make sure that your device is not connected to a WiFi network. On Android, you'll have to "forget" any WiFi networks you're currently connected to.</string>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxU-KW-5A5">
-                                                                <rect key="frame" x="400" y="69" width="186" height="298"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" image="android" id="ZuL-oS-Uik"/>
-                                                            </imageView>
+                                                            <webView translatesAutoresizingMaskIntoConstraints="NO" id="7cs-kT-duC">
+                                                                <rect key="frame" x="17" y="60" width="520" height="296"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                                                    <nil key="identifier"/>
+                                                                </webPreferences>
+                                                            </webView>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="7cs-kT-duC" firstAttribute="top" secondItem="Bsw-KU-tcK" secondAttribute="bottom" constant="8" id="8vp-fS-6AX"/>
+                                                            <constraint firstItem="Bsw-KU-tcK" firstAttribute="top" secondItem="QtQ-aI-GOw" secondAttribute="top" constant="10" id="D2B-Uw-T1Q"/>
+                                                            <constraint firstItem="Sh9-T9-eaF" firstAttribute="trailing" secondItem="7cs-kT-duC" secondAttribute="trailing" id="IbD-FW-sdp"/>
+                                                            <constraint firstAttribute="bottom" secondItem="7cs-kT-duC" secondAttribute="bottom" constant="60" id="T7D-Dk-vns"/>
+                                                            <constraint firstAttribute="trailing" secondItem="7cs-kT-duC" secondAttribute="trailing" constant="17" id="WqW-i3-zD5"/>
+                                                            <constraint firstItem="Sh9-T9-eaF" firstAttribute="top" secondItem="7cs-kT-duC" secondAttribute="bottom" constant="20" id="aYY-2c-3fd"/>
+                                                            <constraint firstItem="Bsw-KU-tcK" firstAttribute="leading" secondItem="QtQ-aI-GOw" secondAttribute="leading" constant="17" id="bwj-YR-vL2"/>
+                                                            <constraint firstItem="7cs-kT-duC" firstAttribute="leading" secondItem="QtQ-aI-GOw" secondAttribute="leading" constant="17" id="eKr-nz-WJg"/>
+                                                        </constraints>
                                                     </view>
                                                 </tabViewItem>
                                                 <tabViewItem label="Select Device" identifier="2" id="sUV-5i-TYc">
                                                     <view key="view" id="f3Q-4u-s7u">
-                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                        <rect key="frame" x="10" y="33" width="554" height="391"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Let-Or-RCg">
-                                                                <rect key="frame" x="15" y="244" width="430" height="136"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Let-Or-RCg">
+                                                                <rect key="frame" x="15" y="262" width="524" height="119"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Sg6-Da-m4g">
                                                                     <font key="font" metaFont="system"/>
-                                                                    <string key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks -- this often triggers the fingerprint broadcast we're looking for. </string>
+                                                                    <mutableString key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks -- this often triggers the fingerprint broadcast we're looking for.  Select your device. You can select more than one if you like:</mutableString>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="To2-u8-dKS">
-                                                                <rect key="frame" x="15" y="201" width="382" height="17"/>
+                                                                <rect key="frame" x="-2" y="0.0" width="4" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select your device. You can select more than one if you like:" id="URU-kt-TOW">
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="URU-kt-TOW">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WmL-hN-rpF">
-                                                                <rect key="frame" x="451" y="0.0" width="123" height="32"/>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WmL-hN-rpF">
+                                                                <rect key="frame" x="420" y="12" width="123" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <buttonCell key="cell" type="push" title="Select Device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="se5-pD-C3f">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -843,8 +867,8 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                                     <action selector="selectDevice:" target="Voe-Tx-rLC" id="DIo-kf-txZ"/>
                                                                 </connections>
                                                             </button>
-                                                            <browser verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" allowsBranchSelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="2" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-jL-d5T">
-                                                                <rect key="frame" x="17" y="37" width="551" height="178"/>
+                                                            <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" allowsBranchSelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="2" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-jL-d5T">
+                                                                <rect key="frame" x="17" y="60" width="520" height="192"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <connections>
                                                                     <action selector="browserCellSelected:" target="Voe-Tx-rLC" id="vCF-eB-e7H"/>
@@ -852,15 +876,26 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                                 </connections>
                                                             </browser>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="Jgx-jL-d5T" secondAttribute="bottom" constant="60" id="0gD-n0-TAu"/>
+                                                            <constraint firstItem="Jgx-jL-d5T" firstAttribute="trailing" secondItem="WmL-hN-rpF" secondAttribute="trailing" id="5EZ-5f-kih"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Let-Or-RCg" secondAttribute="trailing" constant="17" id="Bvj-hM-WqF"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Jgx-jL-d5T" secondAttribute="trailing" constant="17" id="HUR-ig-odI"/>
+                                                            <constraint firstItem="Let-Or-RCg" firstAttribute="leading" secondItem="f3Q-4u-s7u" secondAttribute="leading" constant="17" id="J1f-aU-gRE"/>
+                                                            <constraint firstItem="Let-Or-RCg" firstAttribute="top" secondItem="f3Q-4u-s7u" secondAttribute="top" constant="10" id="aPB-Oq-oz3"/>
+                                                            <constraint firstItem="Jgx-jL-d5T" firstAttribute="leading" secondItem="f3Q-4u-s7u" secondAttribute="leading" constant="17" id="dj1-j2-CGg"/>
+                                                            <constraint firstItem="Jgx-jL-d5T" firstAttribute="top" secondItem="Let-Or-RCg" secondAttribute="bottom" constant="10" id="o8b-KB-zAa"/>
+                                                            <constraint firstItem="WmL-hN-rpF" firstAttribute="top" secondItem="Jgx-jL-d5T" secondAttribute="bottom" constant="20" id="rbW-s4-xdu"/>
+                                                        </constraints>
                                                     </view>
                                                 </tabViewItem>
                                                 <tabViewItem label="Submit Fingerprint" identifier="3" id="I3s-ag-gU6">
-                                                    <view key="view" ambiguous="YES" id="aw4-IV-S1w">
-                                                        <rect key="frame" x="10" y="33" width="585" height="402"/>
+                                                    <view key="view" id="aw4-IV-S1w">
+                                                        <rect key="frame" x="10" y="33" width="554" height="391"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sS-R5-bUr">
-                                                                <rect key="frame" x="258" y="24" width="294" height="32"/>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8sS-R5-bUr">
+                                                                <rect key="frame" x="249" y="12" width="294" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <buttonCell key="cell" type="push" title="Submit fingerprint and view certificate..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJL-b6-b7m">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -870,21 +905,21 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                                     <action selector="submitFingerprint:" target="Voe-Tx-rLC" id="tEM-LY-3wH"/>
                                                                 </connections>
                                                             </button>
-                                                            <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ah-AG-N9f">
-                                                                <rect key="frame" x="42" y="78" width="504" height="220"/>
+                                                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ah-AG-N9f">
+                                                                <rect key="frame" x="17" y="60" width="520" height="245"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
-                                                                <clipView key="contentView" ambiguous="YES" misplaced="YES" id="cdZ-Ui-qdz">
-                                                                    <rect key="frame" x="1" y="1" width="502" height="218"/>
+                                                                <clipView key="contentView" id="cdZ-Ui-qdz">
+                                                                    <rect key="frame" x="1" y="1" width="518" height="243"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="So5-eG-EnO">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="502" height="218"/>
+                                                                        <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="So5-eG-EnO">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="518" height="243"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="502" height="218"/>
+                                                                            <size key="minSize" width="518" height="243"/>
                                                                             <size key="maxSize" width="640" height="10000000"/>
                                                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="502" height="218"/>
+                                                                            <size key="minSize" width="518" height="243"/>
                                                                             <size key="maxSize" width="640" height="10000000"/>
                                                                         </textView>
                                                                     </subviews>
@@ -895,12 +930,12 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Z8h-fC-HHn">
-                                                                    <rect key="frame" x="487" y="1" width="16" height="218"/>
+                                                                    <rect key="frame" x="503" y="1" width="16" height="243"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                             </scrollView>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-1G-pjJ">
-                                                                <rect key="frame" x="40" y="313" width="483" height="56"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-1G-pjJ">
+                                                                <rect key="frame" x="15" y="313" width="462" height="51"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3Ji-3F-Ny3">
                                                                     <font key="font" metaFont="system"/>
@@ -910,6 +945,16 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                                                 </textFieldCell>
                                                             </textField>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="9ah-AG-N9f" secondAttribute="bottom" constant="60" id="1MC-Rt-7bc"/>
+                                                            <constraint firstItem="8sS-R5-bUr" firstAttribute="trailing" secondItem="9ah-AG-N9f" secondAttribute="trailing" id="6UI-6e-KWM"/>
+                                                            <constraint firstAttribute="trailing" secondItem="9ah-AG-N9f" secondAttribute="trailing" constant="17" id="70J-Jh-aWG"/>
+                                                            <constraint firstItem="8sS-R5-bUr" firstAttribute="top" secondItem="9ah-AG-N9f" secondAttribute="bottom" constant="20" id="RkJ-Dg-4HK"/>
+                                                            <constraint firstItem="9ah-AG-N9f" firstAttribute="leading" secondItem="aw4-IV-S1w" secondAttribute="leading" constant="17" id="ega-M6-xg4"/>
+                                                            <constraint firstItem="9ah-AG-N9f" firstAttribute="top" secondItem="TG7-1G-pjJ" secondAttribute="bottom" constant="8" id="i1S-dv-Z1y"/>
+                                                            <constraint firstItem="9ah-AG-N9f" firstAttribute="leading" secondItem="TG7-1G-pjJ" secondAttribute="leading" id="nCH-cb-qru"/>
+                                                            <constraint firstItem="TG7-1G-pjJ" firstAttribute="top" secondItem="aw4-IV-S1w" secondAttribute="top" constant="27" id="rW2-xg-3RP"/>
+                                                        </constraints>
                                                     </view>
                                                 </tabViewItem>
                                             </tabViewItems>
@@ -918,45 +963,27 @@ SSID/network name: shenanigans Security: WPA/WPA2 Password: (just enter 8 ra
                                             </connections>
                                         </tabView>
                                     </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Done" identifier="" id="8rn-fQ-fXQ">
-                                <view key="view" id="Ebc-lV-LxR">
-                                    <rect key="frame" x="0.0" y="0.0" width="631" height="464"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView fixedFrame="YES" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="WaQ-TB-qp2">
-                                            <rect key="frame" x="59" y="-24" width="512" height="512"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <shadow key="shadow" blurRadius="10">
-                                                <size key="offset" width="12" height="-9"/>
-                                                <color key="color" red="0.43803074050000002" green="0.43803074050000002" blue="0.43803074050000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            </shadow>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="shenanigans-reference-square-outline" id="a9B-wM-fjM"/>
-                                        </imageView>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-Mg-oOb">
-                                            <rect key="frame" x="154" y="180" width="322" height="70"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <shadow key="shadow" blurRadius="2">
-                                                <color key="color" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </shadow>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Submitting fingerprints and downloading Certificate of Deidentification..." placeholderString="Loading" id="z8c-0b-xvT">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="YQA-Rq-DAB" secondAttribute="bottom" constant="15" id="8kh-pm-GYe"/>
+                                        <constraint firstAttribute="trailing" secondItem="YQA-Rq-DAB" secondAttribute="trailing" constant="20" symbolic="YES" id="OYT-iK-bWK"/>
+                                        <constraint firstItem="YQA-Rq-DAB" firstAttribute="top" secondItem="hYA-AY-VRZ" secondAttribute="top" constant="14" id="S49-0h-fwe"/>
+                                        <constraint firstItem="YQA-Rq-DAB" firstAttribute="leading" secondItem="hYA-AY-VRZ" secondAttribute="leading" constant="20" symbolic="YES" id="bSa-oJ-6vf"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="79e-sj-866" secondAttribute="trailing" id="DEg-n6-NTI"/>
+                    <constraint firstAttribute="bottom" secondItem="79e-sj-866" secondAttribute="bottom" id="Ogg-Ld-fy7"/>
+                    <constraint firstItem="79e-sj-866" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="WRu-XT-bdV"/>
+                    <constraint firstItem="79e-sj-866" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="o42-ln-qec"/>
+                </constraints>
             </view>
         </window>
     </objects>
     <resources>
-        <image name="android" width="300" height="533"/>
         <image name="shenanigans-reference-square-outline" width="1024" height="1024"/>
     </resources>
 </document>

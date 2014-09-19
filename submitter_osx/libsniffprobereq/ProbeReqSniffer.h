@@ -11,6 +11,7 @@
 #define STATUS_NEW_GROUP 0
 #define STATUS_NEW_SSID 1
 #define STATUS_REPEATED_PROBE 2
+#define SNIFFER_TIMEOUT 1000
 
 #define QUEUE_MAX 200
 
@@ -60,11 +61,11 @@ public:
     void update();
     void start(std::string interface);
     void stop();
+    bool isRunning();
     pcap_t *pcap;
     struct pcap_pkthdr header;
     const unsigned char* packet = NULL;
     std::list<std::string> packetHex;
-    uint state;
     ProbeGroupMapType* getGroupMap();
     void addNewGroupListener(ProbeGroupListener newGroup);
 

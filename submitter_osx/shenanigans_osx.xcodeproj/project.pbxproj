@@ -38,6 +38,7 @@
 		21FB1FFB19822AFA009BEAA1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFA19822AFA009BEAA1 /* Security.framework */; };
 		21FB1FFD19822B77009BEAA1 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFC19822B77009BEAA1 /* ServiceManagement.framework */; };
 		21FB1FFE19822B7E009BEAA1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFA19822AFA009BEAA1 /* Security.framework */; };
+		21FE0E3819C4CBE400DCE79D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FE0E3719C4CBE400DCE79D /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,7 @@
 		21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.davidrueter.shenanigans.PcapHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FB1FFA19822AFA009BEAA1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		21FB1FFC19822B77009BEAA1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		21FE0E3719C4CBE400DCE79D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21FE0E3819C4CBE400DCE79D /* WebKit.framework in Frameworks */,
 				210CE58919C094FB00397F94 /* libsniffprobereq.a in Frameworks */,
 				2150535819AB722900E814DC /* CoreWLAN.framework in Frameworks */,
 				21FB1FFE19822B7E009BEAA1 /* Security.framework in Frameworks */,
@@ -214,9 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				21D5EC5619B759DB0017D7DD /* shenanigans.cer */,
+				21E26AFE19807CD300FE32F9 /* shenanigans_osx */,
 				215E878219880A08003BBF94 /* libsniffprobereq */,
 				21FB1FD9198229F7009BEAA1 /* PcapHelperTool */,
-				21E26AFE19807CD300FE32F9 /* shenanigans_osx */,
 				21E26B1C19807CD300FE32F9 /* shenanigans_osxTests */,
 				21E26AF719807CD300FE32F9 /* Frameworks */,
 				21E26AF619807CD300FE32F9 /* Products */,
@@ -237,6 +240,7 @@
 		21E26AF719807CD300FE32F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21FE0E3719C4CBE400DCE79D /* WebKit.framework */,
 				210CE58A19C0968200397F94 /* libpcap.A.dylib */,
 				210CE57A19BFF09B00397F94 /* libprotobuf-lite.a */,
 				210CE57819BFF05F00397F94 /* libprotobuf-lite.a */,
@@ -690,7 +694,7 @@
 				LIBRARY_SEARCH_PATHS = /usr/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -729,7 +733,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
@@ -881,6 +885,7 @@
 				210CE58319C0919B00397F94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21E26AF019807CD300FE32F9 /* Build configuration list for PBXProject "shenanigans_osx" */ = {
 			isa = XCConfigurationList;

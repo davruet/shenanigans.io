@@ -47,10 +47,7 @@
 
 - (void)checkConnection
 {
-    // initialize the persistent ID
-    [self initPersistentID];
     
-    [_btnSplashContinue setHidden:true];
     
     //FIXME -make sure that we handle cases where en0 is not the default.
     CWInterface *interface = [CWInterface interfaceWithName:[NSString stringWithUTF8String:INTERFACE]];
@@ -114,18 +111,25 @@
             }
         }
     } failureCallback:^(NSError * err) {
-        NSError * userError = [self makeError:@"Could not start Shenanigans" reason:@"Could not contact the server. You'll need a working internet connection to submit your signature." suggestion:@"Make sure that you are connected to the internet." domain:@"ServerConnect"];
+        NSError * userError = [self makeError:@"Could not start Shenanigans." reason:@"Could not contact the server. You'll need a working internet connection to submit your signature." suggestion:@"Make sure that you are connected to the internet." domain:@"ServerConnect"];
         [self logError:err];
-        [self showFancyError:userError continueText:nil continueFunc:nil];
+        [self showFancyError:userError continueText:@"Try again" continueFunc:@selector(checkConnection)];
     }];
 
 }
 
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 
 {
-    [self checkConnection];
     
+    // initialize the persistent ID
+    [self initPersistentID];
+    
+    [_btnSplashContinue setHidden:true];
+    
+    [self checkConnection];
     probeGroupNodes = [[NSMutableArray alloc] init];
     probeGroupNodeDict = [[NSMutableDictionary alloc] init];
     
@@ -147,6 +151,8 @@
     };
     sniffer.addNewGroupListener(func);
     
+    [_configureWebView setMainFrameURL:@"http://shenanigans.io/configure.html"];
+    
     /* TODO, add IBSS feature- Start in IBSS mode:
     NSError * error = nil;
     CWInterface *en0 = [CWInterface interface];
@@ -159,15 +165,15 @@
 }
 
 - (void)checkAndFixPermissions{
-    bpfCheckResult = [self checkBPFStatus];
-    if (bpfCheckResult.processHasAccess){
+    initialBPFCheckResult = [self checkBPFStatus];
+    if (initialBPFCheckResult.processHasAccess){
         // no need to change permissions. Proceed to next step.
         //[[self tabView] selectNextTabViewItem:0];
         [installLabel setStringValue:@"Your WiFi hardware is already configured. Click \"Next...\" to continue."];
         [_btnGrantPermission setTitle:@"Next..."];
     } else {
         NSString* detailMessage;
-        switch (bpfCheckResult.permissionsType){
+        switch (initialBPFCheckResult.permissionsType){
             case CHECKBPF_ALTERED:
                 // FIXME - add another option to continue without changing.
                 detailMessage = @"Access to the /dev/bpf* devices has been been changed by another packet sniffing app on your system, and we don't want to mess anything up! If you proceed, the other app may be affected.";
@@ -278,37 +284,42 @@
     
     if (success) {
         
-        Poco::Mutex mutex;
         // now, execute the chmod bpf commands with the helper.
         NSLog(@"Installed chmod bpf helper tool.\n");
         
-        [self connectAndExecuteCommandBlock:^(NSError * connectError) {
-            if (connectError != nil) {
-                [self logError:connectError];
-                [self showError:connectError];
-            } else {
-                [[self.helperToolConnection remoteObjectProxyWithErrorHandler:^(NSError * proxyError) {
-                    [self logError:proxyError];
-                    [self showError:proxyError];
-                }] chmodBPF:self.authorization withReply:^(NSError * commandError) {
-                    if (commandError != nil) {
-                        [self logError:commandError];
-                        [self showError:commandError];
-                    } else {
-                        [self logText:@"chmod success."];
-                        [self finishedInstall:sender];
-                    }
-                }];
-            }
-            
-        }];
-        
+        [self callHelper:true];
     } else {
         // Couldn't authenticate. FIXME -- add more informative error message and steps to resolve.
         [self logError:(__bridge NSError *) error];
         *nsError = (__bridge NSError *) error;
         CFRelease(error);
     }
+
+}
+
+- (void) callHelper:(BOOL)enable
+
+{
+    [self connectAndExecuteCommandBlock:^(NSError * connectError) {
+        if (connectError != nil) {
+            [self logError:connectError];
+            [self showError:connectError];
+        } else {
+            [[self.helperToolConnection remoteObjectProxyWithErrorHandler:^(NSError * proxyError) {
+                [self logError:proxyError];
+                [self showError:proxyError];
+            }] chmodBPF:self.authorization enable:enable withReply:^(NSError * commandError) {
+                if (commandError != nil) {
+                    [self logError:commandError];
+                    [self showError:commandError];
+                } else {
+                    [self logText:@"chmod success."];
+                    [self finishedInstall];
+                }
+            }];
+        }
+        
+    }];
 
 }
 
@@ -324,12 +335,12 @@
     return error;
 }
 
-- (void)finishedInstall:(id)sender;
+- (void)finishedInstall
 {
     // check again to make sure that permission was correctly set.
-    bpfCheckResult = [self checkBPFStatus];
+    BPFCheckResult bpfCheckResult = [self checkBPFStatus];
     if (bpfCheckResult.processHasAccess){
-        [[self tabView] selectNextTabViewItem:sender];
+        [[self tabView] selectNextTabViewItem:self];
     } else {
         NSError * error = [self makeError:@"WiFi hardware could not be configured." reason:@"The helper tool tried to change the /dev/bpf* permissions but did not succeed." suggestion:@"Quit this application, follow the steps in the README for \"Manual BPF Permissions configuration,\" then re-launch this app." domain:@"BPF Permissions check"];
         [self showError:error];
@@ -337,8 +348,9 @@
 }
 
 - (IBAction)install:(id)sender {
-    bpfCheckResult = [self checkBPFStatus];
-    if (!bpfCheckResult.processHasAccess){
+    // Check again just to make sure nothing has changed -- the user may have performed modifications of their own.
+    initialBPFCheckResult = [self checkBPFStatus];
+    if (!initialBPFCheckResult.processHasAccess){
         NSError * error;
         [self callHelperToChmodBPF:sender error:&error];
         if (error != nil){
@@ -406,17 +418,25 @@
 -(void)showFancyError:(NSError *)error continueText:(NSString *)continueText continueFunc:(SEL)continueFunc
 
 {
+   
+    NSString * combined = [NSString stringWithFormat:@"%@\n%@\n%@", error.localizedDescription, error.localizedFailureReason, error.localizedRecoverySuggestion];
+    [self showModalStatus:combined continueText:continueText continueFunc:continueFunc];
+}
+
+-(void) showModalStatus:(NSString *)statusMsg continueText:(NSString *)continueText continueFunc:(SEL)continueFunc
+
+{
     continueFunction = continueFunc;
     if (continueFunc)[_btnSplashContinue setAction:continueFunc];
-    NSString * combined = [NSString stringWithFormat:@"%@\n%@\n%@", error.localizedDescription, error.localizedFailureReason, error.localizedRecoverySuggestion];
-    [_splashLabel setStringValue:combined];
-    if (continueText != nil) [_btnSplashContinue setStringValue:continueText];
+    [_splashLabel setStringValue:statusMsg];
+    if (continueText != nil) [_btnSplashContinue setTitle:continueText];
     [_btnSplashContinue setHidden:(continueText == nil)];
+    
     NSTabViewItem * errorPane = [_outerTabView tabViewItemAtIndex:0];
     if (_outerTabView.selectedTabViewItem != errorPane){
         [_outerTabView selectTabViewItem:errorPane];
     }
-    
+
 }
 
 -(void)showError:(NSError *)error
@@ -506,27 +526,56 @@
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
     // Start sniffing before the user adds the network - adding the network triggers a probe request.
-    if ([[tabViewItem label] isEqualToString:@"Configure Device"]){
-        sniffer.start(INTERFACE);
+    if ([[tabViewItem label] isEqualToString:@"Configure Device"] || [[tabViewItem label] isEqualToString:@"Select Device"]){
+        if (!sniffer.isRunning()){
+            sniffer.start(INTERFACE);
+            
+            // start the UI redraw / sniffer update timer.
+            if ([self repeatingTimer]) [self.repeatingTimer invalidate];
+            
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                            target:self selector:@selector(timerUpdate:)
+                                                            userInfo:nil repeats:YES];
+            self.repeatingTimer = timer;
+            NSLog(@"%@", @"Started sniffer and timer.");
+        }
+    } else {
         
-        // start the UI redraw / sniffer update timer.
-        if ([self repeatingTimer]) [self.repeatingTimer invalidate];
-        
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5
-                                                          target:self selector:@selector(targetMethod:)
-                                                        userInfo:nil repeats:YES];
-        self.repeatingTimer = timer;
-        
+        if ([self repeatingTimer]) {
+            [[self repeatingTimer] invalidate];
+            self.repeatingTimer = nil;
+            NSLog(@"%@", @"Stopped timer.");
+
+        }
+        if (sniffer.isRunning()){
+            sniffer.stop();
+            NSLog(@"%@", @"Stopped Sniffer.");
+
+        }
     }
+    
 }
 
 
-- (void)targetMethod:(NSTimer*)theTimer {
+- (void)timerUpdate:(NSTimer*)theTimer {
     sniffer.update();
 }
 
 // Browser delegate methods
 
+
+- (NSIndexSet *)browser:(NSBrowser *)browser selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes inColumn:(NSInteger)column
+{
+    /*
+    NSMutableIndexSet * set = [[NSMutableIndexSet alloc] init];
+    [proposedSelectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+       [proposedSelectionIndexes ]
+    }];
+    return set;*/
+    return [proposedSelectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return YES;
+    }];
+}
 
 - (NSInteger)browser:(NSBrowser *)browser numberOfChildrenOfItem:(id)item {
     if (item){
@@ -555,6 +604,7 @@
     if (!item) return @"";
     return ((Node *)item).displayName;
 }
+
 
 - (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem {
     if ([[tabViewItem identifier] intValue] == 3){
@@ -621,7 +671,6 @@
 
 - (IBAction)selectDevice:(id)sender {
     [_tabView selectNextTabViewItem:sender];
-    //sniffer.stop();
 }
 
 
@@ -646,11 +695,33 @@
     
 }
 
+- (BOOL) validateConsent
+
+{
+    std::vector<ProbeGroup *>::iterator iterator;
+    for (iterator = selectedProbeGroups.begin(); iterator != selectedProbeGroups.end(); iterator++){
+        ProbeGroup * group = *iterator;
+        if (!group->consent) return NO;
+    }
+    return YES;
+}
+
+- (void)showSelectDevice
+
+{
+    [_outerTabView selectTabViewItemAtIndex:1];
+    [_tabView selectTabViewItemAtIndex:2];
+}
+
 
 - (IBAction)submitFingerprint:(id)sender {
-    
-    [_outerTabView selectNextTabViewItem:sender];
-    [_submitLabel setStringValue:@"Submitting fingerprints and downloading Certificate of De-identification..."];
+    if (![self validateConsent]){
+        NSError * error = [self makeError:@"One or more of the selected devices has not given consent by adding a network named \"shenanigans.\"" reason:@"You can only submit fingerprints of consenting devices." suggestion:nil domain:@"ConsentFailure"];
+        [self showFancyError:error continueText:@"Change selection..." continueFunc:@selector(showSelectDevice)];
+        return;
+    }
+    //[_outerTabView selectNextTabViewItem:sender];
+    [self showModalStatus:@"Submitting fingerprints and downloading Certificate of De-identification..." continueText:nil continueFunc:nil];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         std::vector<ProbeGroup*>::iterator it;
         std::vector<ProbeReq*>::iterator reqIt;
@@ -701,7 +772,7 @@
 
 
                     } else {
-                        [_submitLabel setStringValue:@"Your WiFi fingerprints are now in the Shenanigans database. Thank you for your participation. Soon, you'll be everywhere!"];
+                        [self showModalStatus:@"Your WiFi fingerprints are now in the Shenanigans database. Thank you for your participation. Soon, you'll be everywhere!" continueText:nil continueFunc:nil]; // FIXME - add quit
                     }
                     
                 }

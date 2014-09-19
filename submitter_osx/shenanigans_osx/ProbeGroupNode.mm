@@ -12,7 +12,7 @@
 
 @dynamic children;
 @synthesize displayName;
-
+@synthesize labelColor;
 
 @end
 
@@ -24,6 +24,7 @@
         probeGroup = group;
         displayName = [NSString stringWithUTF8String:probeGroup->mac.c_str()];
     }
+    labelColor = probeGroup->consent?[NSColor greenColor]:[NSColor grayColor];
     return self;
 }
 
@@ -40,12 +41,11 @@
     return [[NSWorkspace sharedWorkspace] iconForFile:[_url path]];
 }*/
 
-/*
+
 - (NSColor *)labelColor {
-    id value = nil;
-    [_url getResourceValue:&value forKey:NSURLLabelColorKey error:NULL];
-    return value;
-}*/
+    return [self labelColor];
+
+}
 
 - (NSArray *)children {
     if (children == nil || _childrenDirty) {

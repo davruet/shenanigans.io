@@ -52,6 +52,9 @@
 #include <errno.h>
 #include <syslog.h>
 
+#define INSTALL_STR @"/usr/bin/chgrp admin /dev/bpf* && /bin/chmod g+rw /dev/bpf* || exit 1"
+#define REMOVE_STR @"/usr/bin/chgrp root /dev/bpf* && /bin/chmod 0600 /dev/bpf* || exit 1"
+
 @interface HelperTool () <NSXPCListenerDelegate, HelperToolProtocol>
 
 @property (atomic, strong, readwrite) NSXPCListener *    listener;
@@ -99,7 +102,7 @@
 }
 
 
-- (void)chmodBPF:(NSData *)authData withReply:(void (^)(NSError *))reply
+- (void)chmodBPF:(NSData *)authData enable:(BOOL)enable withReply:(void (^)(NSError *))reply
 {
     syslog(6, "Calling shenanigans.");
 
@@ -111,8 +114,9 @@
     
     [task setLaunchPath: @"/bin/sh"];
 
+    NSString * cmdStr = enable?INSTALL_STR:REMOVE_STR;
     NSArray *arguments;
-    arguments = [NSArray arrayWithObjects: @"-c", @"/usr/bin/chgrp admin /dev/bpf* && /bin/chmod g+rw /dev/bpf* || exit 1", nil];
+    arguments = [NSArray arrayWithObjects: @"-c", cmdStr, nil];
     
     NSPipe *pipe;
     pipe = [NSPipe pipe];
