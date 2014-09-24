@@ -1,0 +1,142 @@
+<html>
+<head>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+<div class="container-fluid" >
+<div class="row"><div class="col-xs-12" style="margin-top:15px; margin-bottom:10px;" ><p>To make sure that Shenanigans only collects fingerprints from you (and not everyone else nearby), we'll instruct your phone to send out a WiFi probe request for a network named "shenanigans." You can do this by temporarily adding a new network called "shenanigans" to your device's list of preferred networks.</p>
+  <p>For best results, make sure that your device is not connected to a WiFi network. If the phone is connected, it doesn't send out the full WiFi fingerprint.</p>    
+    </div></div>
+    
+<div class="row"><div class="col-xs-12">
+    
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Instructions for iPhone / iPad
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body"> 
+          <div class="row">
+              <div class="col-xs-8">
+                  <ol><li>Go to Settings->WiFi. Make sure that WiFi is enabled.</li>
+                      <li>(optional) If your device is presently connected to a WiFi network, disconnect from that network. If you skip this step, Shenanigans can only get a partial fingerprint that won't include your full list of preferred networks.</li>
+                      <li>Press "Other..." at the bottom of the list of networks.</li>
+                      <li>Enter <code>shenanigans</code> as the network name.</li>
+                      <li>Tap Join.</li>
+                      <li>You'll see an error message saying <code>Could not find the network "shenanigans"</code> -- that's ok, the network doesn't really exist, we just told your phone to send out a network probe request. Click dismiss.</li>
+                    </ol>
+                  
+            </div>
+            <div class="col-xs-4">
+            <div id="iphone-carousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#iphone-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#iphone-carousel" data-slide-to="1"></li>
+                <!--<li data-target="#carousel-example-generic" data-slide-to="2"></li>-->
+              </ol>
+            
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                  <img src="img/iphone-add-network.jpg" alt="iphone-add-network">
+                  <!--<div class="carousel-caption">
+                    Add a new network called "shenanigans"
+                  </div>-->
+                </div>
+                <div class="item">
+                  <img src="img/iphone-not-found.jpg" alt="Not found">
+                  <!--<div class="carousel-caption">
+                    Don't worry, this is normal.
+                  </div>-->
+                </div>
+              </div>
+            
+              <!-- Controls -->
+              <a class="left carousel-control" href="#iphone-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#iphone-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
+            </div>
+              
+           </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Instructions for Android devices
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+         <div class="row">
+            <div class="col-xs-8">
+        <ol>
+        <li>Make sure that WiFi is enabled on your device.</li>
+        <li>(optional) If your device is presently connected to a WiFi network, tap on that network and then tap "Forget." You'll have to re-add this network later. If you skip this step, Shenanigans can only get a partial fingerprint that won't include your full list of preferred networks.</li>
+        <li>Add a new WiFi network named "shenanigans" to your device. This confirms that it's your device, and not your neighbor's. Use "none" for the security mode.</li>
+        <li>Tap "Save."</li>
+        <li>Find "shenanigans" in your network list, tap on it, and tap "Forget."</li>
+
+        </ol>
+       
+            </div>
+             <div class="col-xs-4">
+            <div id="android-carousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#android-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#android-carousel" data-slide-to="1"></li>
+              </ol>
+            
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                  <img src="img/android-add-network.png" alt="Add network">
+                  <!--<div class="carousel-caption">
+                    Add a new network called "shenanigans"
+                  </div>-->
+                </div>
+                <div class="item">
+                  <img src="img/android-forget.png" alt="Forget network">
+                </div>
+              </div>
+            
+              <!-- Controls -->
+              <a class="left carousel-control" href="#android-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#android-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div> <!-- end carousel-->
+        
+        </div>        
+    </div><!--row -->
+      </div>
+    </div>
+  </div>
+</div>
+    </div> <!-- main col -->
+</div> <!-- main row-->
+
+</div><!--container -->
+</body>
+</html>
+

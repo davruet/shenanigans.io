@@ -1,0 +1,929 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		210CE58419C091AE00397F94 /* ProbeReqSniffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */; };
+		210CE58519C091AE00397F94 /* ProbeGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215E878519880A08003BBF94 /* ProbeGroup.cpp */; };
+		210CE58919C094FB00397F94 /* libsniffprobereq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 210CE58019C0919B00397F94 /* libsniffprobereq.a */; };
+		2150535819AB722900E814DC /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2150535719AB722900E814DC /* CoreWLAN.framework */; };
+		215E87671983840E003BBF94 /* com.davidrueter.shenanigans.PcapHelperTool in Copy Files */ = {isa = PBXBuildFile; fileRef = 21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */; };
+		215E8768198384F2003BBF94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB1FDA198229F7009BEAA1 /* main.m */; };
+		215E876F198412D9003BBF94 /* PcapHelperTool-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDB198229F7009BEAA1 /* PcapHelperTool-Info.plist */; };
+		215E8770198412D9003BBF94 /* PcapHelperTool-Launchd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDC198229F7009BEAA1 /* PcapHelperTool-Launchd.plist */; };
+		215E879B19898831003BBF94 /* ProbeGroupNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 215E879A19898831003BBF94 /* ProbeGroupNode.mm */; };
+		216EF7D319A3881B0094E601 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216EF7D219A3881B0094E601 /* token.cpp */; };
+		21D5EC5419B73AF40017D7DD /* NSURLConnectionWithData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21D5EC5319B73AF40017D7DD /* NSURLConnectionWithData.mm */; };
+		21D5EC5719B759DB0017D7DD /* shenanigans.cer in CopyFiles */ = {isa = PBXBuildFile; fileRef = 21D5EC5619B759DB0017D7DD /* shenanigans.cer */; };
+		21E26AF919807CD300FE32F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E26AF819807CD300FE32F9 /* Cocoa.framework */; };
+		21E26B0319807CD300FE32F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21E26B0119807CD300FE32F9 /* InfoPlist.strings */; };
+		21E26B0519807CD300FE32F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E26B0419807CD300FE32F9 /* main.m */; };
+		21E26B0919807CD300FE32F9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 21E26B0719807CD300FE32F9 /* Credits.rtf */; };
+		21E26B0C19807CD300FE32F9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21E26B0B19807CD300FE32F9 /* AppDelegate.mm */; };
+		21E26B0F19807CD300FE32F9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E26B0D19807CD300FE32F9 /* MainMenu.xib */; };
+		21E26B1119807CD300FE32F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E26B1019807CD300FE32F9 /* Images.xcassets */; };
+		21E26B1819807CD300FE32F9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E26B1719807CD300FE32F9 /* XCTest.framework */; };
+		21E26B1919807CD300FE32F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E26AF819807CD300FE32F9 /* Cocoa.framework */; };
+		21E26B2119807CD300FE32F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21E26B1F19807CD300FE32F9 /* InfoPlist.strings */; };
+		21E26B2319807CD300FE32F9 /* shenanigans_osxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E26B2219807CD300FE32F9 /* shenanigans_osxTests.m */; };
+		21E4451519A4B37400E3876D /* shenanigans.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 21E4451319A4B37400E3876D /* shenanigans.pb.cc */; };
+		21FB1FE0198229F7009BEAA1 /* PcapHelperTool-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDB198229F7009BEAA1 /* PcapHelperTool-Info.plist */; };
+		21FB1FE1198229F7009BEAA1 /* PcapHelperTool-Launchd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FB1FDC198229F7009BEAA1 /* PcapHelperTool-Launchd.plist */; };
+		21FB1FF819822ACE009BEAA1 /* PcapHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB1FDE198229F7009BEAA1 /* PcapHelperTool.m */; };
+		21FB1FF919822AF4009BEAA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E26AFD19807CD300FE32F9 /* Foundation.framework */; };
+		21FB1FFB19822AFA009BEAA1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFA19822AFA009BEAA1 /* Security.framework */; };
+		21FB1FFD19822B77009BEAA1 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFC19822B77009BEAA1 /* ServiceManagement.framework */; };
+		21FB1FFE19822B7E009BEAA1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FB1FFA19822AFA009BEAA1 /* Security.framework */; };
+		21FE0E3819C4CBE400DCE79D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FE0E3719C4CBE400DCE79D /* WebKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		210CE58619C0923600397F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 210CE57F19C0919B00397F94;
+			remoteInfo = libsniffprobereq;
+		};
+		215E876A1983877D003BBF94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21FB1FEE19822AAB009BEAA1;
+			remoteInfo = PcapHelperTool;
+		};
+		21E26B1A19807CD300FE32F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E26AED19807CD300FE32F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21E26AF419807CD300FE32F9;
+			remoteInfo = shenanigans_osx;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		215E876519838353003BBF94 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
+			files = (
+				215E87671983840E003BBF94 /* com.davidrueter.shenanigans.PcapHelperTool in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21D5EC5519B759AD0017D7DD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				21D5EC5719B759DB0017D7DD /* shenanigans.cer in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21FB1FED19822AAB009BEAA1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		210CE57819BFF05F00397F94 /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../../../../../opt/local/lib/libprotobuf-lite.a"; sourceTree = "<group>"; };
+		210CE57A19BFF09B00397F94 /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../../libprotobuf-lite.a"; sourceTree = "<group>"; };
+		210CE58019C0919B00397F94 /* libsniffprobereq.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsniffprobereq.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		210CE58A19C0968200397F94 /* libpcap.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpcap.A.dylib; path = ../../../../../usr/lib/libpcap.A.dylib; sourceTree = "<group>"; };
+		214C41281990416A007EAA90 /* libzmq.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libzmq.3.dylib; path = lib/libzmq.3.dylib; sourceTree = "<group>"; };
+		2150535719AB722900E814DC /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		2150535919B22EF000E814DC /* libhashcash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhashcash.a; path = ../../../../../usr/local/lib/libhashcash.a; sourceTree = "<group>"; };
+		215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbeReqSniffer.cpp; sourceTree = "<group>"; };
+		215E878419880A08003BBF94 /* ProbeReqSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbeReqSniffer.h; sourceTree = "<group>"; };
+		215E878519880A08003BBF94 /* ProbeGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbeGroup.cpp; sourceTree = "<group>"; };
+		215E878619880A08003BBF94 /* ProbeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbeGroup.h; sourceTree = "<group>"; };
+		215E878D19881931003BBF94 /* libPocoFoundation.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPocoFoundation.16.dylib; path = ../../../../usr/local/lib/libPocoFoundation.16.dylib; sourceTree = "<group>"; };
+		215E878F198819B3003BBF94 /* libPocoFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPocoFoundation.dylib; path = libsniffprobereq/lib/libPocoFoundation.dylib; sourceTree = "<group>"; };
+		215E8790198819B3003BBF94 /* libtins.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtins.dylib; path = libsniffprobereq/lib/libtins.dylib; sourceTree = "<group>"; };
+		215E879919898831003BBF94 /* ProbeGroupNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbeGroupNode.h; sourceTree = "<group>"; };
+		215E879A19898831003BBF94 /* ProbeGroupNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProbeGroupNode.mm; sourceTree = "<group>"; };
+		215E8809198DAAF2003BBF94 /* libpaho-mqtt3as.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libpaho-mqtt3as.so"; path = "lib/libpaho-mqtt3as.so"; sourceTree = "<group>"; };
+		215E885D198DB124003BBF94 /* libpaho-mqtt3cs.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libpaho-mqtt3cs.so"; path = "lib/libpaho-mqtt3cs.so"; sourceTree = "<group>"; };
+		215E8873198EBBE0003BBF94 /* libpaho-mqtt3cs.so.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; name = "libpaho-mqtt3cs.so.1"; path = "lib/libpaho-mqtt3cs.so.1"; sourceTree = "<group>"; };
+		215E8874198EBBE0003BBF94 /* libpaho-mqtt3as.so.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; name = "libpaho-mqtt3as.so.1"; path = "lib/libpaho-mqtt3as.so.1"; sourceTree = "<group>"; };
+		216EF7CF19A386A00094E601 /* libhashcash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhashcash.a; path = lib/libhashcash.a; sourceTree = "<group>"; };
+		216EF7D119A388110094E601 /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
+		216EF7D219A3881B0094E601 /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
+		216EF7D919A398FE0094E601 /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../../../../opt/local/lib/libprotobuf-lite.a"; sourceTree = "<group>"; };
+		216EF7DB19A3A1D20094E601 /* libtins.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtins.a; path = ../../../../usr/local/lib/libtins.a; sourceTree = "<group>"; };
+		216EF7DE19A3A44D0094E601 /* libPocoFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPocoFoundation.a; path = ../../../../usr/local/lib/libPocoFoundation.a; sourceTree = "<group>"; };
+		21D5EC5219B73AF40017D7DD /* NSURLConnectionWithData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLConnectionWithData.h; sourceTree = "<group>"; };
+		21D5EC5319B73AF40017D7DD /* NSURLConnectionWithData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSURLConnectionWithData.mm; sourceTree = "<group>"; };
+		21D5EC5619B759DB0017D7DD /* shenanigans.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = shenanigans.cer; path = shenanigans_osx/shenanigans.cer; sourceTree = "<group>"; };
+		21E26AF519807CD300FE32F9 /* Shenanigans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shenanigans.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E26AF819807CD300FE32F9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		21E26AFB19807CD300FE32F9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		21E26AFC19807CD300FE32F9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		21E26AFD19807CD300FE32F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		21E26B0019807CD300FE32F9 /* shenanigans_osx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shenanigans_osx-Info.plist"; sourceTree = "<group>"; };
+		21E26B0219807CD300FE32F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		21E26B0419807CD300FE32F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		21E26B0619807CD300FE32F9 /* shenanigans_osx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shenanigans_osx-Prefix.pch"; sourceTree = "<group>"; };
+		21E26B0819807CD300FE32F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		21E26B0A19807CD300FE32F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		21E26B0B19807CD300FE32F9 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		21E26B0E19807CD300FE32F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		21E26B1019807CD300FE32F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		21E26B1619807CD300FE32F9 /* shenanigans_osxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shenanigans_osxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E26B1719807CD300FE32F9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		21E26B1E19807CD300FE32F9 /* shenanigans_osxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shenanigans_osxTests-Info.plist"; sourceTree = "<group>"; };
+		21E26B2019807CD300FE32F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		21E26B2219807CD300FE32F9 /* shenanigans_osxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shenanigans_osxTests.m; sourceTree = "<group>"; };
+		21E4451319A4B37400E3876D /* shenanigans.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shenanigans.pb.cc; sourceTree = "<group>"; };
+		21E4451419A4B37400E3876D /* shenanigans.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shenanigans.pb.h; sourceTree = "<group>"; };
+		21FB1FDA198229F7009BEAA1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		21FB1FDB198229F7009BEAA1 /* PcapHelperTool-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PcapHelperTool-Info.plist"; sourceTree = "<group>"; };
+		21FB1FDC198229F7009BEAA1 /* PcapHelperTool-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PcapHelperTool-Launchd.plist"; sourceTree = "<group>"; };
+		21FB1FDD198229F7009BEAA1 /* PcapHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcapHelperTool.h; sourceTree = "<group>"; };
+		21FB1FDE198229F7009BEAA1 /* PcapHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PcapHelperTool.m; sourceTree = "<group>"; };
+		21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.davidrueter.shenanigans.PcapHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		21FB1FFA19822AFA009BEAA1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		21FB1FFC19822B77009BEAA1 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		21FE0E3719C4CBE400DCE79D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		210CE57D19C0919B00397F94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26AF219807CD300FE32F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FE0E3819C4CBE400DCE79D /* WebKit.framework in Frameworks */,
+				210CE58919C094FB00397F94 /* libsniffprobereq.a in Frameworks */,
+				2150535819AB722900E814DC /* CoreWLAN.framework in Frameworks */,
+				21FB1FFE19822B7E009BEAA1 /* Security.framework in Frameworks */,
+				21FB1FFD19822B77009BEAA1 /* ServiceManagement.framework in Frameworks */,
+				21E26AF919807CD300FE32F9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26B1319807CD300FE32F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21E26B1919807CD300FE32F9 /* Cocoa.framework in Frameworks */,
+				21E26B1819807CD300FE32F9 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21FB1FEC19822AAB009BEAA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FB1FFB19822AFA009BEAA1 /* Security.framework in Frameworks */,
+				21FB1FF919822AF4009BEAA1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		215E878219880A08003BBF94 /* libsniffprobereq */ = {
+			isa = PBXGroup;
+			children = (
+				215E878319880A08003BBF94 /* ProbeReqSniffer.cpp */,
+				215E878419880A08003BBF94 /* ProbeReqSniffer.h */,
+				215E878519880A08003BBF94 /* ProbeGroup.cpp */,
+				215E878619880A08003BBF94 /* ProbeGroup.h */,
+			);
+			path = libsniffprobereq;
+			sourceTree = "<group>";
+		};
+		21E26AEC19807CD300FE32F9 = {
+			isa = PBXGroup;
+			children = (
+				21D5EC5619B759DB0017D7DD /* shenanigans.cer */,
+				21E26AFE19807CD300FE32F9 /* shenanigans_osx */,
+				215E878219880A08003BBF94 /* libsniffprobereq */,
+				21FB1FD9198229F7009BEAA1 /* PcapHelperTool */,
+				21E26B1C19807CD300FE32F9 /* shenanigans_osxTests */,
+				21E26AF719807CD300FE32F9 /* Frameworks */,
+				21E26AF619807CD300FE32F9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		21E26AF619807CD300FE32F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21E26AF519807CD300FE32F9 /* Shenanigans.app */,
+				21E26B1619807CD300FE32F9 /* shenanigans_osxTests.xctest */,
+				21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */,
+				210CE58019C0919B00397F94 /* libsniffprobereq.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		21E26AF719807CD300FE32F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21FE0E3719C4CBE400DCE79D /* WebKit.framework */,
+				210CE58A19C0968200397F94 /* libpcap.A.dylib */,
+				210CE57A19BFF09B00397F94 /* libprotobuf-lite.a */,
+				210CE57819BFF05F00397F94 /* libprotobuf-lite.a */,
+				2150535919B22EF000E814DC /* libhashcash.a */,
+				2150535719AB722900E814DC /* CoreWLAN.framework */,
+				216EF7DE19A3A44D0094E601 /* libPocoFoundation.a */,
+				216EF7DB19A3A1D20094E601 /* libtins.a */,
+				216EF7D919A398FE0094E601 /* libprotobuf-lite.a */,
+				216EF7CF19A386A00094E601 /* libhashcash.a */,
+				214C41281990416A007EAA90 /* libzmq.3.dylib */,
+				215E8873198EBBE0003BBF94 /* libpaho-mqtt3cs.so.1 */,
+				215E8874198EBBE0003BBF94 /* libpaho-mqtt3as.so.1 */,
+				215E885D198DB124003BBF94 /* libpaho-mqtt3cs.so */,
+				215E8809198DAAF2003BBF94 /* libpaho-mqtt3as.so */,
+				215E878F198819B3003BBF94 /* libPocoFoundation.dylib */,
+				215E8790198819B3003BBF94 /* libtins.dylib */,
+				215E878D19881931003BBF94 /* libPocoFoundation.16.dylib */,
+				21FB1FFC19822B77009BEAA1 /* ServiceManagement.framework */,
+				21FB1FFA19822AFA009BEAA1 /* Security.framework */,
+				21E26AF819807CD300FE32F9 /* Cocoa.framework */,
+				21E26B1719807CD300FE32F9 /* XCTest.framework */,
+				21E26AFA19807CD300FE32F9 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21E26AFA19807CD300FE32F9 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21E26AFB19807CD300FE32F9 /* AppKit.framework */,
+				21E26AFC19807CD300FE32F9 /* CoreData.framework */,
+				21E26AFD19807CD300FE32F9 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		21E26AFE19807CD300FE32F9 /* shenanigans_osx */ = {
+			isa = PBXGroup;
+			children = (
+				21E4451219A4B37400E3876D /* cpp */,
+				21E26B0A19807CD300FE32F9 /* AppDelegate.h */,
+				21E26B0B19807CD300FE32F9 /* AppDelegate.mm */,
+				21E26B0D19807CD300FE32F9 /* MainMenu.xib */,
+				21E26AFF19807CD300FE32F9 /* Supporting Files */,
+				215E879919898831003BBF94 /* ProbeGroupNode.h */,
+				215E879A19898831003BBF94 /* ProbeGroupNode.mm */,
+				21E26B1019807CD300FE32F9 /* Images.xcassets */,
+				216EF7D119A388110094E601 /* token.h */,
+				216EF7D219A3881B0094E601 /* token.cpp */,
+				21D5EC5219B73AF40017D7DD /* NSURLConnectionWithData.h */,
+				21D5EC5319B73AF40017D7DD /* NSURLConnectionWithData.mm */,
+			);
+			path = shenanigans_osx;
+			sourceTree = "<group>";
+		};
+		21E26AFF19807CD300FE32F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				21E26B0019807CD300FE32F9 /* shenanigans_osx-Info.plist */,
+				21E26B0119807CD300FE32F9 /* InfoPlist.strings */,
+				21E26B0419807CD300FE32F9 /* main.m */,
+				21E26B0619807CD300FE32F9 /* shenanigans_osx-Prefix.pch */,
+				21E26B0719807CD300FE32F9 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21E26B1C19807CD300FE32F9 /* shenanigans_osxTests */ = {
+			isa = PBXGroup;
+			children = (
+				21E26B2219807CD300FE32F9 /* shenanigans_osxTests.m */,
+				21E26B1D19807CD300FE32F9 /* Supporting Files */,
+			);
+			path = shenanigans_osxTests;
+			sourceTree = "<group>";
+		};
+		21E26B1D19807CD300FE32F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				21E26B1E19807CD300FE32F9 /* shenanigans_osxTests-Info.plist */,
+				21E26B1F19807CD300FE32F9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21E4451219A4B37400E3876D /* cpp */ = {
+			isa = PBXGroup;
+			children = (
+				21E4451319A4B37400E3876D /* shenanigans.pb.cc */,
+				21E4451419A4B37400E3876D /* shenanigans.pb.h */,
+			);
+			name = cpp;
+			path = ../../proto/generated/cpp;
+			sourceTree = "<group>";
+		};
+		21FB1FD9198229F7009BEAA1 /* PcapHelperTool */ = {
+			isa = PBXGroup;
+			children = (
+				21FB1FDA198229F7009BEAA1 /* main.m */,
+				21FB1FDB198229F7009BEAA1 /* PcapHelperTool-Info.plist */,
+				21FB1FDC198229F7009BEAA1 /* PcapHelperTool-Launchd.plist */,
+				21FB1FDD198229F7009BEAA1 /* PcapHelperTool.h */,
+				21FB1FDE198229F7009BEAA1 /* PcapHelperTool.m */,
+			);
+			path = PcapHelperTool;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		210CE57E19C0919B00397F94 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		210CE57F19C0919B00397F94 /* sniffprobereq */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 210CE58119C0919B00397F94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */;
+			buildPhases = (
+				210CE57C19C0919B00397F94 /* Sources */,
+				210CE57D19C0919B00397F94 /* Frameworks */,
+				210CE57E19C0919B00397F94 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sniffprobereq;
+			productName = libsniffprobereq;
+			productReference = 210CE58019C0919B00397F94 /* libsniffprobereq.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		21E26AF419807CD300FE32F9 /* Shenanigans */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "Shenanigans" */;
+			buildPhases = (
+				216EF7E119A3C2BC0094E601 /* Run Script */,
+				21E26AF119807CD300FE32F9 /* Sources */,
+				21E26AF219807CD300FE32F9 /* Frameworks */,
+				21E26AF319807CD300FE32F9 /* Resources */,
+				215E876519838353003BBF94 /* Copy Files */,
+				21D5EC5519B759AD0017D7DD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				210CE58719C0923600397F94 /* PBXTargetDependency */,
+				215E876B1983877D003BBF94 /* PBXTargetDependency */,
+			);
+			name = Shenanigans;
+			productName = shenanigans_osx;
+			productReference = 21E26AF519807CD300FE32F9 /* Shenanigans.app */;
+			productType = "com.apple.product-type.application";
+		};
+		21E26B1519807CD300FE32F9 /* shenanigans_osxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21E26B2919807CD300FE32F9 /* Build configuration list for PBXNativeTarget "shenanigans_osxTests" */;
+			buildPhases = (
+				21E26B1219807CD300FE32F9 /* Sources */,
+				21E26B1319807CD300FE32F9 /* Frameworks */,
+				21E26B1419807CD300FE32F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21E26B1B19807CD300FE32F9 /* PBXTargetDependency */,
+			);
+			name = shenanigans_osxTests;
+			productName = shenanigans_osxTests;
+			productReference = 21E26B1619807CD300FE32F9 /* shenanigans_osxTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21FB1FF519822AAB009BEAA1 /* Build configuration list for PBXNativeTarget "PcapHelperTool" */;
+			buildPhases = (
+				21FB1FEB19822AAB009BEAA1 /* Sources */,
+				21FB1FEC19822AAB009BEAA1 /* Frameworks */,
+				21FB1FED19822AAB009BEAA1 /* CopyFiles */,
+				215E876E198412D2003BBF94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PcapHelperTool;
+			productName = PcapHelperTool;
+			productReference = 21FB1FEF19822AAB009BEAA1 /* com.davidrueter.shenanigans.PcapHelperTool */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		21E26AED19807CD300FE32F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Shenanigans.io;
+				TargetAttributes = {
+					21E26AF419807CD300FE32F9 = {
+						DevelopmentTeam = 8E3PFPAY33;
+					};
+					21E26B1519807CD300FE32F9 = {
+						TestTargetID = 21E26AF419807CD300FE32F9;
+					};
+				};
+			};
+			buildConfigurationList = 21E26AF019807CD300FE32F9 /* Build configuration list for PBXProject "shenanigans_osx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				de,
+			);
+			mainGroup = 21E26AEC19807CD300FE32F9;
+			productRefGroup = 21E26AF619807CD300FE32F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				21E26AF419807CD300FE32F9 /* Shenanigans */,
+				21E26B1519807CD300FE32F9 /* shenanigans_osxTests */,
+				21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */,
+				210CE57F19C0919B00397F94 /* sniffprobereq */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		215E876E198412D2003BBF94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				215E876F198412D9003BBF94 /* PcapHelperTool-Info.plist in Resources */,
+				215E8770198412D9003BBF94 /* PcapHelperTool-Launchd.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26AF319807CD300FE32F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FB1FE0198229F7009BEAA1 /* PcapHelperTool-Info.plist in Resources */,
+				21E26B0319807CD300FE32F9 /* InfoPlist.strings in Resources */,
+				21FB1FE1198229F7009BEAA1 /* PcapHelperTool-Launchd.plist in Resources */,
+				21E26B1119807CD300FE32F9 /* Images.xcassets in Resources */,
+				21E26B0919807CD300FE32F9 /* Credits.rtf in Resources */,
+				21E26B0F19807CD300FE32F9 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26B1419807CD300FE32F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21E26B2119807CD300FE32F9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		216EF7E119A3C2BC0094E601 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = $PROJECT_DIR/../proto/generate.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		210CE57C19C0919B00397F94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210CE58419C091AE00397F94 /* ProbeReqSniffer.cpp in Sources */,
+				210CE58519C091AE00397F94 /* ProbeGroup.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26AF119807CD300FE32F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21E26B0C19807CD300FE32F9 /* AppDelegate.mm in Sources */,
+				21E4451519A4B37400E3876D /* shenanigans.pb.cc in Sources */,
+				216EF7D319A3881B0094E601 /* token.cpp in Sources */,
+				21D5EC5419B73AF40017D7DD /* NSURLConnectionWithData.mm in Sources */,
+				21E26B0519807CD300FE32F9 /* main.m in Sources */,
+				215E879B19898831003BBF94 /* ProbeGroupNode.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21E26B1219807CD300FE32F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21E26B2319807CD300FE32F9 /* shenanigans_osxTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21FB1FEB19822AAB009BEAA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				215E8768198384F2003BBF94 /* main.m in Sources */,
+				21FB1FF819822ACE009BEAA1 /* PcapHelperTool.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		210CE58719C0923600397F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 210CE57F19C0919B00397F94 /* sniffprobereq */;
+			targetProxy = 210CE58619C0923600397F94 /* PBXContainerItemProxy */;
+		};
+		215E876B1983877D003BBF94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21FB1FEE19822AAB009BEAA1 /* PcapHelperTool */;
+			targetProxy = 215E876A1983877D003BBF94 /* PBXContainerItemProxy */;
+		};
+		21E26B1B19807CD300FE32F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21E26AF419807CD300FE32F9 /* Shenanigans */;
+			targetProxy = 21E26B1A19807CD300FE32F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		21E26B0119807CD300FE32F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21E26B0219807CD300FE32F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		21E26B0719807CD300FE32F9 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21E26B0819807CD300FE32F9 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		21E26B0D19807CD300FE32F9 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21E26B0E19807CD300FE32F9 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		21E26B1F19807CD300FE32F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21E26B2019807CD300FE32F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		210CE58219C0919B00397F94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		210CE58319C0919B00397F94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		21E26B2419807CD300FE32F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		21E26B2519807CD300FE32F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
+		21E26B2719807CD300FE32F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "shenanigans_osx/shenanigans_osx-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INFOPLIST_FILE = "shenanigans_osx/shenanigans_osx-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"/opt/local/lib/libprotobuf-lite.a",
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+					/usr/local/lib/libhashcash.a,
+					"-lpcap",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		21E26B2819807CD300FE32F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "shenanigans_osx/shenanigans_osx-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INFOPLIST_FILE = "shenanigans_osx/shenanigans_osx-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"/opt/local/lib/libprotobuf-lite.a",
+					/usr/local/lib/libtins.a,
+					/usr/local/lib/libPocoFoundation.a,
+					/usr/local/lib/libhashcash.a,
+					"-lpcap",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		21E26B2A19807CD300FE32F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shenanigans.app/Contents/MacOS/Shenanigans";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "shenanigans_osx/shenanigans_osx-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "shenanigans_osxTests/shenanigans_osxTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		21E26B2B19807CD300FE32F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shenanigans.app/Contents/MacOS/Shenanigans";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "shenanigans_osx/shenanigans_osx-Prefix.pch";
+				INFOPLIST_FILE = "shenanigans_osxTests/shenanigans_osxTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		21FB1FF619822AAB009BEAA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"PcapHelperTool/PcapHelperTool-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"PcapHelperTool/PcapHelperTool-Launchd.plist",
+				);
+				PRODUCT_NAME = com.davidrueter.shenanigans.PcapHelperTool;
+			};
+			name = Debug;
+		};
+		21FB1FF719822AAB009BEAA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"PcapHelperTool/PcapHelperTool-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"PcapHelperTool/PcapHelperTool-Launchd.plist",
+				);
+				PRODUCT_NAME = com.davidrueter.shenanigans.PcapHelperTool;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		210CE58119C0919B00397F94 /* Build configuration list for PBXNativeTarget "sniffprobereq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210CE58219C0919B00397F94 /* Debug */,
+				210CE58319C0919B00397F94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21E26AF019807CD300FE32F9 /* Build configuration list for PBXProject "shenanigans_osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21E26B2419807CD300FE32F9 /* Debug */,
+				21E26B2519807CD300FE32F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21E26B2619807CD300FE32F9 /* Build configuration list for PBXNativeTarget "Shenanigans" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21E26B2719807CD300FE32F9 /* Debug */,
+				21E26B2819807CD300FE32F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21E26B2919807CD300FE32F9 /* Build configuration list for PBXNativeTarget "shenanigans_osxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21E26B2A19807CD300FE32F9 /* Debug */,
+				21E26B2B19807CD300FE32F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21FB1FF519822AAB009BEAA1 /* Build configuration list for PBXNativeTarget "PcapHelperTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21FB1FF619822AAB009BEAA1 /* Debug */,
+				21FB1FF719822AAB009BEAA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 21E26AED19807CD300FE32F9 /* Project object */;
+}

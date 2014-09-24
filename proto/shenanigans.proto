@@ -1,0 +1,43 @@
+package io.shenanigans.proto;
+option optimize_for = LITE_RUNTIME;
+
+message Submission {
+
+
+    message ProbeGroup {
+        
+        optional string mac = 1;
+        optional string token = 2;
+
+        message ProbeReq {
+            optional string ssid = 1;
+            required bytes reqBytes = 2;
+        }
+        
+        repeated ProbeReq req = 3;
+    }
+    optional string token = 1;
+    optional int64 date = 2;
+    repeated ProbeGroup group = 3;
+
+}
+
+message ServerStatusQuery {
+    optional string token = 1;
+    optional int64 date = 2;
+    optional string version = 3;
+}
+
+message ServerStatusResponse {
+
+    enum StatusCode {
+        READY = 0;
+        CLIENT_MUST_UPGRADE = 1;
+        SERVER_SLOW = 2;
+        SERVER_ENGULFED_IN_FLAMES = 3;
+        SERVER_ABANDONED = 4;
+      }
+
+    optional int64 serverDate = 1;
+    optional StatusCode statusCode = 2;
+}
