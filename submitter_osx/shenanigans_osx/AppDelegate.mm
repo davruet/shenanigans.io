@@ -49,8 +49,9 @@
 {
     
     
-    //FIXME -make sure that we handle cases where en0 is not the default.
-    CWInterface *interface = [CWInterface interfaceWithName:[NSString stringWithUTF8String:INTERFACE]];
+    //FIXME - Disabled wifi check
+    
+    CWInterface *interface = [CWInterface interface];
     if (![interface powerOn]){
         NSError * error = [self makeError:@"Your WiFi connection appears to be disabled." reason:@"WiFi must be enabled to proceed." suggestion:@"Please turn on WiFi." domain:@"WiFi"];
         [self showFancyError:error continueText:@"Retry..." continueFunc:@selector(checkConnection)];
@@ -528,7 +529,9 @@
     // Start sniffing before the user adds the network - adding the network triggers a probe request.
     if ([[tabViewItem label] isEqualToString:@"Configure Device"] || [[tabViewItem label] isEqualToString:@"Select Device"]){
         if (!sniffer.isRunning()){
-            sniffer.start(INTERFACE);
+            NSString* interfaceName = [[CWInterface interface] interfaceName];
+            NSLog(@"Starting sniffer on interface %@", interfaceName);
+            sniffer.start([interfaceName UTF8String]);
             
             // start the UI redraw / sniffer update timer.
             if ([self repeatingTimer]) [self.repeatingTimer invalidate];

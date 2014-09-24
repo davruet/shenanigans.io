@@ -31,8 +31,6 @@
 #define ID_KEY @"ApplicationID"
 #define CERT_NAME @"shenanigans"
 
-#define INTERFACE "en0"
-
 struct BPFCheckResult {
     
     bool processHasAccess;
