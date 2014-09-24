@@ -147,7 +147,11 @@ void ProbeReqSniffer::start(std::string interface){ // FIXME - this should throw
     if (snifferRunnable.running){
         printf("Sniffer is already running.");
     } else {
-        if (thread.isRunning()) thread.join(SNIFFER_TIMEOUT); // thread is stopping -- wait for it to stop before starting again.
+        try {
+            if (thread.isRunning()) thread.join(SNIFFER_TIMEOUT); // thread is stopping -- wait for it to stop before starting again.
+        } catch(std::exception const & ex) {
+            
+        }
         snifferRunnable.running = true;
         snifferRunnable.interface = interface;
         thread.start(snifferRunnable);
