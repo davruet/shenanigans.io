@@ -838,11 +838,11 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Let-Or-RCg">
-                                                                <rect key="frame" x="15" y="262" width="524" height="119"/>
+                                                                <rect key="frame" x="15" y="245" width="524" height="136"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Sg6-Da-m4g">
                                                                     <font key="font" metaFont="system"/>
-                                                                    <mutableString key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks -- this often triggers the fingerprint broadcast we're looking for.  Select your device. You can select more than one if you like:</mutableString>
+                                                                    <mutableString key="title">Step 3 of 3: Select your device.  Once you add the network, your device should appear in the list below.  If you don't see it after 10 seconds or so, try viewing the list of available WiFi networks and turning the screen on and off -- this can trigger the WiFi Probe Request broadcast we're looking for.  Select your device. You can select more than one if you like:</mutableString>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
@@ -868,7 +868,7 @@
                                                                 </connections>
                                                             </button>
                                                             <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsMultipleSelection="YES" allowsEmptySelection="YES" allowsBranchSelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="2" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-jL-d5T">
-                                                                <rect key="frame" x="17" y="60" width="520" height="192"/>
+                                                                <rect key="frame" x="17" y="60" width="520" height="175"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <connections>
                                                                     <action selector="browserCellSelected:" target="Voe-Tx-rLC" id="vCF-eB-e7H"/>

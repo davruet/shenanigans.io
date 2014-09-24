@@ -21,7 +21,8 @@
 #define CHECKBPF_SHENANIGANS 2
 #define ID_SIZE 512
 #define SHENANIGANS_VERSION "0.1a"
-#define REMOTE_BASE_URL @"https://shenanigans.io:8023"
+#define REMOTE_BASE_URL @"https://submit.shenanigans.io:8023"
+#define CONFIGURE_URL @"https://s3.amazonaws.com/shenanigans.io/configure/configure.html"
 #define TEST_BASE_URL @"https://localhost:8023"
 
 #define BASE_URL REMOTE_BASE_URL
