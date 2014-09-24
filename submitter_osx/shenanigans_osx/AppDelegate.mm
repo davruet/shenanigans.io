@@ -151,7 +151,7 @@
     };
     sniffer.addNewGroupListener(func);
     
-    [_configureWebView setMainFrameURL:@"http://shenanigans.io/configure.html"];
+    [_configureWebView setMainFrameURL:CONFIGURE_URL];
     
     /* TODO, add IBSS feature- Start in IBSS mode:
     NSError * error = nil;
